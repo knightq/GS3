@@ -1,0 +1,12 @@
+<% title "Autenticazione" %>
+
+<% form_for @user_session, :url => user_session_path do |f| %>
+  <%= f.error_messages %>
+  <%= f.label :user_name %><br />
+  <%= f.text_field :user_name %><br />
+  <br />
+  <%= f.label :password %><br />
+  <%= f.password_field :user_pwd %><br />
+  <br />
+  <%= f.submit "Entra" %>
+<% end %>

@@ -1,0 +1,8 @@
+<%
+	exclude_set ||= Array.new
+%>
+<% ('A'..'Z').each do |lettera| %>
+	<% if include_set.include?(lettera) %>
+		<a href="#<%= lettera %>"><%= lettera %> </a>
+	<% end %>
+<% end %>

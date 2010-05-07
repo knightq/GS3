@@ -1,0 +1,13 @@
+<% if @statistica.num_segna > 0 %>
+	<p>
+		Numero segnalazioni:<b><%= @statistica.num_segna %></b>
+	</p>
+	<p>
+		Totale ore:<b><%= @statistica.tot_ore %></b>
+	</p>
+<% else %>
+	<p>
+		Non sono presenti segnalazioni nell'ultimo mese.
+	</p>	
+<% end %>
+

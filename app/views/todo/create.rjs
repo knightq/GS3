@@ -1,0 +1,8 @@
+<% 
+#	@segnalazioni = @todo.filtra(Segnalazione.risolutore(current_user.user_name))
+#	@prodotti = @segnalazioni.to_a.group_by(&:cda_prodotto)
+#	risolte_ultimo_mese = Segnalazione.risolte_ultimo_mese(current_user.user_name)
+%>
+
+#page.insert_html :top, :prodotti_container, :partial => 'prodotto', :collection => @prodotti, :as => :prodotto
+page.insert_html :top, :prodotti_container, "<b>CIAO!</b>"

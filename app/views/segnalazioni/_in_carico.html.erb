@@ -1,0 +1,9 @@
+<div class="drop in_carico">
+	<% if @segnalazioni_in_carico %>
+		<ul>			
+			<% for ic in @segnalazioni_in_carico %>
+				<li><%= link_to ic.prg_segna, :action => 'show', :controller => 'segnalazioni', :id => ic.prg_segna %></li>
+			<% end %>
+		</ul>
+	<% end %>
+</div>

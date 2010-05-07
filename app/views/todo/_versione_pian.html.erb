@@ -1,0 +1,14 @@
+<div id="versione_<%=versione.first %>" class="versione">
+	&nbsp;&nbsp;&nbsp;&nbsp;
+	<span class="<%= versione_class(versione.first) %>"><%=versione.first %> (<%=versione[1].size %>)</span>
+	<div id="versione_ore">
+		<span class="segnalazioni_lavorabili"><%= versione[1].inject(0) {|sum, el| sum + ((el.tempo_risol_stimato if el.as?) || 0)} %></span>
+		<span class="segnalazioni_non_lavorabili"><%= versione[1].inject(0) {|sum, el| sum + ((el.tempo_risol_stimato if el.aa?) || 0)} %></span>
+	</div>
+</div>
+<div id="segnalazioni_<%=versione.first %>" class="segnalazioni_container">
+	<table class="segnalazioni">
+		<%= render :partial => "segnalazione", :collection => versione[1], :as => :segnalazione %>
+	</table>
+</div>
+

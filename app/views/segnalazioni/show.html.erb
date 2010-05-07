@@ -1,0 +1,22 @@
+<% title "Dettaglio segnalazione #{@segnalazione.prg_segna}" %>
+
+<% content_for :head do %>
+
+<% end %>
+
+<% content_for :sidebar do %>
+	<%= render :partial => 'widget/collapsible_box', :locals => { :title => "In carico", :content => 'segnalazioni/in_carico' } %>
+<% end %>
+
+<!--<div class="drag left_to_segna_desc" id="<%= @segnalazione.prg_segna%>">
+  <span class="segna_in_carico">&nbsp;&nbsp;&nbsp;&nbsp;<%= @segnalazione.prg_segna%></span>
+</div>-->
+<div class="segna_desc">
+	<h1>GS <b><%= @segnalazione.prg_segna%></b></h1>
+</div>
+<div id="segnalazione_show_desc">
+	<%= @segnalazione.des_segna %>
+</div>
+
+
+<%= link_to 'Indietro', :back %>

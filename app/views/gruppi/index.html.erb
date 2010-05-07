@@ -1,0 +1,19 @@
+<h1>Gruppi GS</h1>
+
+<table>
+  <th>
+		<td>Nome gruppo</td>
+  </th>
+
+<% @gruppi.each do |gruppo| %>
+  <tr>
+    <td><%= link_to gruppo.grp_name, gruppo %></td>
+    <td><%= link_to 'Edit', edit_gruppo_path(gruppo) %></td>
+    <td><%= link_to 'Destroy', gruppo, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'Nuovo gruppo', new_gruppo_path %>

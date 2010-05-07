@@ -1,0 +1,32 @@
+<% title "Utenti GS" %>
+
+<% content_for :sidebar do %>
+		<%= render :partial => 'widget/collapsible_box', :locals => { :title => "Iniziale nome", :content => 'alfabeto', :closeable => false, :p_locals => { :include_set => @utenti_group.collect{|g| g[0]} } } %>
+<% end %>
+
+<table>
+  <tr>
+		<th/>
+		<th>Username</th>
+		<th>E-Mail</th>
+  </tr>
+	<% @utenti_group.each do |group, utenti| %>
+		<tr>
+			<th colspan="3" align="left">
+				<b><a name="<%=group%>"><%=group%></a></b>
+			</th>
+		</tr>	
+		<% utenti.each do |utente| %>
+			<tr>
+				<td><%= link_to image_tag ('/images/trash.png', :title => 'Cancella', :border=>0), utente, :confirm => 'Sicuro?', :method => :delete %></td>
+				<td><%= link_to utente.user_name, utente %></td>
+				<td><%= utente.user_mail %></td>
+			</tr>
+		<% end %>			
+ <% end %> 
+
+</table>
+
+<br />
+
+<%= link_to 'Nuovo utente', new_utente_path %>

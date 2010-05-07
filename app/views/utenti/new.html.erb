@@ -1,0 +1,11 @@
+<h1>Nuovo utente</h1>
+
+<% form_for(@utente) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.submit 'Crea' %>
+  </p>
+<% end %>
+
+<%= link_to 'Indietro', utenti_path %>

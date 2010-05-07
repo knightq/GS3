@@ -1,0 +1,33 @@
+<% 	
+		from_color ||= 0x0F0 
+		to_color ||= 0xF00
+		style_class ||= '' 
+
+		def gradiente(freq_red, freq_grn, freq_blu,
+               phase_red, phase_grn, phase_blu,
+               center, width, len)
+			len ||= 50
+		  center ||= 128
+			width ||= 127
+     	red = Math.sin(freq_red*len + phase_red) * width + center
+			grn = Math.sin(freq_grn*len + phase_grn) * width + center
+     	blu = Math.sin(freq_blu*len + phase_blu) * width + center
+      res = red.floor.to_s(16).rjust(2,'0') + grn.floor.to_s(16).rjust(2,'0') + blu.floor.to_s(16).rjust(2,'0')
+  	end
+
+%>
+<table width="<%= width %>" border="0" class="<%= style_class %>">
+	<tr>
+		<td><%= label%></td>
+		<% range.each_with_index do |tacca, index| %>
+			<% selezionato = index == selected %>
+			<% colore = gradiente(0.1,0.1,0.1,0,2,4, 128, 128,range.size * (index + 1)) %>
+			<td style="min-width: 8px; background-color: #<%= colore %>;" class="<%= 'range_selezionato' if selezionato %>">
+				<% if selezionato %>
+					<a href="#" title="<%= tacca %>" >&nbsp;&nbsp;</a>
+				<% end %>
+			</td>
+		<% end %>
+	<tr>
+</table>
+
