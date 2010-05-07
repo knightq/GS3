@@ -9,11 +9,10 @@
 		<th/>
 		<th>Username</th>
 		<th>E-Mail</th>
-		<th/>
   </tr>
 	<% @utenti_group.each do |group, utenti| %>
 		<tr>
-			<th colspan="4" align="left">
+			<th colspan="3" align="left">
 				<b><a name="<%=group%>"><%=group%></a></b>
 			</th>
 		</tr>	
@@ -22,7 +21,6 @@
 				<td><%= link_to image_tag ('/images/trash.png', :title => 'Cancella', :border=>0), utente, :confirm => 'Sicuro?', :method => :delete %></td>
 				<td><%= link_to utente.user_name, utente %></td>
 				<td><%= utente.user_mail %></td>
-				<td><%= link_to 'Modifica', edit_utente_path(utente) %></td>
 			</tr>
 		<% end %>			
  <% end %> 

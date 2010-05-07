@@ -15,7 +15,7 @@
 		<span style="white-space:nowrap;">
 			Segnalato da: <b><%= segnalazione.cda_segnalatore%></b><br/>
 			il <b><%= l segnalazione.dtm_creaz, :format => '%d/%m/%Y' %></b> (<%= pluralize(Date.today - segnalazione.dtm_creaz.to_date, 'giorno') %> fa)<br/>
-			<%= render :partial => "widget/discrete_meter", :locals => { 
+			<%= render :partial => "widgets/discrete_meter", :locals => { 
 				:label => 'Gravità',
 				:width => '120px', 
 				:range => Gravita.range,
@@ -23,7 +23,7 @@
 				:style_class => 'no-border'
 				}%>
 				 <br/>
-			<%= render :partial => "widget/discrete_meter", :locals => { 
+			<%= render :partial => "widgets/discrete_meter", :locals => { 
 				:label => 'Priorità',				
 				:width => '120px', 
 				:range => Priorita.range,

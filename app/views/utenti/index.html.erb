@@ -1,7 +1,7 @@
 <% title "Utenti GS" %>
 
 <% content_for :sidebar do %>
-		<%= render :partial => 'widget/collapsible_box', :locals => { :title => "Iniziale nome", :content => 'alfabeto', :closeable => false, :p_locals => { :include_set => @utenti_group.collect{|g| g[0]} } } %>
+		<%= render :partial => 'widgets/collapsible_box', :locals => { :title => "Iniziale nome", :content => 'alfabeto', :closeable => false, :p_locals => { :include_set => @utenti_group.collect{|g| g[0]} } } %>
 <% end %>
 
 <table>

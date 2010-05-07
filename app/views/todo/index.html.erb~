@@ -1,6 +1,7 @@
 <% title "TODO List" %>
 
 <% content_for :sidebar do %>
+	<%= render :partial => 'widget/collapsible_box', :locals => { :title => "Opzioni di visualizzazione", :content => 'todo_view_options', :closeable => false } %>
 	<%= render :partial => 'widget/collapsible_box', :locals => { :title => "Filtra per", :content => 'filtri', :segnalazioni => @prodotti } %>
 	<%= render :partial => 'widget/collapsible_box', :locals => { :title => "In carico", :content => 'segnalazioni/in_carico', :envelope_class => 'in_carico' } %>
 	<%= render :partial => 'widget/collapsible_box', :locals => { :title => "Statistiche sviluppo", :content => 'statistica' } %>
