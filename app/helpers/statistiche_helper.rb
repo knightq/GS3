@@ -1,0 +1,2 @@
+module StatisticheHelper
+end

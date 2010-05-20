@@ -1,10 +1,13 @@
 <% title "TODO List" %>
 
-<% content_for :sidebar do %>
-	<%= render :partial => 'widgets/collapsible_box', :locals => { :title => "Opzioni di visualizzazione", :content => 'todo_view_options', :closeable => false } %>
-	<%= render :partial => 'widgets/collapsible_box', :locals => { :title => "Filtra per", :content => 'filtri', :segnalazioni => @prodotti } %>
-	<%= render :partial => 'widgets/collapsible_box', :locals => { :title => "In carico", :content => 'segnalazioni/in_carico', :envelope_class => 'in_carico' } %>
-	<%= render :partial => 'widgets/collapsible_box', :locals => { :title => "Statistiche sviluppo", :content => 'statistica' } %>
+<%= content_for :head do %>
+<% end %>
+
+<%= content_for :sidebar do %>
+	<%= render :partial => 'widgets/collapsible_box', :locals => { :title => "Opzioni di visualizzazione", :content => 'todo_view_options' } %>
+	<%= render :partial => 'widgets/collapsible_box', :locals => { :title => "Filtra per", :content => 'filtri', :segnalazioni => @prodotti, :closeable => true } %>
+	<%= render :partial => 'widgets/collapsible_box', :locals => { :title => "In carico", :content => 'segnalazioni/in_carico', :envelope_class => 'in_carico', :closeable => true } %>
+	<%= render :partial => 'widgets/collapsible_box', :locals => { :title => "Statistiche sviluppo", :content => 'statistica', :closeable => true } %>
 <% end %>
 
 <h1><%= pluralize(@prodotti.size, 'Prodotto').split.last %></h1>

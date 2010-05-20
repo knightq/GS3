@@ -42,14 +42,6 @@ class TodoController < ApplicationController
   def create
     puts "SONO IO!! IOOOOOOOO!!!"
     puts "SONO IO!! IOOOOOOOO!!!"
-    puts "SONO IO!! IOOOOOOOO!!!"
-    puts "SONO IO!! IOOOOOOOO!!!"
-    puts "SONO IO!! IOOOOOOOO!!!"
-    puts "SONO IO!! IOOOOOOOO!!!"
-    puts "SONO IO!! IOOOOOOOO!!!"
-    puts "SONO IO!! IOOOOOOOO!!!"
-    puts "SONO IO!! IOOOOOOOO!!!"
-    puts "SONO IO!! IOOOOOOOO!!!"
     respond_to do |format|
        format.js
     end

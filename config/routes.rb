@@ -48,12 +48,16 @@ Gs3::Application.routes.draw do |map|
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => 'user_sessions#new' 
+#  root :to => 'user_sessions#new' unless current_user
+	root :to => 'user_sessions#new' 
+  
+	map.home '', :controller => "user_sessions", :action => 'new'
 
   # See how all your routes lay out with "rake routes"
 
   resource :user_session
   resource :account, :controller => "utenti"
+  resources :funzioni
   resources :utenti
   resources :gruppi
   resources :prodotti
@@ -61,7 +65,7 @@ Gs3::Application.routes.draw do |map|
 
 	match 'todo' => 'todo#index'
 
-  map.home '', :controller => "user_sessions", :action => 'new'
+	match 'statistiche' => 'statistiche#index'
 
   # This is a legacy wild controller route that's not recommended for RESTful applications.
   # Note: This route will make all actions in every controller accessible via GET requests.

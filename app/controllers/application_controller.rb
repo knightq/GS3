@@ -6,8 +6,15 @@ class ApplicationController < ActionController::Base
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
   layout 'application' #Rails 3
 
+	attr_accessor :funzione
+
   # Scrub sensitive parameters from your log
   helper_method :current_user_session, :current_user
+
+	def initialize
+		super()
+		@funzione = Funzione.new
+	end
 
   def require_user
     unless current_user

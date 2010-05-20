@@ -3,4 +3,7 @@ class UserSession < Authlogic::Session::Base
   login_field :user_name
   password_field :user_pwd
 	find_by_login_method :search_for_user_name_existence
+
+	attr_accessor :compact_mode
+
 end

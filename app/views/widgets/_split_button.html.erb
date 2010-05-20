@@ -1,0 +1,18 @@
+<% 
+	title ||= ''
+	menu_items ||= Hash.new
+%>
+<%= content_for :header do %>
+	$('#sb').splitbutton({menu:'#mm'});
+<% end %>
+
+<div style="border:1px solid #ccc;background:#ddd;padding:5px;width:120px;">
+    <a href="javascript:void(0)" id="sba" icon="icon-edit"><%= title%></a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" icon="icon-help"></a>
+</div>
+<div id="mm" style="width:150px;">
+	<% for menu_item in menu_items %>
+		<div icon="<%= menu_item[:icon] %>"><%= menu_item[:title] %></div>
+	<% end %>
+</div>
+

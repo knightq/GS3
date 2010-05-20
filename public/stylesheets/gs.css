@@ -389,6 +389,7 @@ li.organizator {
   position: relative;
   bottom: 12px;
   left: 348px;
+	height: 18px;
   width: 400px;
 	background-color: #CFE0FF;
 	text-align:center;
@@ -476,11 +477,18 @@ div.versione {
 	border:1px solid #333;
 	cursor: move;
 	height:20px;
-	width:180px;
+	width:400px;
 	background:#CFE0FF url(../images/arrow_collapsed.png) no-repeat scroll 0 40%;
 }
 div.versione.closed {
 	background:#CFE0FF url(../images/arrow_expanded.png) no-repeat scroll 0 40%;
+}
+.header_versione {
+	padding-left: 25px;
+	font-size: 1.1em;
+}
+.header_versione .lavorabili .non_lavorabili {
+	font-size: 0.5em;
 }
 div.segnalazioni_lavorabili div.segnalazioni_non_lavorabili {
 	position: relative;
@@ -714,3 +722,65 @@ img.hide_btn {
 }
 
 /* ENDOF Bubble */
+
+ul#navlist
+{
+font: bold 11px verdana, arial, sans-serif;
+list-style-type: none;
+padding-bottom: 24px;
+border-bottom: 1px solid #6c6;
+margin: 0;
+}
+
+ul#navlist li
+{
+float: left;
+height: 21px;
+background-color: #cfc;
+margin: 2px 2px 0 2px;
+border: 1px solid #6c6;
+}
+
+ul#navlist li#active
+{
+border-bottom: 1px solid #fff;
+background-color: #fff;
+}
+
+li#active a { color: #000; }
+
+#navlist a
+{
+float: left;
+display: block;
+color: #666;
+text-decoration: none;
+padding: 4px;
+}
+
+.new_funzione {
+	position: absolute;
+	top: 10px;
+	left: 400px;
+	z-index: 45;
+}
+#navlist a:hover { background: #fff; }
+
+a#view_mode {
+    background: #ccc;
+    cursor: pointer;
+    border-top: solid 2px #eaeaea;
+    border-left: solid 2px #eaeaea;
+    border-bottom: solid 2px #777;
+    border-right: solid 2px #777;
+    padding: 5px 5px;
+}
+
+a#view_mode.down {
+    background: #bbb;
+    border-top: solid 2px #777;
+    border-left: solid 2px #777;
+    border-bottom:solid 2px  #eaeaea;
+    border-right: solid 2px #eaeaea;
+}
+

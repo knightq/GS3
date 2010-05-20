@@ -33,6 +33,6 @@ test:
 
 production: 
   adapter: oracle_enhanced
-  database: comics_catalog_production  
-  username: comics_catalog 
-  password:
+  database: CLONI2
+  username: TRAKING
+  password: manager

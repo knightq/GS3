@@ -1,0 +1,43 @@
+<% title "Statistiche di sviluppo", false %>
+
+<%= content_for :head do %>
+	<%= javascript_include_tag 'swfobject' %>
+	<script type="text/javascript">
+		$(document).ready(function(){
+				// Accordion
+				$("div#accordion").accordion({ header: "h3" });
+		}		
+	</script>
+<% end %>
+
+<div id="accordion" class="ui-accordion ui-widget ui-helper-reset">
+	<h3 class="ui-accordion-header ui-helper-reset ui-state-active ui-corner-top">
+		<span class="ui-icon ui-icon-triangle-1-s"/>
+		<a href="#">Statistiche fra sviluppatori</a>
+	</h3>
+	<div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom ui-accordion-content-active">
+		<div><%= raw @graph %><%= raw @graph_ore %></div>
+	</div>
+	<h3 class="ui-accordion-header ui-helper-reset ui-state-default ui-corner-all">
+		<span class="ui-icon ui-icon-triangle-1-e"/>
+	  <a href="#">Section 2</a>
+	</h3>
+	<div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom">
+	  Section 2 content
+	</div>
+	<h3 class="ui-accordion-header ui-helper-reset ui-state-default ui-corner-all">
+	  <span class="ui-icon ui-icon-triangle-1-e"/>
+	  <a href="#">Section 3</a>
+	</h3>
+	<div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom">
+	  Section 3 content
+	</div>
+</div>
+<div>	
+	<%#= raw @graph %>
+	<%#= raw @graph_ore %>
+</div>
+
+
+
+<%= link_to 'Indietro', :back %>

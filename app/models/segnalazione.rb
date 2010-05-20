@@ -22,6 +22,10 @@ class Segnalazione < ActiveRecord::Base
 		risolte_ultimo_mese = Segnalazione.risolutore(user_id).risolte.ultimo_mese
 	end
 
+	def self.min_max_num_segna_utlimo_mese()
+		Segnalazione.ultimo_mese.risolte.select("count(*) as num_segna").group(:cda_risolutore).order("num_segna DESC")
+	end
+
 	def stato_des
 		StatiSegnalazione.des(cda_stato)
 	end

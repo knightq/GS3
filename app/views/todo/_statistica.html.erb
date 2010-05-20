@@ -1,6 +1,33 @@
 <% if @statistica.num_segna > 0 %>
-		Numero segnalazioni:<b><%= @statistica.num_segna %></b><br/>
-		Totale ore:<b><%= @statistica.tot_ore %></b>
+
+	<%= content_for :head do %>
+		<script type="text/javascript">
+		$(function() {
+			$("#progressbar_num_segna").progressbar({
+				value: 9
+			});
+		});
+		$(function() {
+			$("#progressbar_tot_ore").progressbar({
+				value: 19
+			});
+		});
+	</script>
+	<% end %>
+
+	<table border="0">		
+		<tr>
+			<td># segnalazioni:</td>
+			<td><b><%= @statistica.num_segna %></b></td>
+			<td><div class="ui-progressbar ui-widget ui-widget-content ui-corner-all"><div id="progressbar_num_segna" class="num_segna"></div></div></td>
+		</tr>
+		<tr>
+			<td>Totale ore:</td>
+			<td><b><%= @statistica.tot_ore %></b></td>
+			<td><div id="progressbar_tot_ore" class="tot_ore ui-progressbar ui-widget ui-widget-content ui-corner-all"></div></td>
+		</tr>
+	</table>
+
 <% else %>
 		<i>Non sono presenti segnalazioni nell'ultimo mese.</i>
 <% end %>

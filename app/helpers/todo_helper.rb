@@ -20,4 +20,8 @@ module TodoHelper
 		@segnalazioni.to_a.select{ |s| s.is_in_stato?(stato) }.count
 	end
 
+	def segnalazione_partial
+		@current_user_session.compact_mode ? "segnalazione_compact" : "segnalazione"
+	end
+
 end
