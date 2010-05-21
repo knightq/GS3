@@ -3,41 +3,53 @@
 <%= content_for :head do %>
 	<%= javascript_include_tag 'swfobject' %>
 	<script type="text/javascript">
-		$(document).ready(function(){
-				// Accordion
-				$("div#accordion").accordion({ header: "h3" });
-		}		
+		$(function(){
+			// Accordion
+			$("#accordion").accordion({ header: "h3.ui-accordion-header" });
+
+			$("#tabs").tabs();
+
+		});
 	</script>
 <% end %>
 
-<div id="accordion" class="ui-accordion ui-widget ui-helper-reset">
-	<h3 class="ui-accordion-header ui-helper-reset ui-state-active ui-corner-top">
-		<span class="ui-icon ui-icon-triangle-1-s"/>
-		<a href="#">Statistiche fra sviluppatori</a>
-	</h3>
-	<div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom ui-accordion-content-active">
-		<div><%= raw @graph %><%= raw @graph_ore %></div>
-	</div>
-	<h3 class="ui-accordion-header ui-helper-reset ui-state-default ui-corner-all">
-		<span class="ui-icon ui-icon-triangle-1-e"/>
-	  <a href="#">Section 2</a>
-	</h3>
-	<div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom">
-	  Section 2 content
-	</div>
-	<h3 class="ui-accordion-header ui-helper-reset ui-state-default ui-corner-all">
-	  <span class="ui-icon ui-icon-triangle-1-e"/>
-	  <a href="#">Section 3</a>
-	</h3>
-	<div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom">
-	  Section 3 content
-	</div>
-</div>
-<div>	
-	<%#= raw @graph %>
-	<%#= raw @graph_ore %>
-</div>
+	<div id="accordion" class="ui-accordion ui-widget ui-helper-reset">
+			<h3 class="ui-accordion-header ui-helper-reset ui-state-active ui-corner-top">
+				Statistiche fra sviluppatori
+				<span class="ui-icon ui-icon-triangle-1-s"/>
+			</h3>
+			<div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom ui-accordion-content-active">
+				<div id="tabs" style="height: 475px;">
+					<ul>
+						<li><a href="#tabs-1">GS risolte</a></li>
+						<li><a href="#tabs-2">Ore impegate</a></li>
+						<li><a href="#tabs-3">Performance</a></li>
+					</ul>
+					<div id="tabs-1" align="center">
+						<%= raw @graph %>
+					</div>
+					<div id="tabs-2" align="center">
+						<%= raw @graph_ore %>
+					</div>
+					<div id="tabs-3" align="center">
+						TODO
+					</div>
+				</div>
+			</div>
 
+			<h3 class="ui-accordion-header ui-helper-reset ui-state-default ui-corner-all">
+				Timeline				
+				<span class="ui-icon ui-icon-triangle-1-e"/>
+			</h3>
+			<div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom">
+				Section 2 content
+			</div>
 
-
-<%= link_to 'Indietro', :back %>
+			<h3 class="ui-accordion-header ui-helper-reset ui-state-default ui-corner-all">
+				Stetistiche 3
+				<span class="ui-icon ui-icon-triangle-1-e"/>
+			</h3>
+			<div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom">
+				Section 3 content
+			</div>
+	</div>

@@ -1,10 +1,12 @@
 class StatisticheController < ApplicationController
 
+	before_filter :require_user
+
 	attr_accessor :statistica
 
 	def index
-    @graph = open_flash_chart_object(300,200,"/statistiche/graph_code")
-    @graph_ore = open_flash_chart_object(450,200,"/statistiche/graph_code_ore")
+    @graph = open_flash_chart_object(600,400,"/statistiche/graph_code")
+    @graph_ore = open_flash_chart_object(600,400,"/statistiche/graph_code_ore")
 	end
 
   def graph_code
@@ -37,21 +39,42 @@ class StatisticheController < ApplicationController
     y_legend = YLegend.new("Frequenza")
     y_legend.set_style('{font-size: 14px; color: #770077}')
 
-		chart = OpenFlashChart.new (:tool_tip => "ciao")
+		chart = OpenFlashChart.new(:tool_tip => "ciao")
+#		chart.bg_colour = '#000000'
     chart.set_title(title)
     chart.set_x_legend(x_legend)
     chart.set_y_legend(y_legend)
 		chart.x_axis = x
     chart.y_axis = y
 
-    line = Line.new
-    line.text = "Numero segnalazioni risolte"
-    line.width = 1
-    line.colour = '#5E4725'
-    line.dot_size = 5
-    line.values = data1
-		line.tooltip = "#val# sviluppatori hanno risolto #key# segnalazioni in ultimo mese"
 
+	  bar = Bar.new
+    bar.set_values(data1)
+  	bar.colour  = '#11AAFF'
+		bar.tooltip = "#val# sviluppatori hanno risolto #x# segnalazioni in questo ultimo mese"
+    chart.add_element(bar)
+
+	  bar1 = Bar.new
+		user_val = statistica.where("CDA_RISOLUTORE = '#{@current_user.user_name}'")[0].num_segna
+		serie_svil = Array.new(data1.size) { |i| i == user_val ? data1[i] : nil }
+		bar1.set_values(serie_svil)
+    bar1.colour  = '#0000FF'
+		bar1.tooltip = "#{@current_user.user_name} ha risolto #x_label# GS nell'ultimo mese"
+    chart.add_element(bar1)
+
+    line = Line.new
+    line.text = "Media"
+    line.width = 3
+    line.colour = '#FF0000'
+    line.dot_size = 5
+		serie_media = Array.new(data1.size)
+		if not serie_media.empty? 
+			serie_media.pop
+			serie_media.push(data1.media)
+			serie_media[0] = data1.media
+		end
+    line.values = serie_media
+		line.tooltip = "Media"
 		chart.add_element(line)
 	  render :text => chart.to_s
   end
@@ -67,7 +90,7 @@ class StatisticheController < ApplicationController
 
   def graph_code_ore
 		calcola_statistiche
-		ore_impiegate = statistica.order("ore_impiegate ASC").collect{|s| s.ore_impiegate}.to_a
+		ore_impiegate = statistica.order("ore_impiegate ASC").collect{|s| s.ore_impiegate}
 		title = Title.new("Ore impiegate nell'ultimo mese dagli sviluppatori")
 
 		range_ore_impiegate = (0..ore_impiegate.size)
@@ -84,84 +107,64 @@ class StatisticheController < ApplicationController
 
 		labels = XAxisLabels.new
     labels.text = "#val#"# lista_sviluppatori[val]
-#    labels.steps = 86400
-#   labels.visible_steps = 2
     labels.set_vertical
     x.labels = labels
 
-#    x.set_range(1, lista_sviluppatori.size)
-#		x.set_labels(lista_sviluppatori)
+		x.set_labels(lista_sviluppatori)
+#		x.labels.set_vertical
 
 
     y_legend = YLegend.new("Ore impiegate")
     y_legend.set_style('{font-size: 14px; color: #770077}')
 
 		chart = OpenFlashChart.new
+#		chart.bg_colour = '#000000'
     chart.set_title(title)
     chart.set_x_legend(x_legend)
     chart.set_y_legend(y_legend)
     chart.y_axis = y
 		chart.x_axis = x
 
+		ore_impiegate_svil = statistica.order("ore_impiegate ASC").where("CDA_RISOLUTORE = '#{@current_user.user_name}'")[0].ore_impiegate
 	  bar = BarGlass.new
-    bar.set_values(ore_impiegate)
+		bar.colour  = '#11AAFF'
+		already_removed = false
+		oi_without_me = ore_impiegate.collect do |oi|
+			if(oi == ore_impiegate_svil and not already_removed)
+				already_removed = true
+				nil
+			else
+				oi
+			end
+		end
+    bar.set_values(oi_without_me)
+		bar.tooltip = 'Tizio #key# #x_label# ha sviluppato per #val# ore nell''ultimo mese'
     chart.add_element(bar)
-    render :text => chart.to_s
-  end
 
-
-	def graph_code_demo
-    title = Title.new("Multiple Lines")
-
-    data1 = []
-    data2 = []
-    data3 = []
-
-    10.times do |x|
-      data1 << rand(5) + 1
-      data2 << rand(6) + 7
-      data3 << rand(5) + 14
-    end
-
-    line_dot = LineDot.new
-    line_dot.text = "Line Dot"
-    line_dot.width = 4
-    line_dot.colour = '#DFC329'
-    line_dot.dot_size = 5
-    line_dot.values = data1
-
-    line_hollow = LineHollow.new
-    line_hollow.text = "Line Hollow"
-    line_hollow.width = 1
-    line_hollow.colour = '#6363AC'
-    line_hollow.dot_size = 5
-    line_hollow.values = data2
+	  bar1 = BarGlass.new
+		bar1.pad_x = 0
+		bar1.pad_y = 0
+		user_val = statistica.where("CDA_RISOLUTORE = '#{@current_user.user_name}'")[0].ore_impiegate
+		serie_svil = Array.new(ore_impiegate.size) { |i| ore_impiegate[i] == user_val ? user_val : nil }
+		bar1.set_values(serie_svil)
+    bar1.colour  = '#0000FF'
+		bar1.tooltip = "#{@current_user.user_name} ha impiegato #val# ore nel risolvere le GS nell'ultimo mese"
+    chart.add_element(bar1)
 
     line = Line.new
-    line.text = "Line"
-    line.width = 1
-    line.colour = '#5E4725'
+	  line.text = "Media"
+    line.width = 3
+    line.colour = '#FF0000'
     line.dot_size = 5
-    line.values = data3
-
-    y = YAxis.new
-    y.set_range(0,20,5)
-
-    x_legend = XLegend.new("MY X Legend")
-    x_legend.set_style('{font-size: 20px; color: #778877}')
-
-    y_legend = YLegend.new("MY Y Legend")
-    y_legend.set_style('{font-size: 20px; color: #770077}')
-
-    chart =OpenFlashChart.new
-    chart.set_title(title)
-    chart.set_x_legend(x_legend)
-    chart.set_y_legend(y_legend)
-    chart.y_axis = y
-
-    chart.add_element(line_dot)
-    chart.add_element(line_hollow)
-    chart.add_element(line)
+		serie_media = Array.new(ore_impiegate.size)
+		if not serie_media.empty? 
+			serie_media.pop
+			serie_media.push(ore_impiegate.media)
+			serie_media[0] = ore_impiegate.media
+		end
+    line.values = serie_media
+		line.tip = 'Media #val#'
+		chart.add_element(line)
 
     render :text => chart.to_s
   end
