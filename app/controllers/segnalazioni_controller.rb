@@ -47,7 +47,8 @@ class SegnalazioniController < ApplicationController
   # GET /segnalazioni/new.xml
   def new
     @segnalazione = Segnalazione.new
-
+    @segnalazione.dtm_creaz = Date.today
+    
     respond_with @segnalazione
   end
 end

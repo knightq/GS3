@@ -6,10 +6,23 @@
 
 <%= form_for(@segnalazione) do |f| %>
 
-  <div class="field">
+  <span class="field">
+    <%= f.label "Prg. Segn." %>
+	<%= text_field :prg_segna, "Prg. Segna.", :disabled => "true", :size => 6, :value => @segnalazione.prg_segna %>
+  </span>
+  <span class="field">
     <%= f.label "Prodotto" %>
-	<%= text_field_with_auto_complete @segnalazione, :cod_prodotto, {:class => "segnalazione_cod_prodotto"} %>
-  </div>
+	<%= text_field_with_auto_complete @segnalazione, :cod_prodotto, {:class => "segnalazione_cod_prodotto", :size => 12} %>
+  </span>
+  <span class="field">
+    <%= f.label "Data segnalazione" %>
+	<%= text_field :dtm_creaz, "Data creazione", :disabled => "true", :size => 8, :value => @segnalazione.dtm_creaz.strftime("%d/%m/%Y") %>
+  </span>
+  <span class="field">
+    <%= f.label "Segnalatore" %>
+	<%= text_field_with_auto_complete @segnalazione, :cda_ute_creaz, {:class => "segnalazione_cda_ute_creaz", :size => 15, :value => @current_user.user_name} %>
+  </span>
+  
   <div class="field">
     <%= f.label "Descrizione segnalazione" %> <%= f.text_area :des_segna %>
   </div>

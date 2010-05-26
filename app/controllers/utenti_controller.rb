@@ -1,12 +1,14 @@
 class UtentiController < ApplicationController
 
-	respond_to :html, :xml, :json
+	respond_to :html, :xml, :json, :js
   before_filter :require_user#, :only => [:show, :edit, :update]
 
   # GET /utenti
   # GET /utenti.xml
   def index
-    @utenti = Utente.order('USER_NAME asc')
+    @utenti = Utente.scoped
+    @utenti = @utenti.where('user_name LIKE ?', "%#{params[:q].upcase}%") if params[:q]  
+    @utenti = @utenti.order('USER_NAME asc')
 		@utenti_group = @utenti.to_a.group_by{ |u| u.user_name.to_s[0..0] }  
 		respond_with(@utenti)
   end
