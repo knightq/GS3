@@ -2,6 +2,7 @@
 // This file is automatically included by javascript_include_tag :defaults
 
 var hideFlashes = function() {
+
   $("#flash_notice, #flash_error").fadeOut(800);
 	$("#flash_messages").slideUp(800);
 }

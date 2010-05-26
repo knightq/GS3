@@ -12,9 +12,6 @@
 		<%#= javascript_include_tag 'jquery-1.4.2.min' %>
 		<%= javascript_include_tag 'jquery.event.drag-1.5.min' %>
 		<%= javascript_include_tag 'jquery.event.drop-1.1' %>
-		
-		<%= javascript_include_tag 'jquery.suggest' %>
-		<%= javascript_include_tag 'jrails.autocomplete' %>
 
     <%= stylesheet_link_tag 'application' %>
     <%= stylesheet_link_tag 'gs' %>

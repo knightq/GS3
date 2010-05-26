@@ -784,3 +784,8 @@ a#view_mode.down {
     border-right: solid 2px #eaeaea;
 }
 
+div.kion_div {
+	background: #43619E;
+	padding: 0.5em 0.2em;
+	vertical-align: middle;
+}

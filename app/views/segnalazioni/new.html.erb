@@ -1,0 +1,21 @@
+<% title "Nuova segnalazione #{@segnalazione.prg_segna}" %>
+
+<% content_for :head do %>
+  <script src="http://code.jquery.com/jquery-latest.js"></script>
+  <link rel="stylesheet" href="http://dev.jquery.com/view/trunk/plugins/autocomplete/jquery.autocomplete.css" type="text/css" />
+  <script type="text/javascript" src="http://dev.jquery.com/view/trunk/plugins/autocomplete/jquery.autocomplete.js"></script>
+  <script>
+	  $(document).ready(function(){
+		$(".segnalazione_cod_prodotto").autocomplete("/prodotti.js");
+		$(".segnalazione_cod_prodotto").attr("matchCase", "off")
+	  });
+  </script>
+
+<% end %>
+
+<% content_for :sidebar do %>
+<% end %>
+
+<%= render 'form' %>
+
+<%= link_to 'Indietro', :back %>

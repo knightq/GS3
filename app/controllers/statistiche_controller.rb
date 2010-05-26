@@ -2,11 +2,23 @@ class StatisticheController < ApplicationController
 
 	before_filter :require_user
 
+	respond_to :html, :xml, :json, :js
+
 	attr_accessor :statistica
 
 	def index
+		puts "REQUEST_FORMAT: #{request.format}"
+		puts "REQUEST JS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" if request.format.js?
+#		@statistica_filter = Segnalazione.new
+		if not @statistica_filter			
+			@statistica_filter = QueryStat.new
+			@statistica_filter.time_span_da = Date.today - 30.days
+			@statistica_filter.time_span_a = Date.today
+		end
     @graph = open_flash_chart_object(600,400,"/statistiche/graph_code")
     @graph_ore = open_flash_chart_object(600,400,"/statistiche/graph_code_ore")
+		@graph_performance = open_flash_chart_object(600,400,"/statistiche/graph_code_performance")
+		@timeline = open_flash_chart_object(600,400,"/statistiche/timeline_code")
 	end
 
   def graph_code
@@ -59,7 +71,7 @@ class StatisticheController < ApplicationController
 		serie_svil = Array.new(data1.size) { |i| i == user_val ? data1[i] : nil }
 		bar1.set_values(serie_svil)
     bar1.colour  = '#0000FF'
-		bar1.tooltip = "#{@current_user.user_name} ha risolto #x_label# GS nell'ultimo mese"
+		bar1.tooltip = "#{@current_user.user_name} ha risolto #x_labels(1)# GS nell'ultimo mese"
     chart.add_element(bar1)
 
     line = Line.new
@@ -168,6 +180,135 @@ class StatisticheController < ApplicationController
 
     render :text => chart.to_s
   end
+
+	def graph_code_performance
+		performances = Segnalazione.performance_score_by_user_over_time(Utente.where("user_name != 'ADMIN'").to_a.collect{|x| x.user_name})
+		title = Title.new("Performance (sum(tempo_stimato) / sum(tempo_impiegato)) nell'ultimo mese dagli sviluppatori")
+
+		range_performance = (0..performances.last.performance.ceil)
+
+   	y = YAxis.new
+    y.set_range(0,range_performance.max,1)
+
+    x_legend = XLegend.new("Sviluppatori")
+    x_legend.set_style('{font-size: 14px; color: #778877}')
+
+		lista_sviluppatori = performances.collect{|s| s.cda_risolutore}.to_a
+
+   	x = XAxis.new
+
+		labels = XAxisLabels.new
+    labels.text = "#val#"# lista_sviluppatori[val]
+    labels.set_vertical
+    x.labels = labels
+
+		x.set_labels(lista_sviluppatori)
+
+    y_legend = YLegend.new("Ore impiegate")
+    y_legend.set_style('{font-size: 14px; color: #770077}')
+
+		chart = OpenFlashChart.new
+    chart.set_title(title)
+    chart.set_x_legend(x_legend)
+    chart.set_y_legend(y_legend)
+    chart.y_axis = y
+		chart.x_axis = x
+
+	  bar = BarGlass.new
+		bar.colour  = '#11AAFF'
+    bar.set_values(performances.collect{|p| p.performance})
+		bar.tooltip = 'Performance: #val#'
+    chart.add_element(bar)
+
+    line = Line.new
+	  line.text = "Media"
+    line.width = 3
+    line.colour = '#FF0000'
+    line.dot_size = 5
+		serie_media = Array.new(performances.size)
+		if not serie_media.empty? 
+			p_media = performances.collect{|p| p.performance}.media
+			serie_media.pop
+			serie_media.push(p_media)
+			serie_media[0] = p_media
+		end
+    line.values = serie_media
+		line.tip = 'Media #val#'
+		chart.add_element(line)
+
+    render :text => chart.to_s
+	end
+
+	def timeline_code
+		resultset = Segnalazione.num_segna_by_user_over_time(@current_user.user_name)
+		gs_risolte_per_mese = resultset.collect{|s| s.num_segna}.last(12)
+		gs_risolte_per_mese_prev = resultset.collect{|s| s.num_segna}[-23..-12]
+		performances = Segnalazione.performance_score_by_user_by_time(@current_user.user_name)
+		performance_per_mese = performances.last(12).collect{|p| p.performance * 10}
+		performance_per_mese_prev = performances[-23..-12].collect{|p| p.performance * 10}
+		gs_risolte_per_mese = resultset.collect{|s| s.num_segna}.last(12)
+
+		mesi = resultset.collect{|s| s.mese}.compact.last(12).collect{|s| s[-6..-4]}
+		title = Title.new("Timeline per #{@current_user.user_name}")
+
+		y = YAxis.new
+    y.set_range(0, gs_risolte_per_mese.max, 2)
+
+    x_legend = XLegend.new("Mese")
+    x_legend.set_style('{font-size: 10px; color: #778877}')
+
+   	x = XAxis.new
+		labels = XAxisLabels.new
+    labels.text = "#val#"# lista_sviluppatori[val]
+    labels.set_vertical
+    x.labels = labels
+
+		x.set_labels(mesi)
+
+    y_legend = YLegend.new("GS risolte")
+    y_legend.set_style('{font-size: 14px; color: #770077}')
+
+		chart = OpenFlashChart.new
+    chart.set_title(title)
+    chart.set_x_legend(x_legend)
+    chart.set_y_legend(y_legend)
+    chart.y_axis = y
+		chart.x_axis = x
+
+    line = Line.new
+	  line.text = "GS risolte ultimi 12 mesi"
+    line.width = 4
+    line.colour = '#FF0000'
+    line.dot_size = 5
+    line.values = gs_risolte_per_mese
+		chart.add_element(line)
+
+    line_prev = Line.new
+	  line_prev.text = "GS risolte nello stesso periodo, anno precedente"
+    line_prev.width = 2
+    line_prev.colour = '#FFA700'
+    line_prev.dot_size = 3
+    line_prev.values = gs_risolte_per_mese_prev
+		chart.add_element(line_prev)
+
+    line_perf = Line.new
+	  line_perf.text = "Performance (x10) ultimi 12 mesi"
+    line_perf.width = 4
+    line_perf.colour = '#0000FF'
+    line_perf.dot_size = 5
+    line_perf.values = performance_per_mese
+		chart.add_element(line_perf)
+
+    line_perf_prev = Line.new
+	  line_perf_prev.text = "Performance (x10) nello stesso periodo, anno precedente"
+    line_perf_prev.width = 2
+    line_perf_prev.colour = '#0071AF'
+    line_perf_prev.dot_size = 3
+    line_perf_prev.values = performance_per_mese_prev
+		chart.add_element(line_perf_prev)
+
+    render :text => chart.to_s
+	end
 
 private
 	def calcola_statistiche

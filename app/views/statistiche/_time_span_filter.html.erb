@@ -1,0 +1,20 @@
+<% content_for :head do %>
+	<%= javascript_include_tag 'jquery.ui.datepicker-it' %>
+	<script type="text/javascript">
+		$(function(){
+			$('#query_stat_time_span_da').datepicker({ dateFormat: 'dd/mm/yy', maxDate: '+0m' }, $.datepicker.regional['it']);
+			$('#query_stat_time_span_a').datepicker({ dateFormat: 'dd/mm/yy', maxDate: '+0m' }, $.datepicker.regional['it']);
+		});
+	</script>
+<% end %>
+
+
+<%= form_for @statistica_filter, :url => { :controller => "statistiche" }, :remote => true do |f| %>
+	<%= f.label(:da, " ", :class => "title_label") %>
+	<%= f.text_field :time_span_da, :size => "8" %>  
+	&nbsp;&nbsp;&nbsp;
+	<%= f.label(:a, " ", :class => "title_label") %>
+	<%= f.text_field :time_span_a, :size => "8" %>
+	&nbsp;
+	<%= image_submit_tag src="/images/apply.png", :class => 'image-submit' %>
+<% end %>
