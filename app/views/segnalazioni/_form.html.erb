@@ -14,17 +14,32 @@
     <%= f.label "Prodotto" %>
 	<%= text_field_with_auto_complete @segnalazione, :cod_prodotto, {:class => "segnalazione_cod_prodotto", :size => 12} %>
   </span>
-  <span class="field">
+  <div class="field">
+	<span style="padding: 10px;">
+	  	<label for="amount-gravita">Gravità:</label>
+		<%= f.collection_select :cdn_gravita, Gravita.all, :cdn_gravita, :des_gravita, :include_blank => true %>
+	</span>
+	 <span style="padding: 10px;">
+	 	<label for="amount-priorita">Priorità:</label>
+		<%= f.collection_select :cdn_priorita, Priorita.all, :cdn_priorita, :des_priorita, :include_blank => true %>
+	  </span>
+  </div>
+  
+  <div id="slider-vertical-gravita" style="width: 180px; top: 8px;"></div>
+  <div id="slider-vertical-priorita" style="margin-left: 210px; width: 180px; top:-9px;"></div>
+  
+  <div class="field">
     <%= f.label "Data segnalazione" %>
 	<%= text_field :dtm_creaz, "Data creazione", :disabled => "true", :size => 8, :value => @segnalazione.dtm_creaz.strftime("%d/%m/%Y") %>
-  </span>
+  </div>
   <span class="field">
     <%= f.label "Segnalatore" %>
 	<%= text_field_with_auto_complete @segnalazione, :cda_ute_creaz, {:class => "segnalazione_cda_ute_creaz", :size => 15, :value => @current_user.user_name} %>
   </span>
   
   <div class="field">
-    <%= f.label "Descrizione segnalazione" %> <%= f.text_area :des_segna %>
+    <%= f.label "Descrizione segnalazione" %>
+	<%= f.text_area :des_segna %>
   </div>
   <div class="actions">
     <%= f.submit %>

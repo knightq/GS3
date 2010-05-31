@@ -9,11 +9,14 @@ class StatisticheController < ApplicationController
 	def index
 		puts "REQUEST_FORMAT: #{request.format}"
 		puts "REQUEST JS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" if request.format.js?
-#		@statistica_filter = Segnalazione.new
-		if not @statistica_filter			
+		if not @statistica_filter
 			@statistica_filter = QueryStat.new
-			@statistica_filter.time_span_da = Date.today - 30.days
+			@statistica_filter.time_span_da = Date.today - 1.month
 			@statistica_filter.time_span_a = Date.today
+		end
+		if params[:query_stat]
+				@statistica_filter.time_span_da = params[:query_stat][:time_span_da]
+				@statistica_filter.time_span_a = params[:query_stat][:time_span_a]
 		end
     @graph = open_flash_chart_object(600,400,"/statistiche/graph_code")
     @graph_ore = open_flash_chart_object(600,400,"/statistiche/graph_code_ore")
@@ -22,13 +25,12 @@ class StatisticheController < ApplicationController
 	end
 
   def graph_code
-		calcola_statistiche
+		calcola_statistiche(@statistica_filter)
 		num_segna = statistica.order("num_segna ASC").collect{|s| s.num_segna}.uniq.to_a
 		freq = num_segna.collect {|ns| num_svil_for_num_segna(ns)}
     title = Title.new("# segnalazioni risolte ultimo mese da sviluppatori")
 		data1 = []
 		range_num_segna = (0..num_segna.max)
-		range_freq = (0..freq.max)
 		i = 0
 		range_num_segna.each do |f|
 			if num_segna.include?(f) then
@@ -68,7 +70,7 @@ class StatisticheController < ApplicationController
 
 	  bar1 = Bar.new
 		user_val = statistica.where("CDA_RISOLUTORE = '#{@current_user.user_name}'")[0].num_segna
-		serie_svil = Array.new(data1.size) { |i| i == user_val ? data1[i] : nil }
+		serie_svil = Array.new(data1.size) { |indx| indx == user_val ? data1[indx] : nil }
 		bar1.set_values(serie_svil)
     bar1.colour  = '#0000FF'
 		bar1.tooltip = "#{@current_user.user_name} ha risolto #x_labels(1)# GS nell'ultimo mese"
@@ -101,11 +103,9 @@ class StatisticheController < ApplicationController
 	end
 
   def graph_code_ore
-		calcola_statistiche
+		calcola_statistiche(@statistica_filter)
 		ore_impiegate = statistica.order("ore_impiegate ASC").collect{|s| s.ore_impiegate}
 		title = Title.new("Ore impiegate nell'ultimo mese dagli sviluppatori")
-
-		range_ore_impiegate = (0..ore_impiegate.size)
 
    	y = YAxis.new
     y.set_range(0,ore_impiegate.max.ceil,1)
@@ -123,7 +123,6 @@ class StatisticheController < ApplicationController
     x.labels = labels
 
 		x.set_labels(lista_sviluppatori)
-#		x.labels.set_vertical
 
 
     y_legend = YLegend.new("Ore impiegate")
@@ -311,8 +310,9 @@ class StatisticheController < ApplicationController
 	end
 
 private
-	def calcola_statistiche
-		@statistica = Segnalazione.ultimo_mese.risolte.select("cda_risolutore, count(*) as num_segna, sum(tempo_risol_impiegato) as ore_impiegate").group(:cda_risolutore)
+	def calcola_statistiche(sf)
+		puts "CALCOLO STATISTICHE: #{sf}"
+		@statistica = Segnalazione.time_span(sf.time_span_a, (sf.time_span_da - sf.time_span_a)).risolte.select("cda_risolutore, count(*) as num_segna, sum(tempo_risol_impiegato) as ore_impiegate").group(:cda_risolutore)
 	end
 
 end

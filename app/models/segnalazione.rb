@@ -1,8 +1,9 @@
 class Segnalazione < ActiveRecord::Base
 	set_table_name "FW_SEGNA"
 
-	belongs_to :risolutore, :foreign_key => 'cda_risolutore', :class_name => 'Utente'
-	belongs_to :risolutore_analisi, :foreign_key => 'cda_risolutore_ana', :class_name => 'Utente'
+	belongs_to :gravita, :foreign_key => 'cdn_gravita', :class_name => 'Gravita'
+  belongs_to :risolutore, :foreign_key => 'cda_risolutore', :class_name => 'Utente'
+  belongs_to :risolutore_analisi, :foreign_key => 'cda_risolutore_ana', :class_name => 'Utente'
   belongs_to :prodotto, :foreign_key => 'cda_prodotto', :class_name => 'Prodotto'
 
   validates_presence_of :prodotto
@@ -17,7 +18,7 @@ class Segnalazione < ActiveRecord::Base
 	scope :risolutori, lambda { |users| where("cda_risolutore in (?)", users) }
 
 	def self.find_by_user_todo(user_id)
-		segnalazione = Segnalazione.risolutore(user_id).assegnate
+		Segnalazione.risolutore(user_id).assegnate
 	end
 
 	def self.count_by_user_and_stato(user_id, stato)
@@ -25,7 +26,7 @@ class Segnalazione < ActiveRecord::Base
 	end
 
 	def self.risolte_ultimo_mese(user_id)
-		risolte_ultimo_mese = Segnalazione.risolutore(user_id).risolte.ultimo_mese
+		Segnalazione.risolutore(user_id).risolte.ultimo_mese
 	end
 
 	def self.min_max_num_segna_utlimo_mese()
@@ -39,11 +40,11 @@ class Segnalazione < ActiveRecord::Base
 	end
 
 	def self.num_segna_by_user_over_time(user_name)
-		rel = Segnalazione.risolutori(user_name).risolte.select("cda_risolutore, TO_CHAR(dtm_risoluzione,'yyyy mm MON-yy') as mese, count(*) AS num_segna").group("cda_risolutore, TO_CHAR(dtm_risoluzione,'yyyy mm MON-yy')").order("mese ASC")
+		Segnalazione.risolutori(user_name).risolte.select("cda_risolutore, TO_CHAR(dtm_risoluzione,'yyyy mm MON-yy') as mese, count(*) AS num_segna").group("cda_risolutore, TO_CHAR(dtm_risoluzione,'yyyy mm MON-yy')").order("mese ASC")
 	end
 
 	def self.performance_score_by_user_by_time(user_name)
-		rel = Segnalazione.risolutori(user_name).select("cda_risolutore, sum(NVL(tempo_risol_stimato,1))/sum(NVL(tempo_risol_impiegato,1)) as performance, TO_CHAR(dtm_risoluzione,'yyyy mm MON-yy')").group("cda_risolutore, TO_CHAR(dtm_risoluzione,'yyyy mm MON-yy')").having("sum(nvl(tempo_risol_impiegato,1)) > 0")
+		Segnalazione.risolutori(user_name).select("cda_risolutore, sum(NVL(tempo_risol_stimato,1))/sum(NVL(tempo_risol_impiegato,1)) as performance, TO_CHAR(dtm_risoluzione,'yyyy mm MON-yy')").group("cda_risolutore, TO_CHAR(dtm_risoluzione,'yyyy mm MON-yy')").having("sum(nvl(tempo_risol_impiegato,1)) > 0")
 	end
 
 	def stato_des

@@ -12,7 +12,7 @@
      	red = Math.sin(freq_red*len + phase_red) * width + center
 			grn = Math.sin(freq_grn*len + phase_grn) * width + center
      	blu = Math.sin(freq_blu*len + phase_blu) * width + center
-        red.floor.to_s(16).rjust(2,'0') + grn.floor.to_s(16).rjust(2,'0') + blu.floor.to_s(16).rjust(2,'0')
+      res = red.floor.to_s(16).rjust(2,'0') + grn.floor.to_s(16).rjust(2,'0') + blu.floor.to_s(16).rjust(2,'0')
   	end
 
 %>

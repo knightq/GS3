@@ -16,7 +16,6 @@ class Utente < ActiveRecord::Base
   end
 
 	def persistence_token=(ptoken)
-		id = ptoken
   end
 
 	def persistence_token

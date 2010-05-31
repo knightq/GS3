@@ -45,9 +45,9 @@
 			<span title="Espandi tutti i blocchi", class="expand_all">&nbsp;&nbsp;&nbsp;</span>
 			<% unless (flash[:notice].blank? and flash[:error].blank?) %>
 				<div id="flash_messages">
-					<% flash.each do |name, msg| %>
+					<%- flash.each do |name, msg| -%>
 						<%= content_tag :div, msg, :id => "flash_#{name}"%>
-					<% end %>
+					<%- end -%>
 				</div>
 			<% end %>
 			<%= yield :sidebar %>
