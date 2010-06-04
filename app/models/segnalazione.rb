@@ -61,12 +61,16 @@ class Segnalazione < ActiveRecord::Base
 		ore_stima / ore_impiegate
 	end
 
-	def aa?
-		is_in_stato? 'AA'
+  def aa?
+    is_in_stato? 'AA'
   end
 
-	def as?
-		is_in_stato? 'AS'
+  def as?
+    is_in_stato? 'AS'
+  end
+
+  def ve?
+    is_in_stato? 'VE'
   end
 
   # Virtual Attributres

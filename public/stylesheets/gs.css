@@ -476,10 +476,26 @@ div.versione {
 /*	background:#CFE0FF;*/
 	border:1px solid #333;
 	cursor: move;
-	height:20px;
-	width:400px;
+	height:36px;
+	width:100%;
 	background:#CFE0FF url(../images/arrow_collapsed.png) no-repeat scroll 0 40%;
 }
+table.versione {
+	border: 0px;
+	float: right;
+	font-size: 0.8em;
+	margin: 0px 50px 0px 0px;
+	padding: 0px;
+	width: 90%;
+}
+table.versione th {
+	font-weight:normal;
+}
+table.versione td {
+	padding: 0px;
+	text-align: center;
+}
+
 div.versione.closed {
 	background:#CFE0FF url(../images/arrow_expanded.png) no-repeat scroll 0 40%;
 }
@@ -490,18 +506,21 @@ div.versione.closed {
 .header_versione .lavorabili .non_lavorabili {
 	font-size: 0.5em;
 }
-div.segnalazioni_lavorabili div.segnalazioni_non_lavorabili {
-	position: relative;
-	float: right;
+
+table.versione tbody td.analisi_lavorabili {
+	font-weight: bold;	
 }
 
-span.segnalazioni_lavorabili {
-	background-color: green;
-	color: white;
+table.versione tbody td.analisi_non_lavorabili {
+	font-weight: bold;	
 }
 
-span.segnalazioni_non_lavorabili {
-	background-color: yellow;
+table.versione tbody td.sviluppo_lavorabili {
+	font-weight: bold;
+}
+
+table.versione td.sviluppo_non_lavorabili {
+	font-weight: bold;
 }
 
 div.segnalazioni_container_closed {
@@ -543,11 +562,17 @@ div#versione_ore {
 	float: right;
 }
 
-div.versione span.corrente {
-  font-weight:  bold;
+div.versione th.versione_nr {
+	font-size:1.2em;
+	text-align: left;
+	top: 15px;
 }
 
-div.versione span.chiusa {
+div.versione th.corrente {
+	font-weight:  bold;
+}
+
+div.versione th.chiusa {
 	text-decoration:line-through
 }
 

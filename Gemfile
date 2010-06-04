@@ -27,6 +27,13 @@ gem 'rails', '3.0.0.beta3'
 #gem 'jquery-ujs', :git => 'git://github.com/rails/jquery-ujs.git'
 
 gem 'authlogic', :git => "git://github.com/odorcicd/authlogic.git", :branch => "rails3"
+
+###### MONGREL ######
+gem 'mongrel', ">=1.1.6"
+gem 'cgi_multipart_eof_fix'
+gem 'fastthread'
+####################
+
 gem 'ruby-oci8', '>=2.0.4'
 gem 'activerecord-oracle_enhanced-adapter', '>=1.3.0.beta2', :git => 'git://github.com/rsim/oracle-enhanced.git', :branch => 'rails3',
   :require => 'active_record/connection_adapters/oracle_enhanced_adapter'

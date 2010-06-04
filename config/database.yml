@@ -34,5 +34,5 @@ test:
 production: 
   adapter: oracle_enhanced
   database: CLONI2
-  username: TRAKING
+  username: TRACKING
   password: manager

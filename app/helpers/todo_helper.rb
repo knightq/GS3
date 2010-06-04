@@ -24,4 +24,14 @@ module TodoHelper
 		@current_user_session.compact_mode ? "segnalazione_compact" : "segnalazione"
 	end
 
+  def desc_ore(versione, prop, ck)
+    ore = versione[1].inject(0) {|sum, el| sum + ((el.send(prop) if el.send(ck)) || 0)}
+    giorni = ore.to_i / 8
+    fraz_ore = (ore % 8).to_i
+    res = "#{pluralize(giorni,"giorno")}" if giorni > 0
+    res = "#{res} e " if (giorni > 0) and fraz_ore > 0
+    res = "#{res} #{pluralize(fraz_ore, "ora")}" if fraz_ore > 0
+    res ||= "--"
+  end
+
 end

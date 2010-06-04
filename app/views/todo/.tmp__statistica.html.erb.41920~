@@ -15,11 +15,11 @@
 	</script>
 	<% end %>
 
-	<table border="0" style="width: 290px;">		
+	<table border="0">		
 		<tr>
 			<td># segnalazioni:</td>
 			<td><b><%= @statistica.num_segna %></b></td>
-			<td width="50%"><div class="ui-progressbar ui-widget ui-widget-content ui-corner-all"><div id="progressbar_num_segna" class="num_segna"></div></div></td>
+			<td><div class="ui-progressbar ui-widget ui-widget-content ui-corner-all"><div id="progressbar_num_segna" class="num_segna"></div></div></td>
 		</tr>
 		<tr>
 			<td>Totale ore:</td>

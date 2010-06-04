@@ -3,6 +3,11 @@
 	<legend class="trigger">
 		<%=prodotto.first %> (<%= pluralize(versioni.inject(0){|sum, n| sum + n[1].size}, 'segnalazione')%> in <%= pluralize(versioni.size, 'versione') %>)
 	</legend>
+	<div class="header_versione">
+		<span>Versione (# GS)</span>
+		<span class="lavorabili">Lavor.</span>
+		<span class="non_lavorabili">Non lavor.</span>
+	</div>
 	<div class="toggle_container">
 		<%= render :partial => "versione_pian", :collection => versioni, :as => :versione %>
 	</div>

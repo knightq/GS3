@@ -1,8 +1,33 @@
 <div id="versione_<%=versione.first %>" class="versione">
-	&nbsp;&nbsp;&nbsp;&nbsp;
-	<span class="<%= versione_class(versione.first) %>"><%=versione.first %> (<%=versione[1].size %>)</span>
-		<span class="segnalazioni_lavorabili"><%= versione[1].inject(0) {|sum, el| sum + ((el.tempo_risol_stimato if el.as?) || 0)} %></span>
-		<span class="segnalazioni_non_lavorabili"><%= versione[1].inject(0) {|sum, el| sum + ((el.tempo_risol_stimato if el.aa?) || 0)} %></span>
+	<table class="versione">
+		<tr>
+			<th rowspan="2" class="versione_nr <%= versione_class(versione.first) %>" style="width: 20%">
+				<%=versione.first %> (<%=versione[1].size %>)
+			</th>
+			<th style="width: 10%;" />
+			<th>Analisi non lavorabile</th>
+			<th>Analisi lavorabile</th>
+			<th />
+			<th>Sviluppo non lavorabile</th>
+			<th>Sviluppo lavorabile</th>
+		</tr>
+		<tr>
+			<td style="width: 10%;" />
+			<td class="analisi_non_lavorabili">
+				<%= desc_ore(versione, :tempo_ris_ana_stimato, :ve?) %>
+			</td>
+			<td class="analisi_lavorabili">
+				<%= desc_ore(versione, :tempo_ris_ana_stimato, :aa?) %>
+			</td>
+			<td/>
+			<td class="sviluppo_non_lavorabili">
+				<%= desc_ore(versione, :tempo_risol_stimato, :aa?) %>
+			</td>
+			<td class="sviluppo_lavorabili">
+				<%= desc_ore(versione, :tempo_risol_stimato, :as?) %>
+			</td>
+		</tr>
+	</table>
 </div>
 <div id="segnalazioni_<%=versione.first %>" class="segnalazioni_container">
 	<table class="segnalazioni">

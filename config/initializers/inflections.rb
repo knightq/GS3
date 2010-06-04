@@ -16,7 +16,7 @@ ActiveSupport::Inflector.inflections do |inflect|
   inflect.irregular 'funzione', 'funzioni'
   inflect.irregular 'giorno', 'giorni'
   inflect.irregular 'gravita', 'gravita'
-  inflect.irregular 'prodotto', 'prodotti'
+  inflect.irregular 'ora', 'ore'
   inflect.irregular 'priorita', 'priorita'
   inflect.irregular 'risolutore', 'risolutori'
   inflect.irregular 'segnalazione', 'segnalazioni'
