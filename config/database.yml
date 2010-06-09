@@ -19,8 +19,13 @@
 development: 
   adapter: oracle_enhanced
   database: CLONI2
-  username: GS_SVIL
-  password: GS_SVIL
+  username: TRACKING
+  password: manager
+
+#  adapter: oracle_enhanced
+#  database: CLONI2
+#  username: GS_SVIL
+#  password: GS_SVIL
 
 # Warning: The database defined as "test" will be erased and 
 # re-generated from your development database when you run "rake". 

@@ -29,9 +29,9 @@ gem 'rails', '3.0.0.beta3'
 gem 'authlogic', :git => "git://github.com/odorcicd/authlogic.git", :branch => "rails3"
 
 ###### MONGREL ######
-gem 'mongrel', ">=1.1.6"
-gem 'cgi_multipart_eof_fix'
-gem 'fastthread'
+#gem 'mongrel', ">=1.1.6"
+#gem 'cgi_multipart_eof_fix'
+#gem 'fastthread'
 ####################
 
 gem 'ruby-oci8', '>=2.0.4'

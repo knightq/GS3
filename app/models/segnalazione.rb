@@ -10,10 +10,10 @@ class Segnalazione < ActiveRecord::Base
 
 	scope :time_span, lambda { |da, time_span_behind| where("dtm_risoluzione between ? and ?", da - time_span_behind, da) }
 	scope :time_span_by_today, lambda { |time_span_behind| time_span(Time.zone.now, time_span_behind) }
-	scope :ultimo_mese, time_span(Time.zone.now, 30.days)
+	scope :ultimo_mese, time_span(Time.zone.now, 1.month)
 	scope :assegnate, where('cda_stato in (?)', ['AS', 'AA'])
 	scope :in_consegna, where('consegna_flg = 1')
-	scope :risolte, where('cda_stato in (?)', ['RI', 'VL'])
+	scope :risolte, where('cda_stato in (?)', ['RS', 'VL'])
 	scope :risolutore, lambda { |user| where("cda_risolutore = ?", user) }
 	scope :risolutori, lambda { |users| where("cda_risolutore in (?)", users) }
 
