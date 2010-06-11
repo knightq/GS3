@@ -32,7 +32,7 @@ end
 
 	def filtra(segnalazioni)
 		filtrate = segnalazioni
-		filtrate = filtrate.where(:cda_stato => @stato) if @stato
+		filtrate = segnalazioni.where(:cda_stato => @stato) if @stato
 		filtrate = filtrate.in_consegna if @in_carico
 		return filtrate
 	end

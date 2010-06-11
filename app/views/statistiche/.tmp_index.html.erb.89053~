@@ -1,0 +1,72 @@
+<% title "Statistiche di sviluppo", false %>
+
+<%= content_for :head do %>
+	<%= javascript_include_tag 'swfobject' %>
+	<%= javascript_include_tag 'jquery.min.js' %>
+	<%= javascript_include_tag 'jquery-ui.min.js' %>
+
+	<script type="text/javascript">
+		$(function(){
+			// Nascondo il widget di filtro per timeline dal momento che non è l'accordion preselezionato'
+			$(".timeline_filter").hide();
+
+			// Accordion
+			$("#accordion").accordion({ header: "h3.ui-accordion-header" }).bind('accordionchange', function(event, ui) {
+			  if(ui.newHeader.text().trim() == 'Timeline') {
+					$(".timeline_filter").show();
+				} else {
+					$(".timeline_filter").hide();
+				}
+			});
+
+			$("#tabs").tabs();
+
+		});
+	</script>
+<% end %>
+
+<%= content_for :sidebar do %>
+		<%= render :partial => 'widgets/collapsible_box', :locals => { :title => "Periodo considerato", :content => 'time_span_filter', :statistica_filter => @statistica_filter } %>
+		<%= render :partial => 'widgets/collapsible_box', :locals => { :title => "Elementi visualizzati", :content => 'time_line_filter', :envelope_class => 'timeline_filter' } %>
+<% end %>
+
+	<div id="accordion" class="ui-accordion ui-widget ui-helper-reset">
+			<h3 class="ui-accordion-header ui-helper-reset ui-state-active ui-corner-top">
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Statistiche fra sviluppatori
+				<span class="ui-icon ui-icon-triangle-1-s"/>
+			</h3>
+			<div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom ui-accordion-content-active">
+				<div id="tabs" style="height: 475px;">
+					<ul>
+						<li><a href="#tabs-1">GS risolte</a></li>
+						<li><a href="#tabs-2">Ore impegate</a></li>
+						<li><a href="#tabs-3">Performance</a></li>
+					</ul>
+					<div id="tabs-1" align="center">
+						<%= raw @graph %>
+					</div>
+					<div id="tabs-2" align="center">
+						<%= raw @graph_ore %>
+					</div>
+					<div id="tabs-3" align="center">
+						<%= raw @graph_performance %>
+					</div>
+				</div>
+			</div>
+
+			<h3 class="ui-accordion-header ui-helper-reset ui-state-default ui-corner-all">
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Timeline
+				<span class="ui-icon ui-icon-triangle-1-e"/>
+			</h3>
+			<div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom" align="center">
+				<div class="kion_div" style="height: 475px;"><%= raw @timeline %></div>
+			</div>
+
+			<h3 class="ui-accordion-header ui-helper-reset ui-state-default ui-corner-all">
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Stetistiche per versione
+				<span class="ui-icon ui-icon-triangle-1-e"/>
+			</h3>
+			<div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom">
+				TODO
+			</div>
+	</div>

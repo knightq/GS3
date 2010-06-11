@@ -1,14 +1,15 @@
 module TodoHelper
-	def versione_class(cda_versione)
-		versione = Versione.find_by_cda_versione(cda_versione)
-		if versione
-			oggi = Time.now
-			if((versione.dtm_inizio_lavori < oggi) && (oggi < versione.dtm_rilascio)) 
-				classe = 'corrente'
-			elsif (versione.dtm_rilascio < oggi)
-				classe = 'chiusa'
-			end
-		end
+	def versione_class(versione_coll)
+		if versione_coll
+      versione = Versione.find_by_cda_versione(versione_coll.first)
+      if versione
+        if versione.attiva? 
+          classe = 'corrente'
+        elsif (versione.passata?)
+          classe = 'chiusa'
+        end
+      end      
+    end
 		classe ||= ''
 	end
 

@@ -1,6 +1,7 @@
 <% if @statistica.num_segna > 0 %>
 
 	<%= content_for :head do %>
+		<%= javascript_include_tag 'swfobject' %>
 		<script type="text/javascript">
 		$(function() {
 			$("#progressbar_num_segna").slider({		
@@ -32,15 +33,10 @@
 			<td># segnalazioni:</td>
 			<td id="num_segna"><b><%= @statistica.num_segna %></b>
 			</td>
-			<td width="50%"><div class="ui-progressbar ui-widget ui-widget-content ui-corner-all"><div id="progressbar_num_segna" class="num_segna"></div></div></td>
-		</tr>
-		<tr>
-			<td><div id="prova" /></td>	
-		</tr>
+	</tr>
 		<tr>
 			<td>Totale ore:</td>
 			<td><b><%= @statistica.tot_ore %></b></td>
-			<td><div id="progressbar_tot_ore" class="tot_ore ui-progressbar ui-widget ui-widget-content ui-corner-all"></div></td>
 		</tr>
 	</table>
 

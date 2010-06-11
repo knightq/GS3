@@ -4,7 +4,7 @@
 		<b><%= link_to segnalazione.prg_segna, :action => 'show', :controller => 'segnalazioni', :id => segnalazione.prg_segna %></b>
 	</th>
 	<th align="right">
-		<%= form_for :segnalazione, :html => { :method => :put }, :remote => true do |form| %>
+		<% form_for :segnalazione, :html => { :method => :put }, :remote => true do |form| %>
 	  	<%= form.check_box :consegna_flg %>
 		  <%= image_submit_tag("prendi_in_carico.gif") %>
 		<% end %>
