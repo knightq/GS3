@@ -26,7 +26,7 @@ end
 
 	def self.find_by_status(user_name)
 		su = Segnalazione.risolutore(user_name)
-		tutti_gli_stati = StatiSegnalazione.lavorabile.order('ordine')
+		tutti_gli_stati = StatoSegnalazione.lavorabile.order('ordine')
 		tutti_gli_stati.to_a.reject{|s| su.to_a.select{ |s1| s1.is_in_stato?(s.cda_stato) }.empty? }
 	end
 

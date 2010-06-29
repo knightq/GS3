@@ -480,6 +480,14 @@ div.versione {
 	width:100%;
 	background:#CFE0FF url(../images/arrow_collapsed.png) no-repeat scroll 0 40%;
 }
+div.wip {
+/*	background:#CFE0FF;*/
+	border:1px solid #333;
+	cursor: move;
+	height:36px;
+	width:100%;
+	background:#CFE0FF url(../images/arrow_collapsed.png) no-repeat scroll 0 40%;
+}
 table.versione {
 	border: 0px;
 	float: right;

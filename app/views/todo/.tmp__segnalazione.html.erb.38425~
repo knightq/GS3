@@ -1,3 +1,4 @@
+<table>
 	<tr>
 		<th align="left">
 			<span class='drag'><%= image_tag('box_mini.png') %></span>
@@ -38,3 +39,4 @@
 			<%=text_area_tag 'Descrizione', segnalazione.des_segna, :size => "90x5", :disabled => true %>
 		</td>
 	</tr>
+</table>

@@ -12,6 +12,7 @@
 
 <h1><%= pluralize(@prodotti.size, 'Prodotto').split.last %></h1>
 <div id='prodotti_container'>
-	<%= render :partial => "prodotto", :collection => @prodotti, :as => :prodotto %>
+	<%= render :partial => "prodotto2", :collection => @prodotti, :as => :prodotto %>
 </div>
+<%#= render @prodotti %>
 

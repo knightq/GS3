@@ -27,4 +27,16 @@ class Utente < ActiveRecord::Base
 		Utente.find(pt)
   end
 
+  def analista?
+    analista_flg
+  end
+
+  def programmatore?
+    programmatore_flg
+  end
+
+  def cq?
+    cq_flg
+  end
+
 end

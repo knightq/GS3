@@ -1,0 +1,13 @@
+<tr>
+	<td id="gruppo_<%= segnalazioni[0] %>_head" class="gruppo_head">
+		<span class="wip" style="width: 200px;">
+			<%= segnalazioni[0] %> (<%=segnalazioni[1].size %>)
+		</span>
+		<span>Ore</span>
+		<div id="segnalazioni" class="segnalazioni_container">
+			<table>
+				<%= render :partial => segnalazione_partial, :collection => segnalazioni[1], :as => :segnalazione %>
+			</table>
+		</div>
+	</td>
+</tr>

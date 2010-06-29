@@ -35,4 +35,20 @@ module TodoHelper
     res ||= "--"
   end
 
+  def grouped(segnalazioni)
+    segnalazioni.group_by { |segn| segn.lavorabilita(current_user.user_name) }
+  end
+
+  def wip(segnalazioni)
+    segnalazioni
+  end
+
+  def ready(segnalazioni)
+    segnalazioni
+  end
+  
+  def wait(segnalazioni)
+    segnalazioni
+  end
+
 end

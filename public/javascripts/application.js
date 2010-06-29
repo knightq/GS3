@@ -22,7 +22,9 @@ $(document).ready(function(){
 	//Hide (Collapse) segnalazioni on load
 //	$(".segnalazioni").hide();
 	//Hide (Collapse) segnalazioni_container on load
+	$(".gruppi_container").hide();
 	$(".segnalazioni_container").hide();
+	//$(".segnalazioni_group_container").hide();
 	$(".versione").children('#versione_ore').hide();
 
 	//Switch the "Open" and "Close" state per click
@@ -49,10 +51,26 @@ $(document).ready(function(){
 	//Switch the "Open" and "Close" state per hover
 	$("div.versione").toggle(function(){
 		$(this).addClass("closed");
-		$(this).next('.segnalazioni_container').slideToggle(1000);
+		$(this).children('.gruppi_container').slideToggle(1000);
 		}, function () {
 		$(this).removeClass("closed");
-		$(this).next('.segnalazioni_container').slideToggle(1000);
+		$(this).children('.gruppi_container').slideToggle(1000);
+	});
+	
+	$("div.gruppi_container").toggle(function(){
+		$(this).addClass("closed");
+		$(this).children('.gruppo').slideToggle(1000);
+		}, function () {
+		$(this).removeClass("closed");
+		$(this).children('.gruppo').slideToggle(1000);
+	});
+	
+	$(".gruppo_head").toggle(function(){
+		$(this).addClass("closed");
+		$(this).children('.segnalazioni_container').slideToggle(1000);
+		}, function () {
+		$(this).removeClass("closed");
+		$(this).children('.segnalazioni_container').slideToggle(1000);
 	});
 
 	//Slide up and down on click
