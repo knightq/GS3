@@ -1,7 +1,7 @@
 
 div.in_carico {
-	position:relative;	
-#	background-image:url(../images/burden.gif);
+    position: relative;
+    #	background-image:url(../images/burden.gif);
 #	background-repeat:no-repeat;
 #	background-position:left bottom;	
 #	background-color: #CFE0FF;
@@ -472,13 +472,45 @@ fieldset.collapsible.collapsed legend {
 fieldset.collapsible.closed legend {
 	background-image:url(../images/arrow_collapsed.png);
 }
-div.versione {
-/*	background:#CFE0FF;*/
-	border:1px solid #333;
+.versioni_container {
+	width: auto;	
+}
+.versioni {
+	min-width: 100%;
+}
+.versione {
+	background:#CFE0FF url(../images/arrow_collapsed.png) no-repeat top left;	
+	border: none;
 	cursor: move;
-	height:36px;
-	width:100%;
-	background:#CFE0FF url(../images/arrow_collapsed.png) no-repeat scroll 0 40%;
+	min-height: 32px;
+	padding-left: 12px;
+}
+.versione.opened {
+	background:#CFE0FF url(../images/arrow_expanded.png) no-repeat top left;
+}
+
+.versione_head {
+	border: none;
+	width: auto;
+	padding-left: 10px;
+}
+.gruppi {
+	border: none;
+}
+.gruppo_head {
+	min-height: 40px;
+}
+.gruppo_wip {
+	background: green url(../images/wip.gif) no-repeat top left;
+	padding-left: 40px;
+}
+.gruppo_ready {
+	background: yellow url(../images/ready.png) no-repeat top left;
+	padding-left: 40px;
+}
+.gruppo_wait {
+	background: red url(../images/waiting.png) no-repeat top left;
+	padding-left: 40px;
 }
 div.wip {
 /*	background:#CFE0FF;*/
@@ -504,9 +536,6 @@ table.versione td {
 	text-align: center;
 }
 
-div.versione.closed {
-	background:#CFE0FF url(../images/arrow_expanded.png) no-repeat scroll 0 40%;
-}
 .header_versione {
 	padding-left: 25px;
 	font-size: 1.1em;
@@ -536,23 +565,29 @@ div.segnalazioni_container_closed {
 }
 div.segnalazioni_container {
 	position: relative;
-	left: 15px;
-	width: 900px;
+	left: -15px;
+	width: 600px;
 }
-
+.segnalazione_details {
+	background: #ffffff;
+}
 div#segnalazione_summary {
 	font-size: 0.9em;
 	line-height: 1.1em;
 	background-color:#FFC;
 	position: relative;
 	float: left;
-/*	position: absolute;
-	left: -180px; */
 	overflow: hidden;
 	white-space:nowrap;
 	width: 180px;
 }
 
+th#segnalazione_summary {
+	font-size:0.8em;
+	font-weight: normal;
+	line-height:0.8em;
+	text-align: left;
+}
 div#segnalazione_descrizione {
 	cursor:move;
 	float: right;
@@ -583,7 +618,11 @@ div.versione th.corrente {
 div.versione th.chiusa {
 	text-decoration:line-through
 }
-
+.group_name {
+	font-size:1.2em;
+	text-align: left;
+	top: 15px;
+}
 div#segnalazione_show_desc {
   background: #FFFFDD none repeat scroll 0 0;
 	border: 1px solid #D7D7D7;

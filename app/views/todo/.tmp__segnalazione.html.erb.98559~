@@ -1,19 +1,20 @@
-	<tr class="segnalazione_head">
+	<tr>
 		<th align="left">
 			<span class='drag'><%= image_tag('box_mini.png') %></span>
 			<b><%= link_to segnalazione.prg_segna, :action => 'show', :controller => 'segnalazioni', :id => segnalazione.prg_segna %></b>
 		</th>
-		<th id="segnalazione_summary">
-			Segnalato da: <b><%= segnalazione.cda_segnalatore%></b> il <b><%= l segnalazione.dtm_creaz, :format => '%d/%m/%Y' %></b> (<%= pluralize(Date.today - segnalazione.dtm_creaz.to_date, 'giorno') %> fa)<br/>
-			<%#= form_for :segnalazione, :html => { :method => :put }, :remote => true do |form| %>
-		  	<%#= form.check_box :consegna_flg %>
-			  <%#= image_submit_tag("prendi_in_carico.gif") %>
-			<%# end %>
+		<th align="right">
+			<%= form_for :segnalazione, :html => { :method => :put }, :remote => true do |form| %>
+		  	<%= form.check_box :consegna_flg %>
+			  <%= image_submit_tag("prendi_in_carico.gif") %>
+			<% end %>
 		</th>
 	</tr>
-	<tr class="segnalazione_details">
+	<tr>
 		<td id="segnalazione_summary">
 			<span style="white-space:nowrap;">
+				Segnalato da: <b><%= segnalazione.cda_segnalatore%></b><br/>
+				il <b><%= l segnalazione.dtm_creaz, :format => '%d/%m/%Y' %></b> (<%= pluralize(Date.today - segnalazione.dtm_creaz.to_date, 'giorno') %> fa)<br/>
 				<%= render :partial => "widgets/discrete_meter", :locals => { 
 					:label => 'Gravità',
 					:width => '120px', 
@@ -28,12 +29,12 @@
 					:range => Priorita.range,
 					:selected => segnalazione.cdn_priorita,
 					:style_class => 'no-border'
-				} %>
+				} %><br/>
 				Stato: <b><%=segnalazione.stato_des %></b><br/>
 				Stima ore: <b><%=segnalazione.tempo_risol_stimato %></b><br/>
 			</span>	
 		</td>
 		<td id="segnalazione_descrizione">
-			<%=text_area_tag 'Descrizione', segnalazione.des_segna, :size => "70x4", :disabled => true %>
+			<%=text_area_tag 'Descrizione', segnalazione.des_segna, :size => "90x5", :disabled => true %>
 		</td>
 	</tr>

@@ -17,14 +17,9 @@ $(document).ready(function(){
 			$(this).nextAll('div').children('.collapsible').slideDown('slow');
 		});
 
-	//Show the toggle containers on load
-	$(".toggle_container").show(); 
-	//Hide (Collapse) segnalazioni on load
-//	$(".segnalazioni").hide();
 	//Hide (Collapse) segnalazioni_container on load
 	$(".gruppi_container").hide();
 	$(".segnalazioni_container").hide();
-	//$(".segnalazioni_group_container").hide();
 	$(".versione").children('#versione_ore').hide();
 
 	//Switch the "Open" and "Close" state per click
@@ -49,11 +44,11 @@ $(document).ready(function(){
 	});
 
 	//Switch the "Open" and "Close" state per hover
-	$("div.versione").toggle(function(){
-		$(this).addClass("closed");
+	$(".versione").toggle(function(){
+		$(this).addClass("opened");
 		$(this).children('.gruppi_container').slideToggle(1000);
 		}, function () {
-		$(this).removeClass("closed");
+		$(this).removeClass("opened");
 		$(this).children('.gruppi_container').slideToggle(1000);
 	});
 	
@@ -74,12 +69,12 @@ $(document).ready(function(){
 	});
 
 	//Slide up and down on click
-	$("div.versione").mouseover(function(){
+	$(".versione").mouseover(function(){
 		if (!$(this).is('.closed')) {
 			$(this).children('#versione_ore').slideToggle(100);
 		}
 	});
-	$("div.versione").mouseout(function(){
+	$(".versione").mouseout(function(){
 		if (!$(this).is('.closed')) {
 			$(this).children('#versione_ore').slideToggle(100);
 		}
