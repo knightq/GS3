@@ -50,4 +50,9 @@ class ApplicationController < ActionController::Base
     @current_user_session = UserSession.find
   end
 
+  def esci
+    @current_user_session = nil
+    redirect_to home_path
+  end
+
 end

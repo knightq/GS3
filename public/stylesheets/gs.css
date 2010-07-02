@@ -1,3 +1,48 @@
+.login_form {
+	color: navy;
+	font-weight: bold;
+	vertical-align: middle;
+	text-align: center;
+	height: 100px;
+	min-height: 100px;
+	width: 500px;
+	margin-left: auto ;
+  	margin-right: auto ;
+	margin-top: 20%;
+	margin-bottom: 20%;
+}
+.login_form table {
+	border: 0;
+	height: 60%;
+}
+.login_form div {
+	float: left;
+	padding: 5px;
+	height: 100%;
+	min-height: 100%;
+	vertical-align: middle;
+}
+.login_form img {
+	float: left;
+	padding-top: 30px;
+}
+
+.login_form div.entra {
+	vertical-align: middle;
+	padding: 0px 10px 0px 10px;
+	text-align: right;
+	float: right;
+	margin-bottom: auto;
+	margin-top: auto;
+}
+
+.login_form form {
+	-moz-border-radius: 15px;
+	-webkit-border-radius: 15px;
+	border: 2px solid navy;
+	background-color: #67A0CF;
+	height: 120px;
+}
 
 div.in_carico {
     position: relative;
@@ -7,7 +52,7 @@ div.in_carico {
 	#	background-color: #CFE0FF;
 	#	border: 0px;
 	height: 300px;
-	width: 260px;	
+	width: 100%;	
 }
 
 div.collapsible_box_envelope_default {
@@ -211,6 +256,12 @@ div#banner img.title {
   	max-width: 350px;
 	top:68px;
 }
+.sidebar_bg_moz {
+	background: -moz-linear-gradient( left center, rgb(67,97,158) 97%, rgb(255,255,255) 100%) left;
+}
+.sidebar_bg_saf {
+	background: -webkit-gradient( linear, left bottom, right bottom, color-stop(0, rgb(67,97,158)), color-stop(0.2, rgb	(255,255,255)))
+}
 .sidebar_closed {
 	min-width: 0px;
 }
@@ -227,6 +278,7 @@ div#banner img.title {
 	/*min-width: 70%;
 	max-width: 70%;*/
 	max-height: 582px;
+	min-height: 100%;
 	width: 70%;
 	/*left: 358px;*/
 	/*position: absolute;*/
@@ -235,9 +287,9 @@ div#banner img.title {
 }
 
 #sidebar a {
-  color: #FFb;
+ /* color: #FFb;
   font-size: medium;
-  text-decoration: none;
+  text-decoration: none;*/
 }
 /* END:mainlayout */
 
@@ -388,16 +440,20 @@ li.organizator {
 }
 
 #function_title {
-	color: navy;
+	color: #FFF;
 	overflow:visible;
 	border: 2px solid navy;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
   position: relative;
   bottom: 12px;
-  left: 348px;
+  left: 350px;
 	height: 18px;
   width: 400px;
-	background-color: #CFE0FF;
+#	background-color: #CFE0FF;
+	background-color: #67A0CF;
 	text-align:center;
+	font-weight: bold;
   line-height: 1em;
 }
 
@@ -924,4 +980,39 @@ div.kion_div {
 
 textarea.descrizione_segnalazione_todo {
 	width: 100%;
+}
+
+table.segnalazioni_in_carico {
+	width: 100%;
+	min-width: 100%;
+	border: 0;
+}
+.priorita_4 a {
+	font-size: 0.6em;
+}
+.priorita_3 a {
+	font-size: 0.8em;	
+}
+.priorita_2 a {
+	font-size: 1em;
+}
+.priorita_1 a {
+	font-size: 1.2em;
+	text-decoration: underline;	
+}
+.gravita_4 a {
+	color: #B1D606;
+	text-shadow: #fff; 
+}
+.gravita_3 a {
+	color: #DBAA00;
+	text-shadow: #fff; 
+}
+.gravita_2 a {
+	color: #F7780E;
+	text-shadow: #fff; 
+}
+.gravita_1 a {
+	color: #FF472F;
+	text-shadow: #fff; 
 }

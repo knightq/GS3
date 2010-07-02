@@ -10,11 +10,17 @@ var hideFlashes = function() {
 $(document).ready(function(){
 		setTimeout(hideFlashes, 1000);
 
+		if( $(".dynamic_sidebar_content > div").size() > 0 ) {
+			$('.sidebar_tools').show()
+		} else {
+			$('.sidebar_tools').hide()
+		}
+
 		$('.collapse_all').click(function(){
-			$(this).nextAll('div').children('.collapsible').slideUp('slow');
+			$(this).parent().next('dynamic_sidebar_content').nextAll('div').children('.collapsible').slideUp('slow');
 		});
 		$('.expand_all').click(function(){
-			$(this).nextAll('div').children('.collapsible').slideDown('slow');
+			$(this).parent().next('dynamic_sidebar_content').nextAll('div').children('.collapsible').slideDown('slow');
 		});
 
 		$('.sidebar_toggler').toggle(function(){

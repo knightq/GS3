@@ -5,8 +5,9 @@ class TodoController < ApplicationController
   def index
     @todo ||= TodoQuery.new('AS')
     #@segnalazioni = @todo.filtra(Segnalazione.risolutore(current_user.user_name))
-    @prodotti = Segnalazione.find_by_user_todo(current_user.user_name).order('cda_prodotto ASC').to_a.group_by(&:cda_prodotto).sort {|a,b| a[0]<=>b[0]}
-
+    segnalazioni = Segnalazione.find_by_user_todo(current_user.user_name).order('cda_prodotto ASC')
+    @prodotti = segnalazioni.to_a.group_by(&:cda_prodotto).sort {|a,b| a[0]<=>b[0]}
+    @in_carico = segnalazioni.in_consegna
     risolte_ultimo_mese = Segnalazione.risolte_ultimo_mese(current_user.user_name)
     @statistica = Statistica.new(risolte_ultimo_mese.size, risolte_ultimo_mese.each.inject(0) { |sum, el| sum = sum + el.tempo_risol_impiegato })
     @graph = open_flash_chart_object(200,100,"/todo/graph_code")

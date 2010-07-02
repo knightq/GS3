@@ -13,12 +13,16 @@ class Segnalazione < ActiveRecord::Base
   scope :ultimo_mese, time_span(Time.zone.now, 1.month)
   scope :assegnate, where('cda_stato in (?)', ['AS', 'AA'])
   scope :in_consegna, where('consegna_flg = 1')
+  scope :in_todo, lambda { |user| where("(cda_risolutore = ? and cda_stato = 'AS') or (cda_risolutore_ana = ? and cda_stato = 'AA') or (cda_validatore = ? and cda_stato = 'RS')", user, user, user) }
   scope :risolte, where('cda_stato in (?)', ['RS', 'VL'])
+  scope :risolutore_or_risolutore_analisi, lambda { |user| where("cda_risolutore = ? or cda_risolutore_ana = ?", user, user) }
   scope :risolutore, lambda { |user| where("cda_risolutore = ?", user) }
+  scope :risolutore_analisi, lambda { |user| where("cda_risolutore_ana = ?", user) }
   scope :risolutori, lambda { |users| where("cda_risolutore in (?)", users) }
+  scope :risolutori_analisi, lambda { |user| where("cda_risolutore_ana = in (?) ", users) }
   
   def self.find_by_user_todo(user_id)
-    Segnalazione.risolutore(user_id).assegnate
+    Segnalazione.in_todo(user_id)
   end
   
   def self.count_by_user_and_stato(user_id, stato)
@@ -112,6 +116,10 @@ class Segnalazione < ActiveRecord::Base
   def cod_prodotto=(cda_prodotto)
     puts "SET cod_prodotto!!!! #{cda_prodotto}"
     self.prodotto = Prodotto.find_by_cda_prodotto(cda_prodotto) unless cda_prodotto.blank?
+  end
+
+  def versione_pianificata
+    cda_versione_pian ? cda_versione_pian : "Non pianificate" 
   end
 
   def stati_che_coinvolgono(user)

@@ -11,6 +11,7 @@
 	<%= javascript_include_tag 'jquery-ui-1.8.1.custom.min' %>
 
     <%= stylesheet_link_tag 'application' %>
+	<%= stylesheet_link_tag 'button' %>
     <%= stylesheet_link_tag 'gs' %>
     <%= stylesheet_link_tag 'menu' %>
     <%= stylesheet_link_tag 'jquery-ui-1.8.1.custom' %>
@@ -32,8 +33,7 @@
 
 				<div id="user_info">
 					Sei autenticato come <b><%= @current_user.user_name %></b> |
-					<%= link_to "Esci", user_session_path(current_user.id), :confirm => "Sicuro di voler scollegarti?", :method => :destroy %>
-					<%#= button_to "Esci", { :action => "delete", :id => current_user.id }, :confirm => "Sicuro di voler scollegarti?", :method => :delete %>
+					<%= link_to "Esci", logout_url %>
 				</div>
 			<% end %>
 			<% if show_title? %>
@@ -41,7 +41,7 @@
 			<% end %>
 		</div>
 		<%= tag('div', {:id => 'main', :class => (has_content?(:sidebar) ? '' : 'nosidebar')}, true) %>
-		<div id="sidebar" class="sidebar_opened">
+		<div id="sidebar" class="sidebar_opened <%= sidebar_bg_class %>">
 			<span class="sidebar_tools">
 				<span title="Collassa tutti i blocchi", class="collapse_all">&nbsp;&nbsp;&nbsp;</span>
 				<span title="Espandi tutti i blocchi", class="expand_all">&nbsp;&nbsp;&nbsp;</span>

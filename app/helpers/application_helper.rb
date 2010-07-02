@@ -12,6 +12,10 @@ module ApplicationHelper
 		true
   end
 
+  def sidebar_bg_class
+    request.env['HTTP_USER_AGENT'] =~ /Mozilla/ ? 'sidebar_bg_moz' : 'sidebar_bg_saf'
+  end
+
 	def droppable_area(opts={})
 		render :partial => 'segnalazioni/in_carico', :titolo => opts[:title]
 	end

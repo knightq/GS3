@@ -3,7 +3,6 @@ module TodoHelper
 		if versione_coll
       versione = Versione.find_by_cda_versione(versione_coll)
       if versione
-        puts "Fin QUI OK!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"  
         if versione.attiva? 
           classe = 'corrente'
         elsif (versione.passata?)

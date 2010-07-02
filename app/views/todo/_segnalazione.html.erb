@@ -18,7 +18,7 @@
 					:label => 'Gravità',
 					:width => '120px', 
 					:range => Gravita.range,
-					:selected => segnalazione.cdn_gravita,
+					:selected => segnalazione.cdn_gravita - 1,
 					:style_class => 'no-border'
 					}%>
 					 <br/>
@@ -26,7 +26,7 @@
 					:label => 'Priorità',				
 					:width => '120px', 
 					:range => Priorita.range,
-					:selected => segnalazione.cdn_priorita,
+					:selected => segnalazione.cdn_priorita - 1,
 					:style_class => 'no-border'
 				} %>
 				Stato: <b><%=segnalazione.stato_des %></b><br/>

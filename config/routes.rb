@@ -52,9 +52,8 @@ Gs3::Application.routes.draw do |map|
 	#root :to => 'user_sessions#new' 
   
 	map.home '', :controller => "user_sessions", :action => 'new'
-
  # map 'login', :controller => "user_sessions", :action => 'create'
- # map 'logout', :controller => "user_sessions", :action => 'destroy'  
+  map.logout 'logout', :controller => "user_sessions", :action => 'destroy' 
   # See how all your routes lay out with "rake routes"
 
   resource :user_session

@@ -1,12 +1,30 @@
 <% title "Autenticazione" %>
-
-<%= form_for @user_session, :url => user_session_path do |f| %>
-  <%= f.error_messages %>
-  <%= f.label :user_name %><br />
-  <%= f.text_field :user_name %><br />
-  <br />
-  <%= f.label :password %><br />
-  <%= f.password_field :user_pwd %><br />
-  <br />
-  <%= f.submit "Entra" %>
-<% end %>
+<div class="login_form">
+	<span>
+		<%= image_tag("authentication.png") %>
+	</span>
+	<span>
+	    <%= form_for @user_session, :url => user_session_path do |f| %>
+	    	<%= f.error_messages %>
+			<br/>
+	    	<div>
+	    		<table>
+	    			<tr>
+	    				<td><%= f.label :username %>:</td>
+						<td><%= f.text_field :user_name, :size => 12 %></td>
+						<td rowspan="2">
+							&nbsp;
+						</td>
+						<td rowspan="2">
+							<%= f.submit "Entra", :class => 'button blue' %>							
+						</td>
+	    			</tr>
+					<tr>
+						<td><%= f.label :password %>:</td>
+						<td><%= f.password_field :user_pwd, :size => 12 %></td>
+					</tr>
+	    		</table>
+			</div>
+	    <% end %>
+	</span>
+</div>
