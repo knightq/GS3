@@ -1,7 +1,7 @@
-<tr>
-	<td id="gruppo_<%= segnalazioni[0] %>_head" class="gruppo_<%= segnalazioni[0].downcase %> gruppo_head">
+<tr class="gruppo_<%= segnalazioni[0].downcase.dehumanize %>">
+	<td id="gruppo_<%= segnalazioni[0].downcase.dehumanize %>_head" class="gruppo_<%= segnalazioni[0].downcase.dehumanize %> gruppo_head">
 		<span class="group_name" style="width: 200px;">
-			<%= segnalazioni[0] %> (<%=segnalazioni[1].size %>)
+			<b><%= segnalazioni[0] %></b> (<%=segnalazioni[1].size %>)
 		</span>
 		<span>Ore</span>
 		<div id="segnalazioni" class="segnalazioni_container">

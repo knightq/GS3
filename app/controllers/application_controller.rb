@@ -29,7 +29,8 @@ class ApplicationController < ActionController::Base
     if current_user
       #store_location
       flash[:notice] = "Non devi essere autenticato per accedere a questa pagina"
-      redirect_to root_url
+      #redirect_to root_url
+      redirect_to home_path
       return false
     end
   end

@@ -59,7 +59,7 @@ class Segnalazione < ActiveRecord::Base
     elsif (stati_che_coinvolgono(user).inject(false) {|n, stato| n ||= stato > my_cda_stato })
       res = "WAIT"
     elsif (ready_for?(user) and consegna_flg)
-      res = "WIP"
+      res = "IN LAVORAZIONE"
     end
     return res
   end

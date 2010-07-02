@@ -49,10 +49,12 @@ Gs3::Application.routes.draw do |map|
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
 #  root :to => 'user_sessions#new' unless current_user
-	root :to => 'user_sessions#new' 
+	#root :to => 'user_sessions#new' 
   
 	map.home '', :controller => "user_sessions", :action => 'new'
 
+ # map 'login', :controller => "user_sessions", :action => 'create'
+ # map 'logout', :controller => "user_sessions", :action => 'destroy'  
   # See how all your routes lay out with "rake routes"
 
   resource :user_session

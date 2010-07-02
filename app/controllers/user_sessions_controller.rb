@@ -19,7 +19,7 @@ class UserSessionsController < ApplicationController
   def destroy
     current_user_session.destroy
     flash[:notice] = "Disconnesso!"
-    redirect_to :controller => 'user_session', :action => 'new'
+    redirect_to home_path
   end
 
 end

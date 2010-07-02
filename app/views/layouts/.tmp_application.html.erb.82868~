@@ -41,12 +41,9 @@
 			<% end %>
 		</div>
 		<%= tag('div', {:id => 'main', :class => (has_content?(:sidebar) ? '' : 'nosidebar')}, true) %>
-		<div id="sidebar" class="sidebar_opened">
-			<span class="sidebar_tools">
-				<span title="Collassa tutti i blocchi", class="collapse_all">&nbsp;&nbsp;&nbsp;</span>
-				<span title="Espandi tutti i blocchi", class="expand_all">&nbsp;&nbsp;&nbsp;</span>
-			</span>
-			<span title="Nascondi la barra degli strumenti", class="sidebar_toggler hide_sidebar">&nbsp;&nbsp;&nbsp;</span>
+		<div id="sidebar">
+			<span title="Collassa tutti i blocchi", class="collapse_all">&nbsp;&nbsp;&nbsp;</span>
+			<span title="Espandi tutti i blocchi", class="expand_all">&nbsp;&nbsp;&nbsp;</span>
 			<% unless (flash[:notice].blank? and flash[:error].blank?) %>
 				<div id="flash_messages">
 					<% flash.each do |name, msg| %>
@@ -54,9 +51,7 @@
 					<% end %>
 				</div>
 			<% end %>
-			<div class="dynamic_sidebar_content">
-				<%= yield :sidebar %>
-			</div>
+			<%= yield :sidebar %>
 		</div>
 
 		<div id="content">

@@ -1,8 +1,9 @@
 module TodoHelper
 	def versione_class(versione_coll)
 		if versione_coll
-      versione = Versione.find_by_cda_versione(versione_coll.first)
+      versione = Versione.find_by_cda_versione(versione_coll)
       if versione
+        puts "Fin QUI OK!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"  
         if versione.attiva? 
           classe = 'corrente'
         elsif (versione.passata?)
@@ -36,7 +37,7 @@ module TodoHelper
   end
 
   def grouped(segnalazioni)
-    segnalazioni.group_by { |segn| segn.lavorabilita(current_user.user_name) }
+    segnalazioni.group_by { |segn| segn.lavorabilita(current_user.user_name) }.sort
   end
 
   def wip(segnalazioni)

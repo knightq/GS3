@@ -17,6 +17,39 @@ $(document).ready(function(){
 			$(this).nextAll('div').children('.collapsible').slideDown('slow');
 		});
 
+		$('.sidebar_toggler').toggle(function(){
+				$('#sidebar').removeClass('sidebar_opened').addClass('sidebar_closed');
+				$('#sidebar').animate({ width: "0%" }, 1500, function() {
+   					// Animation complete.
+					$('.sidebar_toggler').removeClass('hide_sidebar').addClass('show_sidebar');
+					$('.sidebar_toggler').attr('title', 'Mostra la barra degli strumenti');
+				});
+				$('#content').animate({ width: "98%", 'padding-left': "2%" }, 1500);
+				$('.sidebar_tools').animate({ opacity: "0" }, 750, function() {
+    				// Animation complete.
+					$('.sidebar_tools').hide();
+	  			});
+				$('.dynamic_sidebar_content').animate({ opacity: "0" }, 750, function() {
+    				// Animation complete.
+					$('.dynamic_sidebar_content').hide();
+	  			});
+			}, function() {
+				$('.sidebar_toggler').removeClass('show_sidebar').addClass('hide_sidebar');
+				$('.sidebar_toggler').attr('title', 'Nascondi la barra degli strumenti');
+				$('#sidebar').animate({ width: "30%" }, 1500, function() {
+					$(this).removeClass('sidebar_closed').addClass('sidebar_opened');
+				});
+				$('#content').animate({ width: "70%", 'padding-left': "360px" }, 1500);				
+				$('.sidebar_tools').animate({ opacity: "100" }, 750, function() {
+    					// Animation complete.
+						$('.sidebar_tools').show();
+	  				}
+				);
+				$('.dynamic_sidebar_content').show();
+				$('.dynamic_sidebar_content').animate({ opacity: "100" }, 750);
+			}
+		);
+
 	//Hide (Collapse) segnalazioni_container on load
 	$(".gruppi_container").hide();
 	$(".segnalazioni_container").hide();
@@ -60,12 +93,12 @@ $(document).ready(function(){
 		$(this).children('.gruppo').slideToggle(1000);
 	});
 	
-	$(".gruppo_head").toggle(function(){
-		$(this).addClass("closed");
-		$(this).children('.segnalazioni_container').slideToggle(1000);
+	$(".group_name").toggle(function(){
+		$(this).parent().addClass("closed");
+		$(this).parent().children('.segnalazioni_container').slideToggle(1000);
 		}, function () {
-		$(this).removeClass("closed");
-		$(this).children('.segnalazioni_container').slideToggle(1000);
+		$(this).parent().removeClass("closed");
+		$(this).parent().children('.segnalazioni_container').slideToggle(1000);
 	});
 
 	//Slide up and down on click
@@ -79,57 +112,6 @@ $(document).ready(function(){
 			$(this).children('#versione_ore').slideToggle(100);
 		}
 	});
-
-$(".drag")
-        .bind( "dragstart", function( event ){
-                // ref the "dragged" element, make a copy
-                var $drag = $( this ), $proxy = $drag.clone();
-                // modify the "dragged" source element
-                $drag.addClass("outline");
-                // insert and return the "proxy" element                
-                return $proxy.appendTo( document.body ).addClass("ghost");
-                })
-        .bind( "drag", function( event ){
-                // update the "proxy" element position
-                $( event.dragProxy ).css({
-                        left: event.offsetX,
-                        top: event.offsetY
-                        });
-                })
-        .bind( "dragend", function( event ){
-                // remove the "proxy" element
-                $( event.dragProxy ).fadeOut( "normal", function(){
-                        $( this ).remove();
-                        });
-                // if there is no drop AND the target was previously dropped
-                if ( !event.dropTarget && $(this).parent().is(".drop") ){
-                        // output details of the action
-                        $('#log').append('<div>Removed <b>'+ this.title +'</b> from <b>'+ this.parentNode.title +'</b></div>');
-                        // put it in it's original div...
-                        $('#nodrop').append( this );
-                        }
-                // restore to a normal state
-                $( this ).removeClass("outline");      
-               
-                });
-$(".drop")
-        .bind( "dropstart", function( event ){
-                // don't drop in itself
-                if ( this == event.dragTarget.parentNode ) return false;
-                // activate the "drop" target element
-                $( this ).addClass("active");
-                })
-        .bind( "drop", function( event ){
-                // if there was a drop, move some data...
-                $( this ).append( event.dragTarget );
-                // output details of the action...
-                $('#log').append('<div>Dropped <b>'+ event.dragTarget.title +'</b> into <b>'+ this.title +'</b></div>');        
-								alert('Presa in carico!')                
-								})
-        .bind( "dropend", function( event ){
-                // deactivate the "drop" target element
-                $( this ).removeClass("active");
-                });
 
 });
 
