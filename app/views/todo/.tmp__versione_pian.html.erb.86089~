@@ -1,0 +1,23 @@
+<tr>
+    <td>
+        <div id="versione_<%=versione[0] if versione %>" class="versione">
+				<table class="versione_head">
+	                <tr>
+	                    <th rowspan="2" class="versione_nr <%= versione_class(versione[0]) if versione %>" style="width: 25%">
+	                        <%=versione ? versione[0] : "Boh!" %> (<%=versione[1].size if versione %>)
+	                    </th>
+	                    <th style="width: 10%;">
+	                    </th>
+	                    <th style="width: 65%;">
+	                        Ore
+	                    </th>
+	                </tr>
+	            </table>            	
+            <div id="gruppi_<%=versione.first %>" class="gruppi_container">
+                <table class="gruppi">
+                    <%= render :partial => "wipreadywait", :collection => grouped(versione[1]), :as => :segnalazioni %>
+                </table>
+            </div>
+        </div>
+    </td>
+</tr>

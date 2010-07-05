@@ -455,6 +455,7 @@ li.organizator {
 	text-align:center;
 	font-weight: bold;
   line-height: 1em;
+  z-index: 2;
 }
 
 th {
