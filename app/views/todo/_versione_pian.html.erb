@@ -1,3 +1,4 @@
+<% sezioni = grouped(versione[1]) %>
 <tr>
     <td>
         <div id="versione_<%=versione[0] if versione %>" class="versione">
@@ -9,13 +10,13 @@
 	                    <th style="width: 10%;">
 	                    </th>
 	                    <th style="width: 65%;">
-	                        Ore
+	                        Ore: <%= ore_per_sezione(sezioni) %>
 	                    </th>
 	                </tr>
 	            </table>            	
             <div id="gruppi_<%=versione.first %>" class="gruppi_container">
                 <table class="gruppi">
-                    <%= render :partial => "wipreadywait", :collection => grouped(versione[1]), :as => :segnalazioni %>
+                    <%= render :partial => "wipreadywait", :collection => sezioni, :as => :segnalazioni %>
                 </table>
             </div>
         </div>

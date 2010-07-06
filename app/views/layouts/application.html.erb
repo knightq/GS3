@@ -9,6 +9,7 @@
 	<%= javascript_include_tag 'jquery.event.drop-1.1' %>
 	<%= javascript_include_tag 'jquery-1.4.2.min' %>
 	<%= javascript_include_tag 'jquery-ui-1.8.1.custom.min' %>
+	<%= javascript_include_tag 'MacStyleDock.compressed' %>
 
     <%= stylesheet_link_tag 'application' %>
 	<%= stylesheet_link_tag 'button' %>
@@ -17,7 +18,6 @@
     <%= stylesheet_link_tag 'jquery-ui-1.8.1.custom' %>
 
 	<%= csrf_meta_tag %>
-
 	<%= yield(:head) %>
   </head>
   <body>
@@ -64,6 +64,8 @@
 		</div>
 	</div>
 	
-	<div id="footer">Powered by GS on Rails © 2010 <%= mail_to("asalicetti@kion.it", "Andrea Salicetti", :encode => "javascript").html_safe %></div>
+	<div id="footer">Powered by GS on Rails © 2010 <%= mail_to("asalicetti@kion.it", "Andrea Salicetti", :encode => "javascript").html_safe %>
+		<div id="dock"></div>
+	</div>
 	</body>
 </html>

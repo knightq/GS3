@@ -68,6 +68,11 @@ class Segnalazione < ActiveRecord::Base
     return res
   end
 
+  def is_lavorabile_or_in_lavorazione(user)
+    grp = lavorabilita(user)
+    grp.eql?("READY") or grp.eql?("IN LAVORAZIONE")  
+  end
+
   def is_in_stato?(stato)
     cda_stato == stato
   end
@@ -89,7 +94,20 @@ class Segnalazione < ActiveRecord::Base
   def wait_for?(user)
 
   end
-  
+
+  def tempo_stimato
+    puts "CIAOCIAOCIAOCIAOCIAOCIAOCIAOCIAO #{cda_stato} "
+    if aa?
+      tempo_ris_ana_stimato
+    elsif as?
+      tempo_risol_stimato
+    elsif rs?
+      tempo_val_stimato
+    else 
+      0
+    end
+  end
+
   def performance_score
     ore_stima = :tempo_risol_stimato ? :tempo_risol_stimato : 1
     ore_impiegate = :tempo_risol_impiegato ? :tempo_risol_impiegato : 1;
@@ -103,7 +121,11 @@ class Segnalazione < ActiveRecord::Base
   def as?
     is_in_stato? 'AS'
   end
-  
+
+  def rs?
+    is_in_stato? 'RS'
+  end
+
   def ve?
     is_in_stato? 'VE'
   end

@@ -2,6 +2,9 @@ class Utente < ActiveRecord::Base
 	set_table_name "P18_USER"
   belongs_to :gruppo, :foreign_key => "grp_id"
 
+  scope :attivi, where('disable_flg = 0')
+  scope :exclude_uni, where("user_name not like 'UNI%'")
+
   acts_as_authentic do |c|
 		# for available options see documentation in: Authlogic::ActsAsAuthentic
     #c.my_config_option = my_value
@@ -31,8 +34,16 @@ class Utente < ActiveRecord::Base
     analista_flg
   end
 
+  def admin?
+    cambia_pwd_flg
+  end
+
+  def dba?
+    dba_flg
+  end
+
   def programmatore?
-    programmatore_flg
+    programatore_flg
   end
 
   def cq?

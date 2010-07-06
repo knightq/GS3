@@ -1,7 +1,6 @@
 	<tr class="segnalazione_head">
 		<th align="left">
-			<span class='drag'><%= image_tag('box_mini.png') %></span>
-			<b><%= link_to segnalazione.prg_segna, :action => 'show', :controller => 'segnalazioni', :id => segnalazione.prg_segna %></b>
+			<b><%= link_to segnalazione.prg_segna, segnalazione_path(segnalazione.prg_segna) %></b>
 		</th>
 		<th id="segnalazione_summary">
 			Segnalato da: <b><%= segnalazione.cda_segnalatore%></b> il <b><%= l segnalazione.dtm_creaz, :format => '%d/%m/%Y' %></b> (<%= pluralize(Date.today - segnalazione.dtm_creaz.to_date, 'giorno') %> fa)<br/>
