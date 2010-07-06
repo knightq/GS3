@@ -2,7 +2,6 @@
 // This file is automatically included by javascript_include_tag :defaults
 
 var hideFlashes = function(){
-
     $("#flash_notice, #flash_error").fadeOut(800);
     $("#flash_messages").slideUp(800);
 }
@@ -11,37 +10,32 @@ function dock(){
     var dock = new MacStyleDock(document.getElementById('dock'), [{
         name: 'images/todo',
         extension: '.png',
-        sizes: [16, 32],
+        sizes: [32, 48],
         onclick: function(){
             window.location = '/todo';
         }
     }, {
         name: 'images/users',
         extension: '.png',
-        sizes: [16, 32],
+        sizes: [32, 48],
         onclick: function(){
             window.location = '/utenti';
         }
     }, {
         name: 'images/statistiche',
         extension: '.png',
-        sizes: [16, 32],
+        sizes: [32, 48],
         onclick: function(){
             window.location = '/statistiche';
         }
-    }], 16, 32, 3);
+    }], 32, 48, 3);
 }
 
 $(document).ready(function(){
     dock();
-	$("a.anchor_to").click(function() {
-		$("html, body").animate({
-				scrollTop: $($(this).attr("href")).offset().top + "px"
-			}, {
-				duration: 2000,
-				easing: "swing"
-			}
-		);
+
+	$('a.anchor_to').click(function() {
+		$('html body').scrollTo( $(this).attr("href"), 800 );
 		return false;
 	});
 

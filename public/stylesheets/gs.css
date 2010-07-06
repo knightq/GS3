@@ -43,15 +43,6 @@
 	background-color: #67A0CF;
 	height: 120px;
 }
-#dock {
-	display:block;
-    /*set the div in the bottom right corner*/
-    position:absolute;
-    bottom:0;
-    right:0;
-    width:150px;
-
-}
 
 div.in_carico {
     position: relative;

@@ -1,0 +1,40 @@
+#dockContainer {
+	display:block;
+    margin: 0 auto;
+    text-align: center;
+    float: right;
+    margin-top: -56px;
+	z-index: 5;
+}
+
+#dockContainer > div {
+    display: inline-block;
+	z-index: 6;
+}
+
+#dockContainer > div {
+    display: inline;
+	z-index: 6;
+}
+
+#dockContainer > div {
+    background: url("../images/dock-centre-32.png") repeat-x scroll 0 26px transparent;
+    border-bottom: 1px solid #DCDCC8;
+    display: table-cell;
+    text-align: left;
+	width: 250px;
+	z-index: 6;
+}
+
+#dockContainer > div > div {
+    background: url("../images/dock-right-32.png") no-repeat scroll right 26px transparent;
+	z-index: 6;
+}
+
+#dockContainer > div > div > div {
+    background: url("../images/dock-left-32.png") no-repeat scroll left 26px transparent;
+    height: 72px;
+    overflow: hidden;
+    padding: 0 10px;
+	z-index: 6;
+}
