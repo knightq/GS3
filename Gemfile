@@ -28,7 +28,8 @@ gem 'rspec', :group => :test
 # end
 #gem 'jquery-ujs', :git => 'git://github.com/rails/jquery-ujs.git'
 
-gem 'authlogic', :git => "git://github.com/odorcicd/authlogic.git", :branch => "rails3"
+# gem 'authlogic', :git => "git://github.com/odorcicd/authlogic.git", :branch => "rails3"
+gem 'authlogic'
 
 ###### MONGREL ######
 #gem 'mongrel', ">=1.1.6"

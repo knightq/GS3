@@ -11,4 +11,8 @@ class UserSession < Authlogic::Session::Base
   #validates_presence_of(:user_name, :message => "Il nome utente è obbligatorio!")
   #validates_presence_of(:user_pwd, :message => "La password è obbligatoria!")
 
+  def to_key
+    new_record? ? nil : [ self.send(self.class.primary_key) ]
+  end
+
 end
