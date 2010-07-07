@@ -409,6 +409,20 @@ li.attending {
   background:#fff;
 }
 
+.application_title {
+	font: 36px/54px 'KingthingsExeterRegular', Arial, sans-serif;
+	font-weight: 300;
+	padding-left: 380px;
+	position: fixed;
+	top: 5px;
+}
+
+.application_title_on_rails {
+	color: #CF8181;
+	font: 27px/45px 'KingthingsExeterRegular', Arial, sans-serif;
+	font-style: italic;
+}
+
 p#title {
   font: small-caps 1.2em/2em "Arial", serif;
   line-height: 0.65em;
@@ -445,8 +459,8 @@ li.organizator {
 	border: 2px solid navy;
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
-  position: relative;
-  bottom: 12px;
+  position: fixed;
+  top: 55px;
   left: 350px;
 	height: 18px;
   width: 400px;

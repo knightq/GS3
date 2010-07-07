@@ -12,7 +12,6 @@
         <%= stylesheet_link_tag 'application' %>
         <%= stylesheet_link_tag 'button' %>
         <%= stylesheet_link_tag 'dock' %>
-		<%= stylesheet_link_tag 'fontfaces' %>
         <%= stylesheet_link_tag 'gs' %>
         <%= stylesheet_link_tag 'menu' %>
         <%= stylesheet_link_tag 'jquery-ui-1.8.1.custom' %>
@@ -21,8 +20,7 @@
     </head>
     <body>
     <div id="banner">
-    	<span class="application_title">GS <i><span class="application_title_on_rails">on Rails</span></i></span>
-        <%#= image_tag 'gs_on_rails.png', :class => 'title' %>
+        <%= image_tag 'gs_on_rails.png', :class => 'title' %>
         <% if @current_user %>
         <%# form_for @funzione, {:class => 'menu_funzioni'} do %>
         <%#= hidden_field_tag :fn_name %>
