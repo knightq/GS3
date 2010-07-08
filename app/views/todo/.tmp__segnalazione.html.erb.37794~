@@ -1,4 +1,4 @@
-	<tr class="segnalazione_head segnalazione_head_<%= segnalazione.prg_segna %>">
+	<tr class="segnalazione_head">
 		<th align="left">
 			<b><%= link_to segnalazione.prg_segna, segnalazione_path(segnalazione.prg_segna) %></b>
 		</th>
@@ -6,15 +6,15 @@
 			Segnalato da: <b><%= segnalazione.cda_segnalatore%></b> il <b><%= l segnalazione.dtm_creaz, :format => '%d/%m/%Y' %></b> (<%= pluralize(Date.today - segnalazione.dtm_creaz.to_date, 'giorno') %> fa)
 			<% unless segnalazione.consegna_flg %>
 				<span class="prendi_in_carico">
-					<%= form_for(segnalazione, :remote => true, :url => { :controller => 'todo', :action => "presa_in_carico" }) do |form| %>
-					  <%= form.hidden_field :prg_segna, :value => segnalazione.prg_segna %>
-					  <%= image_submit_tag("target.png", :alt => 'Prendi in carico', :title => 'Prendi in carico') %>
+					<%= form_for :segnalazione, :remote => true do |form| %>
+				  	<%= form.hidden_field :consegna_flg, :value => true %>
+					  <%= image_submit_tag("prendi_in_carico.gif") %>
 					<% end %>					
 				</span>
 			<% end %>
 		</th>
 	</tr>
-	<tr class="segnalazione_details segnalazione_details_<%= segnalazione.prg_segna %>">
+	<tr class="segnalazione_details">
 		<td id="segnalazione_summary">
 			<span style="white-space:nowrap;">
 				<%= render :partial => "widgets/discrete_meter", :locals => { 
@@ -41,6 +41,6 @@
 		</td>
 	</tr>
 
-	<tr class="segnalazione_bottom_spacer segnalazione_bottom_spacer_<%= segnalazione.prg_segna %>">
+	<tr class="segnalazione_bottom_spacer">
 		<td colspan="2"/>
 	</tr>

@@ -15,7 +15,7 @@
 	                </tr>
 	            </table>            	
             <div id="gruppi_<%=versione.first %>" class="gruppi_container">
-                <table id="<%=versione[1]%>" class="gruppi">
+                <table class="gruppi">
                     <%= render :partial => "wipreadywait", :collection => sezioni, :as => :segnalazioni %>
                 </table>
             </div>

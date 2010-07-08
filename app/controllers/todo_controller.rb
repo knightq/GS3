@@ -1,57 +1,28 @@
 class TodoController < ApplicationController
   respond_to :html, :xml, :json, :js
-
+  
   before_filter :require_user
   
   def index
-      puts "========================================================================"
-      puts "#{request.format}"
-      puts "request.xhr?: #{request.xhr?}"
-      puts "request.post?: #{request.post?}"
-      puts "========================================================================"
-    if request.format.js?
-      puts "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-      puts "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-      puts "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-      puts "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-      puts "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-      puts "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-      puts "!!!!!!!!!!!!!!!!!!!!!! REQUEST JS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-      puts "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-      puts "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-      puts "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-      puts "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-      puts "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-      puts "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-    else
-      @todo ||= TodoQuery.new('AS')
-      #@segnalazioni = @todo.filtra(Segnalazione.risolutore(current_user.user_name))
-      segnalazioni = Segnalazione.find_by_user_todo(current_user.user_name).order('cda_prodotto ASC')
-      @prodotti = segnalazioni.to_a.group_by(&:cda_prodotto).sort {|a,b| a[0]<=>b[0]}
-      @in_carico = segnalazioni.in_consegna
-      risolte_ultimo_mese = Segnalazione.risolte_ultimo_mese(current_user.user_name)
-      @statistica = Statistica.new(risolte_ultimo_mese.size, risolte_ultimo_mese.each.inject(0) { |sum, el| sum = sum + el.tempo_risol_impiegato })
-      @graph = open_flash_chart_object(200,100,"/todo/graph_code")
-      respond_with @prodotti
-    end
+    @todo ||= TodoQuery.new('AS')
+    #@segnalazioni = @todo.filtra(Segnalazione.risolutore(current_user.user_name))
+    segnalazioni = Segnalazione.find_by_user_todo(current_user.user_name).order('cda_prodotto ASC')
+    @prodotti = segnalazioni.to_a.group_by(&:cda_prodotto).sort {|a,b| a[0]<=>b[0]}
+    @in_carico = segnalazioni.in_consegna
+    risolte_ultimo_mese = Segnalazione.risolte_ultimo_mese(current_user.user_name)
+    @statistica = Statistica.new(risolte_ultimo_mese.size, risolte_ultimo_mese.each.inject(0) { |sum, el| sum = sum + el.tempo_risol_impiegato })
+    @graph = open_flash_chart_object(200,100,"/todo/graph_code")
+    respond_with @prodotti
   end
   
-  def index2
-    if request.format.js?
-      puts "REQUEST JS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-    else
-      puts "REQUEST HTML!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-      puts "======"
-      puts "#{request.format}"
-      puts "======"
-      @todo ||= TodoQuery.new('AS')
-      @segnalazioni = @todo.filtra(Segnalazione.risolutore(current_user.user_name))
-      @prodotti = @segnalazioni.to_a.group_by(&:cda_prodotto)
-      risolte_ultimo_mese = Segnalazione.risolte_ultimo_mese(current_user.user_name)
-      @statistica = Statistica.new(risolte_ultimo_mese.size, risolte_ultimo_mese.each.inject(0) { |sum, el| sum = sum + el.tempo_risol_impiegato })
-      @graph = open_flash_chart_object(200,100,"/todo/graph_code")
-      respond_with @prodotti
-    end
+  def presa_in_carico
+    @segnalazione = Segnalazione.find_by_prg_segna(params['segnalazione'][:prg_segna]);
+    segnalazioni = Segnalazione.where('cda_prodotto = ?', @segnalazione.cda_prodotto).where('cda_versione_pian = ?', @segnalazione.cda_versione_pian).find_by_user_todo(current_user.user_name).order('cda_prodotto ASC') 
+    #@segnalazione.consegna_flg = 1;
+    @in_carico = segnalazioni.in_consegna
+    @in_lavorazione = @in_carico << @segnalazione
+    # Se l'aggiornamento va a buon fine...
+    flash[:notice] = "Segnalazione #{@segnalazione.prg_segna} presa in carico!."
   end
   
   def update

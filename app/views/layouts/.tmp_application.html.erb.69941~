@@ -43,13 +43,13 @@
     <div id="sidebar" class="sidebar_opened <%= sidebar_bg_class %>">
         <span class="sidebar_tools"><span title="Collassa tutti i blocchi",  class="collapse_all">&nbsp;&nbsp;&nbsp;</span><span title="Espandi tutti i blocchi",  class="expand_all">&nbsp;&nbsp;&nbsp;</span></span>
         <span title="Nascondi la barra degli strumenti",  class="sidebar_toggler hide_sidebar">&nbsp;&nbsp;&nbsp;</span>
+        <% unless (flash[:notice].blank? and flash[:error].blank?) %>
         <div id="flash_messages">
-	        <% unless (flash[:notice].blank? and flash[:error].blank?) %>
-	            <% flash.each do |name, msg| %>
-    	    	    <%= content_tag :div, msg, :id => "flash_#{name}" %>
-        	    <% end %>
-	        <% end %>
+            <% flash.each do |name, msg| %>
+            <%= content_tag :div, msg, :id => "flash_#{name}" %>
+            <% end %>
         </div>
+        <% end %>
         <div class="dynamic_sidebar_content">
             <%= yield :sidebar %>
         </div>
@@ -60,16 +60,14 @@
     </div>
     <div id="footer">
         Powered by GS on Rails © 2010 <%= mail_to("asalicetti@kion.it", "Andrea Salicetti", :encode => "javascript").html_safe %>
-		<% if @current_user %>
-	        <div id="dockContainer">
+        <div id="dockContainer">
+        	<div>
 	        	<div>
-		        	<div>
-		    	        <div id="dock">
-			            </div>
-	                </div>
-	            </div>
-	        </div>
-		<% end %>
+	    	        <div id="dock">
+		            </div>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 </html>
