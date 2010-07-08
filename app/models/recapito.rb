@@ -1,12 +1,9 @@
-class Utente < ActiveRecord::Base
-	set_table_name "P18_USER"
-  belongs_to :gruppo, :foreign_key => "grp_id"
-
-  has_one :recapito, :primary_key => "user_mail", :foreign_key => "cda_email"
+class Recapito < ActiveRecord::Base
+	set_table_name "FW_RUBRICA"
+  belongs_to :utente, :primary_key => "user_mail", :foreign_key => "cda_email"
 
   scope :attivi, where('disable_flg = 0')
   scope :exclude_uni, where("user_name not like 'UNI%'")
-  #:joins => 'LEFT OUTER JOIN "FW_RUBRICA" ON "P18_USER".user_mail = "FW_RUBRICA".cda_email')
 
   acts_as_authentic do |c|
 		# for available options see documentation in: Authlogic::ActsAsAuthentic

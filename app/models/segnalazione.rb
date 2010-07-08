@@ -96,7 +96,6 @@ class Segnalazione < ActiveRecord::Base
   end
 
   def tempo_stimato
-    puts "CIAOCIAOCIAOCIAOCIAOCIAOCIAOCIAO #{cda_stato} "
     if aa?
       tempo_ris_ana_stimato
     elsif as?

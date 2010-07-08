@@ -40,7 +40,9 @@ gem 'authlogic'
 gem 'ruby-oci8', '>=2.0.4'
 # gem 'activerecord-oracle_enhanced-adapter', '>=1.3.0.beta2', :git => 'git://github.com/rsim/oracle-enhanced.git', :branch => 'rails3',
 #  :require => 'active_record/connection_adapters/oracle_enhanced_adapter'
-gem 'activerecord-oracle_enhanced-adapter', '>=1.3.0.beta2', :git => 'git://github.com/knightq/oracle-enhanced.git', :require => 'active_record/connection_adapters/oracle_enhanced_adapter'
+gem 'activerecord-oracle_enhanced-adapter' #, '>=1.3.0.beta2', :git => 'git://github.com/knightq/oracle-enhanced.git', :require => 'active_record/connection_adapters/oracle_enhanced_adapter'
 
 # optionally also use ruby-plsql
 gem "ruby-plsql", ">=0.4.3"
+
+gem 'pdfkit'

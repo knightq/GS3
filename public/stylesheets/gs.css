@@ -55,6 +55,11 @@ div.in_carico {
 	width: 100%;	
 }
 
+.prendi_in_carico {
+	display: inline;
+	float: right;
+}
+
 div.collapsible_box_envelope_default {
 	position:relative;	
 	margin-left: 20px;
@@ -577,6 +582,7 @@ table.versione_head th {
 
 .gruppi_container {
 	cursor: default;
+	z-index: 200;
 }
 .gruppi {
 	border: none;
@@ -584,24 +590,43 @@ table.versione_head th {
 	min-width: 100%;
 }
 .gruppo_head {
-	min-height: 40px;
-	min-width: 100%;
+	border-collapse: collapse;
+	height: 100%;
+	border: none;
+	width: 100%;
+	padding-left: 10px;
+}
+
+/* IN LAVORAZIONE */
+.gruppo_head_in_lavorazione th {
+	background-color: #FEFFAF;
 }
 .gruppo_in_lavorazione {
 	background: #FEFFAF url(../images/wip.gif) no-repeat 2px 2px;
-	padding-left: 40px;
 	border: 2px solid #FFF15F;
+	padding-left: 40px;
+}
+
+/* READY */
+.gruppo_head_ready th {
+	background-color: #BFFFBF;
 }
 .gruppo_ready {
 	background: #BFFFBF url(../images/ready.png) no-repeat 2px 2px;
+	border: 2px solid #329F31;
 	padding-left: 40px;
-	border: 2px solid #009F24;
+}
+
+/* WAIT */
+.gruppo_head_wait th {
+	background-color: #FF6F6F;
 }
 .gruppo_wait {
 	background: #FF6F6F url(../images/waiting.png) no-repeat 2px 2px;
-	padding-left: 40px;
 	border: 2px solid #F00;
+	padding-left: 40px;
 }
+
 div.wip {
 /*	background:#CFE0FF;*/
 	border:1px solid #333;
@@ -740,6 +765,10 @@ div.in_carico_head {
 	text-align: center;
 	border-bottom: 1px solid navy;
 	color: navy;
+}
+
+table.segnalazioni {
+	z-index: 300;
 }
 
 table.segnalazioni tr.segnalazione_head {

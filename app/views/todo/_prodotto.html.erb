@@ -1,5 +1,4 @@
 <% if prodotto and prodotto[1] %>
-	<% puts "PRODOTTI PANCETTA !!!! #{prodotto[1].group_by(&:versione_pianificata).class}" %>
 	<% versioni = prodotto[1].group_by(&:versione_pianificata).sort %>
 <% end %>
 <fieldset class="collapsible">

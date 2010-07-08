@@ -31,14 +31,38 @@ function dock(){
     }], 32, 48, 3);
 }
 
+var request = function(options){
+    $.ajax($.extend({
+        url: options.url,
+        type: 'get'
+    }, options));
+    return false;
+};
+
 $(document).ready(function(){
     dock();
-
-	$('a.anchor_to').click(function() {
-		$('html body').scrollTo( $(this).attr("href"), 800 );
-		return false;
-	});
-
+    
+    // remote links handler
+    $('a[data-remote=true]').live('click', function(){
+        return request({
+            url: this.href
+        });
+    });
+    
+    // remote forms handler
+    $('form[data-remote=true]').live('submit', function(){
+        return request({
+            url: this.action,
+            type: this.method,
+            data: $(this).serialize()
+        });
+    });
+    
+    $('a.anchor_to').click(function(){
+        $('html body').scrollTo($(this).attr("href"), 800);
+        return false;
+    });
+    
     setTimeout(hideFlashes, 1000);
     
     if ($(".dynamic_sidebar_content > div").size() > 0) {
@@ -103,69 +127,45 @@ $(document).ready(function(){
             opacity: "100"
         }, 750);
     });
-    
-    //Hide (Collapse) segnalazioni_container on load
-    $(".gruppi_container").hide();
-    $(".segnalazioni_container").hide();
-    $(".versione").children('#versione_ore').hide();
-    
-    //Switch the "Open" and "Close" state per click
-    $("legend.trigger").toggle(function(){
-        $(this).parent().addClass("closed");
-    }, function(){
-        $(this).parent().removeClass("closed");
-    });
-    
-    //Slide up and down on click
-    $("legend.trigger").click(function(){
-        $(this).parent().children(':not(legend)').slideToggle("slow");
-    });
-    
-    //Slide up and down on click
+
+    // Collapse dei widget della toolbar
     $(".collapse_btn").click(function(){
         $(this).next('.collapsible').slideToggle("slow");
     });
-    
+
     $(".hide_btn").click(function(){
         $(this).parent().parent().hide();
     });
     
-    //Switch the "Open" and "Close" state per hover
-    $(".versione").toggle(function(){
-        $(this).addClass("opened");
-        $(this).children('.gruppi_container').slideToggle(1000);
-    }, function(){
-        $(this).removeClass("opened");
-        $(this).children('.gruppi_container').slideToggle(1000);
-    });
+
     
-    $("div.gruppi_container").toggle(function(){
-        $(this).addClass("closed");
-        $(this).children('.gruppo').slideToggle(1000);
-    }, function(){
-        $(this).removeClass("closed");
-        $(this).children('.gruppo').slideToggle(1000);
-    });
-    
-    $(".group_name").toggle(function(){
+    //Switch "Prodotto"
+    $("legend.trigger").toggle(function(){
         $(this).parent().addClass("closed");
-        $(this).parent().children('.segnalazioni_container').slideToggle(1000);
+        $(this).parent().children(':not(legend)').slideToggle("slow");
     }, function(){
         $(this).parent().removeClass("closed");
+        $(this).parent().children(':not(legend)').slideToggle("slow");
+    });
+
+    //Switch "Versione"
+    $(".versione_head").toggle(function(){
+        $(this).parent().addClass("opened");
+        $(this).parent().children('.gruppi_container').slideToggle(1000);
+    }, function(){
+        $(this).parent().removeClass("opened");
+        $(this).parent().children('.gruppi_container').slideToggle(1000);
+    });
+    $(".gruppi_container").hide();
+    
+    $(".gruppo_head").toggle(function(){
+        $(this).parent().addClass("opened");
+        $(this).parent().children('.segnalazioni_container').slideToggle(1000);
+    }, function(){
+        $(this).parent().removeClass("opened");
         $(this).parent().children('.segnalazioni_container').slideToggle(1000);
     });
-    
-    //Slide up and down on click
-    $(".versione").mouseover(function(){
-        if (!$(this).is('.closed')) {
-            $(this).children('#versione_ore').slideToggle(100);
-        }
-    });
-    $(".versione").mouseout(function(){
-        if (!$(this).is('.closed')) {
-            $(this).children('#versione_ore').slideToggle(100);
-        }
-    });
-    
+    $(".segnalazioni_container").hide();
+	
 });
 

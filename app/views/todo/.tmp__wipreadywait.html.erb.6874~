@@ -1,9 +1,9 @@
 <tr>
     <td>
-        <div class="gruppo gruppo_<%=segnalazioni[0].downcase.dehumanize if segnalazioni[0] %>">
-				<table class="gruppo_head gruppo_head_<%=segnalazioni[0].downcase.dehumanize if segnalazioni[0] %>">
+        <div id="gruppo_<%=segnalazioni[0].downcase.dehumanize if segnalazioni[0] %>" class="gruppo">
+				<table class="gruppo_head" class="gruppo_<%= segnalazioni[0].downcase.dehumanize %> if segnalazioni[0] %>">
 	                <tr>
-	                    <th rowspan="2" style="width: 25%">
+	                    <th rowspan="2" class="gruppo_<%= segnalazioni[0].downcase.dehumanize %> if segnalazioni[0] %>" style="width: 25%">
 	                        <b><%= segnalazioni[0] %></b> (<%=segnalazioni[1].size %>)
 	                    </th>
 	                    <th style="width: 10%;">

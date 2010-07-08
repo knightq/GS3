@@ -42,6 +42,9 @@ module Gs3
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
+
+    # Middleware per la generazione dei PDF a partire dall'HTML
+    config.middleware.use "PDFKit::Middleware", :print_media_type => true
   end
 
 end

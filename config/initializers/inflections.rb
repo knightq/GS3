@@ -22,6 +22,7 @@ ActiveSupport::Inflector.inflections do |inflect|
   inflect.irregular 'risolutore', 'risolutori'
   inflect.irregular 'segnalazione', 'segnalazioni'
   inflect.irregular 'sessione_utente', 'sessioni_utente'
+  inflect.irregular 'todo', 'todo'
   inflect.irregular 'user_session', 'user_sessions'
   inflect.irregular 'utente', 'utenti'
   inflect.irregular 'versione', 'versioni'

@@ -3,11 +3,15 @@
 			<b><%= link_to segnalazione.prg_segna, segnalazione_path(segnalazione.prg_segna) %></b>
 		</th>
 		<th id="segnalazione_summary">
-			Segnalato da: <b><%= segnalazione.cda_segnalatore%></b> il <b><%= l segnalazione.dtm_creaz, :format => '%d/%m/%Y' %></b> (<%= pluralize(Date.today - segnalazione.dtm_creaz.to_date, 'giorno') %> fa)<br/>
-			<%#= form_for :segnalazione, :html => { :method => :put }, :remote => true do |form| %>
-		  	<%#= form.check_box :consegna_flg %>
-			  <%#= image_submit_tag("prendi_in_carico.gif") %>
-			<%# end %>
+			Segnalato da: <b><%= segnalazione.cda_segnalatore%></b> il <b><%= l segnalazione.dtm_creaz, :format => '%d/%m/%Y' %></b> (<%= pluralize(Date.today - segnalazione.dtm_creaz.to_date, 'giorno') %> fa)
+			<% unless segnalazione.consegna_flg %>
+				<span class="prendi_in_carico">
+					<%= form_for :segnalazione, :remote => true do |form| %>
+				  	<%= form.hidden_field :consegna_flg, :value => true %>
+					  <%= image_submit_tag("prendi_in_carico.gif") %>
+					<% end %>					
+				</span>
+			<% end %>
 		</th>
 	</tr>
 	<tr class="segnalazione_details">

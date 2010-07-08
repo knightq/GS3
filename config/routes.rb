@@ -63,6 +63,7 @@ Gs3::Application.routes.draw do |map|
   resources :gruppi
   resources :prodotti
   resources :segnalazioni
+ # resources :todo
 
 	match 'todo' => 'todo#index'
 
