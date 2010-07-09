@@ -1,0 +1,58 @@
+<% title "Rubrica GS" %>
+<% content_for :head do %>
+<% end %>
+
+<% content_for :sidebar do %>
+<%= render :partial => 'widgets/collapsible_box', :locals => { :title => "Iniziale nome", :content => 'alfabeto', :closeable => false, :p_locals => { :include_set => @recapiti_group.collect{|g| g[0]} } } %>
+<% end %>
+
+
+<table class="rubrica">
+    <thead>
+    	<tr>
+	        <th>
+	            Nome
+	        </th>
+	        <th>
+	            Cognome
+	        </th>
+	        <th>
+	            Telefono
+	        </th>
+			<th>
+	            Cellulare
+	        </th>
+	        <th>
+	            E-Mail
+	        </th>
+	        <th>
+	            Organizzazione
+	        </th>    		
+    	</tr>
+    </thead>
+	<tbody>
+	    <% @recapiti_group.each do |group, recapiti| %>
+		    <tr>
+		        <th colspan="6" align="left">
+		            <b><a name="<%=group%>"><%=group %></a></b>
+		        </th>
+		    </tr>
+		    <% recapiti.each do |recapito| %>
+			    <tr class="<%= cycle('oddrow','evenrow') %>">
+			        <td><%= recapito.cda_nome %></td>
+					<!-- link_to recapito.cda_cognome, recapito -->
+			        <td><%= recapito.cda_cognome%></td>
+			        <td>
+			            <% if recapito.cda_telefono %>
+			            	<%= recapito.cda_telefono.strip[0..-4] %><b><%= recapito.cda_telefono.strip[-3..-1] %></b>
+			            <% end %>
+			        </td>
+			        <td><%= recapito.cda_cellulare %></td>
+			        <td><%= recapito.cda_email %></td>
+					<td></td>
+			    </tr>
+		    <% end %>
+	    <% end %>		
+	</tbody>
+</table>
+<%#= link_to 'Nuovo utente', new_utente_path %>

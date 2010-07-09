@@ -1,0 +1,12 @@
+<h1>Modifica utente</h1>
+
+<% form_for(@utente) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Mostra', @utente %> |
+<%= link_to 'Indietro', utenti_path %>

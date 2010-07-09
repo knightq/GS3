@@ -1,5 +1,7 @@
 class Recapito < ActiveRecord::Base
 	set_table_name "FW_RUBRICA"
+  set_primary_key "PRG_ID" 
+
   belongs_to :utente, :primary_key => "user_mail", :foreign_key => "cda_email"
 
   scope :attivi, where('disable_flg = 0')

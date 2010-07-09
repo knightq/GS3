@@ -1066,3 +1066,10 @@ tr.oddrow {
 tr.evenrow {
 	background-color: #EFF9FF;
 }
+
+/* =============================== RUBRICA ================= */
+table.rubrica thead {
+	position: fixed;
+}
+table.rubrica tbody {
+}

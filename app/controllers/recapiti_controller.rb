@@ -1,0 +1,129 @@
+require 'active_support/builder' unless defined?(Builder)
+
+class RecapitiController < ApplicationController
+	respond_to :html, :xml, :json, :js
+  before_filter :require_user#, :only => [:show, :edit, :update]
+
+  #protect_from_forgery :except => [:rubrica_data_grid]
+ 
+  # GET /recapiti
+  # GET /recapiti.xml
+  def index
+    @recapiti = Recapito.scoped.order(:cda_cognome)
+		@recapiti_group = @recapiti.to_a.group_by{ |u| u.cda_cognome.to_s[0..0].upcase }  
+    respond_to do |format|
+      format.html # show.html.erb
+      format.xml  { render :xml => @recapiti }
+    end
+  end
+
+  # Da usarsi con dhtmlxGrid
+  def data
+     @recapiti = Recapito.all
+     render :xml => @recapiti
+  end
+  
+  def rubrica_data_grid
+    puts "CCCCCCCCCCCCCCCCCCCCCCCCCCI SIAMO!!!!!!!!!!!!!!!!!!!!!!!!"
+    page = (params[:page]).to_i
+    rp = (params[:rp]).to_i
+    query = params[:query]
+    qtype = params[:qtype]
+    sortname = params[:sortname]
+    sortorder = params[:sortorder]
+
+    sortname ||= "cda_cognome"
+    sortorder ||= "asc"
+    page ||= 1
+    rp ||= 10
+
+    start = ((page-1) * rp).to_i
+    query = "%"+query+"%"
+
+    # No search terms provided
+    if(query == "%%")
+      @recapiti = Recapito.find(:all, :order => sortname+' '+sortorder, :limit => rp, :offset => start)
+      count = Recapito.count(:all)
+    else
+      @recapiti = Recapito.find(:all, :order => sortname+' '+sortorder, :limit => rp, :offset => start, :conditions=>[qtype +" like ?", query])
+      count = Recapito.count(:all, :conditions=>[qtype +" like ?", query])
+    end
+
+    # Construct a hash from the ActiveRecord result
+    return_data = Hash.new()
+    return_data[:page] = page
+    return_data[:total] = count
+
+    return_data[:rows] = @recapiti.collect{|u| { :cell=>[u.cda_nome, u.cda_cognome, u.cda_telefono, u.cda_cellulare, u.cda_email] } }
+
+    # Convert the hash to a json object
+    render :text=>return_data.to_json, :layout=>false
+  end
+
+  # GET /recapiti/1
+  # GET /recapiti/1.xml
+  def show
+    @recapito = Recapito.find_by_prg_id(params[:id])
+		respond_with(@recapito)
+  end
+
+  # GET /recapiti/new
+  # GET /recapiti/new.xml
+  def new
+    @recapito = Recapito.new
+		respond_with(@recapito)
+  end
+
+  # GET /recapiti/1/edit
+  def edit
+    @recapito = Recapito.find_by_prg_id(params[:id])
+		respond_with(@recapito)
+  end
+
+  # POST /recapiti
+  # POST /recapiti.xml
+  def create
+    @recapito = Recapito.new(params[:recapito])
+
+    respond_to do |format|
+      if @recapito.save
+        flash[:notice] = 'Recapito was successfully created.'
+        format.html { redirect_to(@recapito) }
+        format.xml  { render :xml => @recapito, :status => :created, :location => @recapito }
+      else
+        format.html { render :action => "new" }
+        format.xml  { render :xml => @recapito.errors, :status => :unprocessable_entity }
+      end
+    end
+  end
+
+  # PUT /recapiti/1
+  # PUT /recapiti/1.xml
+  def update
+    @recapito = Recapito.find_by_prg_id(params[:id])
+
+    respond_to do |format|
+      if @recapito.update_attributes(params[:recapito])
+        flash[:notice] = 'Recapito was successfully updated.'
+        format.html { redirect_to(@recapito) }
+        format.xml  { head :ok }
+      else
+        format.html { render :action => "edit" }
+        format.xml  { render :xml => @recapito.errors, :status => :unprocessable_entity }
+      end
+    end
+  end
+
+  # DELETE /recapiti/1
+  # DELETE /recapiti/1.xml
+  def destroy
+    @recapito = Recapito.find_by_prg_id(params[:id])
+    @recapito.destroy
+
+    respond_to do |format|
+      format.html { redirect_to(recapiti_url) }
+      format.xml  { head :ok }
+    end
+  end
+
+end

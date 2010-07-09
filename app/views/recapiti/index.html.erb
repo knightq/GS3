@@ -1,0 +1,27 @@
+<% title "Rubrica GS" %>
+<% content_for :head do %>
+<script src="/javascripts/codebase/dhtmlxcommon.js" type="text/javascript" charset="utf-8">
+</script>
+<script src="/javascripts/codebase/dhtmlxgrid.js" type="text/javascript" charset="utf-8">
+</script>
+<script src="/javascripts/codebase/dhtmlxgridcell.js" type="text/javascript" charset="utf-8">
+</script>
+<link rel="stylesheet" href="/javascripts/codebase/dhtmlxgrid.css" type="text/css" media="screen" charset="utf-8">
+<link rel="stylesheet" href="/javascripts/codebase/skins/dhtmlxgrid_dhx_skyblue.css" type="text/css" media="screen" charset="utf-8">
+<% end %>
+<% content_for :sidebar do %>
+<%= render :partial => 'widgets/collapsible_box', :locals => { :title => "Iniziale nome", :content => 'alfabeto', :closeable => false, :p_locals => { :include_set => @recapiti_group.collect{|g| g[0]} } } %>
+<% end %>
+
+<div id="grid_here" style="width:100%; height:100%;"></div>
+<script type="text/javascript" charset="utf-8">
+    var grid = new dhtmlXGridObject("grid_here");
+    grid.setImagePath("/javascripts/codebase/imgs/");
+    grid.setHeader("Nome, Cognome, Telefono, Cellulare, E-Mail");
+    grid.setInitWidths("100,200,100,100,*");
+    grid.setSkin("dhx_skyblue");
+    grid.init();
+	grid.load("/recapiti-data");
+</script>
+
+<input type="button" value="Aggiungi" onclick="grid.addRow(grid.uid(),'new user');"><input type="button" value="Cancella" onclick="grid.deleteSelectedRows();">

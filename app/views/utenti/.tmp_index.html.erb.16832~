@@ -1,0 +1,48 @@
+<% title "Utenti GS" %>
+<% content_for :sidebar do %>
+<%= render :partial => 'widgets/collapsible_box', :locals => { :title => "Iniziale nome", :content => 'alfabeto', :closeable => false, :p_locals => { :include_set => @utenti_group.collect{|g| g[0]} } } %>
+<% end %>
+<table>
+    <tr>
+        <th>
+            Username
+        </th>
+        <th>
+            Password
+        </th>
+		<th>
+			Ruoli
+		</th>
+        <th>
+            E-Mail
+        </th>
+    </tr>
+    <% @utenti_group.each do |group, utenti| %>
+    <tr>
+        <th colspan="4" align="left">
+            <b><a name="<%=group%>"><%=group %></a></b>
+        </th>
+    </tr>
+    <% utenti.each do |utente| %>
+    <tr class="<%= cycle('oddrow','evenrow') %>">
+        <td>
+            <%= link_to utente.user_name, utente %>
+        </td>
+        <td>
+            <%= utente.user_pwd %>
+        </td>
+		<td>
+			<%= image_tag "dba.png" if utente.dba? %>
+			<%= image_tag 'analista.png' if utente.analista? %>
+			<%= image_tag 'programmatore.png' if utente.programmatore? %>
+			<%= image_tag 'cq.png' if utente.cq? %>
+			<%= image_tag 'admin.png' if utente.admin? %>
+		</td>
+        <td>
+            <%= utente.user_mail %>
+        </td>
+    </tr>
+    <% end %>
+    <% end %>
+</table>
+<%#= link_to 'Nuovo utente', new_utente_path %>

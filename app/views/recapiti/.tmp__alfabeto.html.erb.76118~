@@ -1,0 +1,11 @@
+<% content_for :head do %>
+<% end %>
+
+<%
+	include_set ||= Array.new
+%>
+<% ('A'..'Z').each do |lettera| %>
+	<% if include_set.include?(lettera) %>
+		<a class="anchor_to" href="#<%= lettera %>"><%= lettera %> </a>
+	<% end %>
+<% end %>

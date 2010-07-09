@@ -8,21 +8,21 @@ var hideFlashes = function(){
 
 function dock(){
     var dock = new MacStyleDock(document.getElementById('dock'), [{
-        name: 'images/todo',
+        name: '/images/todo',
         extension: '.png',
         sizes: [32, 48],
         onclick: function(){
             window.location = '/todo';
         }
     }, {
-        name: 'images/users',
+        name: '/images/users',
         extension: '.png',
         sizes: [32, 48],
         onclick: function(){
             window.location = '/utenti';
         }
     }, {
-        name: 'images/statistiche',
+        name: '/images/statistiche',
         extension: '.png',
         sizes: [32, 48],
         onclick: function(){

@@ -1,0 +1,4 @@
+<%= form_for(@menu_mensa, :remote => true, :url => { :action => 'load_menu' }, :html => { :method => :post, :id => 'uploadForm', :multipart => true }) do |f| %>
+	Carica il menu: <%= f.file_field :uploaded_data %>
+	<%= image_submit_tag("target.png", :alt => 'Carica il menu', :title => 'Carica il menu') %>
+<% end %>

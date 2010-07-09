@@ -1,0 +1,14 @@
+<% puts @recapiti %>
+xml.instruct! :xml, :version=>"1.0"
+
+xml.tag!("rows") do
+    @recapiti.each do |recapito|
+        xml.tag!("row",{ "id" => recapito.prg_id }) do
+            xml.tag!("cell", recapito.cda_nome)
+            xml.tag!("cell", recapito.cda_cognome)
+            xml.tag!("cell", recapito.cda_telefono)
+            xml.tag!("cell", recapito.cda_cellulare)
+            xml.tag!("cell", recapito.cda_email)
+        end
+    end
+end

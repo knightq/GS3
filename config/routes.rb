@@ -1,4 +1,6 @@
 Gs3::Application.routes.draw do |map|
+  resources :menu
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -56,16 +58,17 @@ Gs3::Application.routes.draw do |map|
   map.logout 'logout', :controller => "user_sessions", :action => 'destroy' 
   # See how all your routes lay out with "rake routes"
 
-  resource :user_session
   resource :account, :controller => "utenti"
   resources :funzioni
-  resources :utenti
   resources :gruppi
   resources :prodotti
+  resources :recapiti
   resources :segnalazioni
- # resources :todo
-
-	match 'todo' => 'todo#index'
+  resource :user_session
+  resources :utenti
+  
+  match 'recapiti-data' => 'recapiti#data'
+  match 'todo' => 'todo#index'
 
 	match 'statistiche' => 'statistiche#index'
 

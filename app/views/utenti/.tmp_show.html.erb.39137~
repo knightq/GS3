@@ -1,0 +1,3 @@
+
+<%= link_to 'Edit', edit_utente_path(@utente) %> |
+<%= link_to 'Back', utenti_path %>

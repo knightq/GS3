@@ -17,6 +17,10 @@
 <div id="segnalazione_show_desc">
 	<%= @segnalazione.des_segna %>
 </div>
+<div class="segnalazione_show_summary">
+	Stao: <b><%= @segnalazione.cda_stato %></b><br/>
+	Versione pianificazione: <b><%= @segnalazione.cda_versione_pian %></b>
+</div>
 
 
 <%= link_to 'Indietro', :back %>
