@@ -7,10 +7,6 @@ class MenuController < ApplicationController
   # GET /menu
   # GET /menu.xml
   def index
-    puts "888888888888888888888888888888888888888888888888888888888888888888"
-    puts "@menus: #{@menus}"
-    puts "params: #{params}"
-    puts "888888888888888888888888888888888888888888888888888888888888888888"
     @menus = params[:menus]
     #MenuFromPDF.parse('/home/asalicetti/menu12luglio.pdf')
     respond_to do |format|
@@ -61,7 +57,7 @@ class MenuController < ApplicationController
     #render :xml => @menus
     #respond_with(@menu, :notice => 'Menu creato con successo!')
     #redirect_to menu_index_path(:menus => @menus)
-    render :action => 'index'
+    #render :action => 'index'
   end
   
   # GET /menu/1/edit
@@ -72,17 +68,21 @@ class MenuController < ApplicationController
   # POST /menu
   # POST /menu.xml
   def create
-    @menu = Menu.new(params[:menu])
-    
+    load_menu
     respond_to do |format|
-      if @menu.save
-        format.html { redirect_to(@menu, :notice => 'Menu was successfully created.') }
-        format.xml  { render :xml => @menu, :status => :created, :location => @menu }
-      else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @menu.errors, :status => :unprocessable_entity }
-      end
+      format.html { render :action => 'index'} # show.html.erb
     end
+#    @menu = Menu.new(params[:menu])
+    
+#    respond_to do |format|
+#      if @menu.save
+#        format.html { redirect_to(@menu, :notice => 'Menu was successfully created.') }
+#        format.xml  { render :xml => @menu, :status => :created, :location => @menu }
+#      else
+#        format.html { render :action => "new" }
+#        format.xml  { render :xml => @menu.errors, :status => :unprocessable_entity }
+#      end
+#    end
   end
   
   # PUT /menu/1
