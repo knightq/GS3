@@ -60,7 +60,8 @@ class MenuController < ApplicationController
     puts "Menu caricato!"
     #render :xml => @menus
     #respond_with(@menu, :notice => 'Menu creato con successo!')
-    redirect_to menu_index_path(:menus => @menus)
+    #redirect_to menu_index_path(:menus => @menus)
+    render :action => 'index'
   end
   
   # GET /menu/1/edit
