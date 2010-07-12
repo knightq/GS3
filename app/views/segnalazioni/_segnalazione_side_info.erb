@@ -1,5 +1,8 @@
 <div>
-	Stato: <b><%= @segnalazione.cda_stato %></b><br/>
+	Stato: <b><%= @segnalazione.cda_stato %></b> | 
+	Gravità: <%= image_tag "/images/lev#{@segnalazione.cdn_gravita.to_i}.png" %> |
+	Priorità: <%= image_tag "/images/lev#{@segnalazione.cdn_priorita.to_i}.png" if @segnalazione.cdn_priorita%><br/>
+	
 	Data segnalazione: <b><%= @segnalazione.dtm_creaz %></b><br/>
 	segnalata in <b><%= @segnalazione.cda_versione %></b><br/>
 	<% if @segnalazione.cda_versione_pian %>
