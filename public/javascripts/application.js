@@ -26,9 +26,17 @@ function dock(){
         extension: '.png',
         sizes: [32, 48],
         onclick: function(){
-            window.location = '/statistiche';
+			window.location = '/statistiche';
+		}
+    }, {
+        name: '/images/mensa',
+        extension: '.png',
+        sizes: [32, 48],
+        onclick: function(){
+            window.location = '/menu';
         }
-    }], 32, 48, 3);
+		
+    }], 32, 48, 4);
 }
 
 var request = function(options){
