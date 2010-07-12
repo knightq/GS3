@@ -28,6 +28,8 @@ function dock() {
 }
 
 $(document).ready(function(){
+	setTimeout(hideFlashes, 1000);
+
 	dock();
     
     // remote links handler
@@ -50,9 +52,7 @@ $(document).ready(function(){
         $('html body').scrollTo($(this).attr("href"), 800);
         return false;
     });
-    
-    setTimeout(hideFlashes, 1000);
-    
+        
     if ($(".dynamic_sidebar_content > div").size() > 0) {
         $('.sidebar_tools').show()
     }

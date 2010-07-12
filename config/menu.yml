@@ -1,6 +1,8 @@
 global:
     todo:
     utenti:
+    recapiti:
+        label: Rubrica 
     statistiche:
     menu:
         image: mensa48.png

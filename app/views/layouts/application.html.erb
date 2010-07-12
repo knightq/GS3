@@ -48,9 +48,9 @@
 	        <span title="Nascondi la barra degli strumenti",  class="sidebar_toggler hide_sidebar">&nbsp;&nbsp;&nbsp;</span>
 	        <div id="flash_messages">
 	            <% unless (flash[:notice].blank? and flash[:error].blank?) %>
-	            <% flash.each do |name, msg| %>
-	            <%= content_tag :div, msg, :id => "flash_#{name}" %>
-	            <% end %>
+		            <% flash.each do |name, msg| %>
+			            <%= content_tag :div, msg, :id => "flash_#{name}" %>
+		            <% end %>
 	            <% end %>
 	        </div>
 	        <div class="dynamic_sidebar_content">

@@ -31,7 +31,8 @@ $("tr.segnalazione_bottom_spacer_<%=@segnalazione.prg_segna%>").fadeOut("slow");
 
 in_lavorazione_table.html("<%= escape_javascript(render :partial => segnalazione_partial, :collection => @in_lavorazione, :as => :segnalazione) %>");
 
-$("#flash_messages").show();
+$("#flash_notice").html(<%=escape_javascript(flash.delete(:notice)) %>');
+$("#flash_messages").slideUp(800);
 $("#flash_notice").fadeIn(800, function() {
 	$("#flash_messages").fadeOut(2600);
 });
