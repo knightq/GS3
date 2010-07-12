@@ -2,7 +2,7 @@
 	Stato: <b><%= @segnalazione.cda_stato %></b> | 
 	Gravità: <%= image_tag "/images/lev#{@segnalazione.cdn_gravita.to_i}.png" %> |
 	Priorità: <%= image_tag "/images/lev#{@segnalazione.cdn_priorita.to_i}.png" if @segnalazione.cdn_priorita%><br/>
-	
+	Tipo: <%= tipo_segnalazione_image(@segnalazione.cda_tipo_segna) %> <b><%= @segnalazione.tipo %></b><br/>
 	Data segnalazione: <b><%= @segnalazione.dtm_creaz %></b><br/>
 	segnalata in <b><%= @segnalazione.cda_versione %></b><br/>
 	<% if @segnalazione.cda_versione_pian %>

@@ -46,4 +46,16 @@ module ApplicationHelper
 		render :partial => 'segnalazioni/in_carico', :titolo => opts[:title]
   end
 
+  def tipo_segnalazione_image(tipo)
+    todo = params[:controller] == 'todo'
+    case tipo
+      when 'A'
+        image_tag "/images/bug#{todo ? '16' : '22'}.png"
+      when 'R'
+        image_tag "/images/rich_impl#{todo ? '16' : '22'}.png"
+      when 'S'
+        image_tag "/images/svil#{todo ? '16' : '22'}.png"
+    end    
+  end
+
 end

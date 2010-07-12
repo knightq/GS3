@@ -128,7 +128,19 @@ class Segnalazione < ActiveRecord::Base
   def ve?
     is_in_stato? 'VE'
   end
-  
+
+  def tipo
+    case cda_tipo_segna
+      when 'A'
+        'Anomalia'
+      when 'S'
+        'Sviluppo prodotto'
+      when 'R'
+        'Richiesta implementazione'
+      else 'Sconosciuto'     
+    end
+  end
+
   # Virtual Attributres
   def cod_prodotto
     prodotto.cda_prodotto if prodotto

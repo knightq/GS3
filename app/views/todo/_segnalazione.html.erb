@@ -1,5 +1,6 @@
 	<tr class="segnalazione_head segnalazione_head_<%= segnalazione.prg_segna %>">
 		<th align="left">
+			<%= tipo_segnalazione_image(segnalazione.cda_tipo_segna) %>
 			<b><%= link_to segnalazione.prg_segna, segnalazione_path(segnalazione.prg_segna) %></b>
 		</th>
 		<th id="segnalazione_summary">
