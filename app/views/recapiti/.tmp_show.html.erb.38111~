@@ -1,4 +1,0 @@
-<% title "Dettagli su #{@utente.cda_nome} #{@utente.cda_cognome}" %>
-
-<%= link_to 'Modifica', edit_utente_path(@utente) %> |
-<%= link_to 'Indietro', utenti_path %>

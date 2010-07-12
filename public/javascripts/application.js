@@ -6,39 +6,6 @@ var hideFlashes = function(){
     $("#flash_messages").slideUp(800);
 }
 
-function dock(){
-    var dock = new MacStyleDock(document.getElementById('dock'), [{
-        name: '/images/todo',
-        extension: '.png',
-        sizes: [32, 48],
-        onclick: function(){
-            window.location = '/todo';
-        }
-    }, {
-        name: '/images/users',
-        extension: '.png',
-        sizes: [32, 48],
-        onclick: function(){
-            window.location = '/utenti';
-        }
-    }, {
-        name: '/images/statistiche',
-        extension: '.png',
-        sizes: [32, 48],
-        onclick: function(){
-			window.location = '/statistiche';
-		}
-    }, {
-        name: '/images/mensa',
-        extension: '.png',
-        sizes: [32, 48],
-        onclick: function(){
-            window.location = '/menu';
-        }
-		
-    }], 32, 48, 4);
-}
-
 var request = function(options){
     $.ajax($.extend({
         url: options.url,
@@ -47,8 +14,21 @@ var request = function(options){
     return false;
 };
 
+function dock() {
+  // set up the options to be used for jqDock...
+  var dockOptions =
+    { align: 'right' // vertical menu, with expansion LEFT from a fixed RIGHT edge
+    , distance: 24
+    , labels: true  // add labels (defaults to 'tl')
+    , fadeIn: 2000
+	, size: 28
+    };
+  // ...and apply...
+  $('#menu').jqDock(dockOptions);
+}
+
 $(document).ready(function(){
-    dock();
+	dock();
     
     // remote links handler
     $('a[data-remote=true]').live('click', function(){

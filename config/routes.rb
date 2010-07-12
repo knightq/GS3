@@ -58,6 +58,11 @@ Gs3::Application.routes.draw do |map|
   map.logout 'logout', :controller => "user_sessions", :action => 'destroy' 
   # See how all your routes lay out with "rake routes"
 
+  match 'recapiti/data' => 'recapiti#data'
+  match 'recapiti/dbaction' => 'recapiti#dbaction'
+  match 'statistiche' => 'statistiche#index'
+  match 'todo' => 'todo#index'
+
   resource :account, :controller => "utenti"
   resources :funzioni
   resources :gruppi
@@ -66,12 +71,7 @@ Gs3::Application.routes.draw do |map|
   resources :segnalazioni
   resource :user_session
   resources :utenti
-  
-  match 'recapiti-data' => 'recapiti#data'
-  match 'todo' => 'todo#index'
-
-	match 'statistiche' => 'statistiche#index'
-
+ 
   # This is a legacy wild controller route that's not recommended for RESTful applications.
   # Note: This route will make all actions in every controller accessible via GET requests.
   match ':controller(/:action(/:id(.:format)))'

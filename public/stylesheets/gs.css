@@ -459,22 +459,32 @@ li.organizator {
 }
 
 #function_title {
-	color: #FFF;
-	overflow:visible;
-	border: 2px solid navy;
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
-  position: fixed;
-  top: 55px;
-  left: 350px;
-	height: 18px;
-  width: 400px;
 #	background-color: #CFE0FF;
 	background-color: #67A0CF;
-	text-align:center;
+	border: 2px solid navy;
+	color: #FFF;
 	font-weight: bold;
-  line-height: 1em;
-  z-index: 2;
+  	position: fixed;
+	height: 18px;
+  	left: 350px;
+	line-height: 1em;
+	overflow:visible;
+#	text-align:center;
+  	top: 55px;
+  	width: 400px;
+  	z-index: 2;
+}
+
+#function_title a {
+  float: left;
+}
+
+#function_title div {
+  float: right;
+  text-align: center;
+  width: 95%;
 }
 
 th {
@@ -563,7 +573,7 @@ fieldset.collapsible.closed legend {
 	background:#CFE0FF url(../images/arrow_collapsed.png) no-repeat top left;	
 	border: none;
 	cursor: move;
-	min-height: 32px;
+	min-height: 28px;
 	padding-left: 12px;
 	padding-right: 12px;
 }
@@ -582,7 +592,6 @@ table.versione_head th {
 
 .gruppi_container {
 	cursor: default;
-	z-index: 200;
 }
 .gruppi {
 	border: none;
@@ -681,7 +690,6 @@ div.segnalazioni_container_closed {
 div.segnalazioni_container {
 	position: relative;
 	left: -20px;
-	min-width: 100%;
 }
 .segnalazione_details {
 	background: #EFFEFF;
@@ -1073,3 +1081,9 @@ table.rubrica thead {
 }
 table.rubrica tbody {
 }
+
+/* DOCK MENU */
+#description {margin-left:40px; width:500px;}
+#menu {position:absolute; bottom:15%; left:100%; margin-left:-48px; display:none;}
+#menu div.jqDock {cursor:pointer;}
+div.jqDockLabel {font-weight:bold; font-style:italic; white-space:nowrap; color:#000; cursor:pointer;}

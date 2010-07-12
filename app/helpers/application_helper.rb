@@ -1,6 +1,30 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
 
+  @@menu = YAML::load_file(File.join(File.dirname(__FILE__), '../../config', 'menu.yml')).symbolize_keys!
+
+  def self.setMenu(menu)
+    menu
+  end
+  
+  def dock_menu
+    controller = params[:controller]
+    xml = "<div id='menu'>\n"
+      if @@menu.has_key?(controller.to_sym)
+        @@menu[controller.to_sym].each do |k, v|
+          puts k
+        end
+      else 
+        @@menu[:global].each do |k, v|
+          image = (v and v['image']) ? v['image'] : (k + "48.png")
+          label = (v and v['label']) ? v['label'] : k.capitalize
+          xml << "  <a href='/#{k}' title=''><img src='/images/#{image}' title='#{label}'/></a>\n"
+        end
+      end
+    xml << "</div>"
+    return xml
+  end
+
   def content_for(name, content = nil, &block)
     @has_content ||= {}
     @has_content[name] = true
@@ -18,6 +42,6 @@ module ApplicationHelper
 
 	def droppable_area(opts={})
 		render :partial => 'segnalazioni/in_carico', :titolo => opts[:title]
-	end
+  end
 
 end

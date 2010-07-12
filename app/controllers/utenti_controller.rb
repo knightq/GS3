@@ -10,7 +10,7 @@ class UtentiController < ApplicationController
     @utenti = @utenti.where('user_name LIKE ?', "%#{params[:q].upcase}%") if params[:q]  
     @utenti = @utenti.attivi.exclude_uni.includes(:recapito).order('USER_NAME asc')
 		@utenti_group = @utenti.to_a.group_by{ |u| u.user_name.to_s[0..0].upcase }  
-		respond_with(@utenti)
+		#respond_with(@utenti)
   end
 
   # GET /utenti/1

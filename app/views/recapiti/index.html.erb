@@ -6,6 +6,10 @@
 </script>
 <script src="/javascripts/codebase/dhtmlxgridcell.js" type="text/javascript" charset="utf-8">
 </script>
+<script src="/javascripts/codebase/ext/dhtmlxgrid_filter.js"  type="text/javascript" charset="utf-8">
+</script>
+<script src="/javascripts/codebase/dhtmlxdataprocessor.js"  type="text/javascript" charset="utf-8"></script>
+
 <link rel="stylesheet" href="/javascripts/codebase/dhtmlxgrid.css" type="text/css" media="screen" charset="utf-8">
 <link rel="stylesheet" href="/javascripts/codebase/skins/dhtmlxgrid_dhx_skyblue.css" type="text/css" media="screen" charset="utf-8">
 <% end %>
@@ -13,15 +17,22 @@
 <%= render :partial => 'widgets/collapsible_box', :locals => { :title => "Iniziale nome", :content => 'alfabeto', :closeable => false, :p_locals => { :include_set => @recapiti_group.collect{|g| g[0]} } } %>
 <% end %>
 
-<div id="grid_here" style="width:100%; height:100%;"></div>
+<div id="grid_here" style="width:100%; height:550px;"></div>
+
 <script type="text/javascript" charset="utf-8">
     var grid = new dhtmlXGridObject("grid_here");
     grid.setImagePath("/javascripts/codebase/imgs/");
     grid.setHeader("Nome, Cognome, Telefono, Cellulare, E-Mail");
+	grid.attachHeader("#text_filter,#text_filter,#text_filter,#text_filter,#text_filter"); //added !
+    grid.setColSorting("str,str,str,str,str");  //added !
     grid.setInitWidths("100,200,100,100,*");
     grid.setSkin("dhx_skyblue");
     grid.init();
-	grid.load("/recapiti-data");
+	grid.load("/recapiti/data");
+
+    dp = new dataProcessor("/recapiti/dbaction/");
+    dp.init(grid);
 </script>
 
-<input type="button" value="Aggiungi" onclick="grid.addRow(grid.uid(),'new user');"><input type="button" value="Cancella" onclick="grid.deleteSelectedRows();">
+<input type="button" value="Aggiungi" onclick="grid.addRow(grid.uid(),'Nuovo tizio');">
+<input type="button" value="Cancella" onclick="grid.deleteSelectedRows();">

@@ -1,0 +1,10 @@
+<div>
+	Stato: <b><%= @segnalazione.cda_stato %></b><br/>
+	Data segnalazione: <b><%= @segnalazione.dtm_creaz %></b><br/>
+	segnalata in <b><%= @segnalazione.cda_versione %></b><br/>
+	<% if @segnalazione.cda_versione_pian %>
+		pianificata per la <b><%= @segnalazione.cda_versione_pian %></b>
+	<% else %>
+		Non pianificata
+	<% end %>
+</div>
