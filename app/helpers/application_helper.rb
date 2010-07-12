@@ -14,11 +14,13 @@ module ApplicationHelper
         @@menu[controller.to_sym].each do |k, v|
           puts k
         end
-      else 
+      else
         @@menu[:global].each do |k, v|
-          image = (v and v['image']) ? v['image'] : (k + "48.png")
-          label = (v and v['label']) ? v['label'] : k.capitalize
-          xml << "  <a href='/#{k}' title=''><img src='/images/#{image}' title='#{label}'/></a>\n"
+          unless controller == k
+            image = (v and v['image']) ? v['image'] : (k + "48.png")
+            label = (v and v['label']) ? v['label'] : k.capitalize
+            xml << "  <a href='/#{k}' title=''><img src='/images/#{image}' title='#{label}'/></a>\n"
+          end
         end
       end
     xml << "</div>"
