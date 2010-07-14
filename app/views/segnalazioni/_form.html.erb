@@ -1,9 +1,15 @@
+<% content_for :head do %>
+	<%= enable_wmd(:autostart => true) %>
+<% end %>
+
 <% if @segnalazione.errors.any? %>
 	<% @segnalazione.errors.full_messages.each do |msg| %>
 		<% flash[:error] = msg %>
 	<% end %>
 <% end %>
 
+  <%= create_wmd('descrizione', 'descrizione_pv') %>
+  
 <%= form_for(@segnalazione) do |f| %>
 
   <span class="field">
@@ -38,10 +44,15 @@
   </span>
   
   <div class="field">
-    <%= f.label "Descrizione segnalazione" %>
-	<%= f.text_area :des_segna %>
+    <%= f.label "Descrizione segnalazione" %><br/>
+	<%= f.text_area :des_segna, :id => 'descrizione' %>
+	  <div id="descrizione_pv" style="height: 100px;">
   </div>
+  
+  </div>
+
   <div class="actions">
     <%= f.submit %>
   </div>
+
 <% end %>

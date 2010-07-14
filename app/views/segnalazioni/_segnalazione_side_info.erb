@@ -1,5 +1,8 @@
 <div>
-	Stato: <b><%= @segnalazione.cda_stato %></b> | 
+	Stato: <b><%=@segnalazione.stato_des %></b> <%= @segnalazione.date_associated %><br/>
+	<% if @segnalazione.actor_associated %>
+		<%= "(#{@segnalazione.actor_associated})" %><br/>
+	<% end %>
 	Gravità: <%= image_tag "/images/lev#{@segnalazione.cdn_gravita.to_i}.png" %> |
 	Priorità: <%= image_tag "/images/lev#{@segnalazione.cdn_priorita.to_i}.png" if @segnalazione.cdn_priorita%><br/>
 	Tipo: <%= tipo_segnalazione_image(@segnalazione.cda_tipo_segna) %> <b><%= @segnalazione.tipo %></b><br/>

@@ -1,7 +1,7 @@
 <% title "Dettaglio segnalazione #{@segnalazione.prg_segna}" %>
 
 <% content_for :head do %>
-
+	<%= enable_wmd(:autostart => true) %>
 <% end %>
 
 <% content_for :sidebar do %>
@@ -11,10 +11,14 @@
 <div class="segna_desc">
 	<h1>GS <b><%= @segnalazione.prg_segna%></b></h1>
 </div>
+
+<div id="wmd-preview">
+</div>
 <div id="segnalazione_show_desc">
-	<%= @segnalazione.des_segna %>
+	<%=  raw(markdown(@segnalazione.des_segna)) %>
 </div>
 <div class="segnalazione_show_summary">
 
 </div>
 
+<%= link_to 'Modifica', edit_segnalazione_path(@segnalazione.prg_segna) %>

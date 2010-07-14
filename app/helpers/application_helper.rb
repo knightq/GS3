@@ -1,6 +1,8 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
 
+  require 'rdiscount'
+
   @@menu = YAML::load_file(File.join(File.dirname(__FILE__), '../../config', 'menu.yml')).symbolize_keys!
 
   def self.setMenu(menu)
@@ -56,6 +58,10 @@ module ApplicationHelper
       when 'S'
         image_tag "/images/svil#{todo ? '16' : '22'}.png"
     end    
+  end
+
+  def markdown(text)
+    RDiscount.new(text, :filter_html).to_html
   end
 
 end

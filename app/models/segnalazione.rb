@@ -6,6 +6,99 @@ class Segnalazione < ActiveRecord::Base
   belongs_to :risolutore_analisi, :foreign_key => 'cda_risolutore_ana', :class_name => 'Utente'
   belongs_to :prodotto, :foreign_key => 'cda_prodotto', :class_name => 'Prodotto'
   
+  # ====== STATI DELLA SEGNALAZIONE ====== 
+  include Workflow
+  workflow_column :cda_stato
+  workflow do
+    state :segnalata do
+      event :verifica, :transitions_to => :verificata
+    end
+
+    state :verificata do
+      event :assegna_a_analisi, :transitions_to => :analisi_assegnata
+      event :assegna_a_sviluppo, :transitions_to => :assegnata
+      event :rifiuta, :transitions_to => :rifiutata
+      event :rimanda, :transitions_to => :rimandata
+    end
+
+    state :analisi_assegnata do
+      event :risolvi_analisi, :transitions_to => :analisi_risolta
+    end
+
+    state :analisi_risolta do
+      event :assegna_a_sviluppo, :transitions_to => :assegnata
+    end
+
+    state :assegnata do
+      event :risolvi, :transitions_to => :risolta
+      event :riassegna_ad_analisi, :transition_to => :analisi_assegnata
+      event :dichiara_obsoleta, :transition_to => :obsoleta
+    end
+
+    state :risolta do
+      event :valida, :transitions_to => :validata     
+      event :riassegna_a_sviluppo, :transition_to => :assegnata
+    end
+
+    state :validata
+    state :rifiutata
+    state :rimandata
+    state :obsoleta
+  end
+  
+  def load_workflow_state
+    case cda_stato
+      when 'SE'
+        :segnalata
+      when 'VE'
+        :verificata
+      when 'AA'
+        :analisi_assegnata
+      when 'RA'
+        :analisi_risolta
+      when 'AS'
+        :assegnata
+      when 'RS'
+        :risolta
+      when 'VL'
+        :validata
+      when 'RF'
+        :rifiutata
+      when 'RI'
+        :rimandata
+      when 'OB'
+        :obsoleta
+    end
+  end
+
+  def persist_workflow_state(new_value)
+    case new_value
+      when :segnalata
+        cda_stato = 'SE'
+      when :verificata
+        cda_stato = 'VE'
+      when :analisi_assegnata
+        cda_stato = 'AA'
+      when :analisi_risolta
+        cda_stato = 'RA'
+      when :assegnata
+        cda_stato = 'AS'
+      when :risolta
+        cda_stato = 'RS'
+      when :validata
+        cda_stato = 'VL'
+      when :rifiutata
+        cda_stato = 'RF'
+      when :rimandata
+        cda_stato = 'RI'
+      when :obsoleta
+        cda_stato = 'RI'
+    end
+    save!
+  end
+
+    
+  # ============ VALIDATORI ============ 
   validates_presence_of :prodotto
   
   scope :time_span, lambda { |da, time_span_behind| where("dtm_risoluzione between ? and ?", da - time_span_behind, da) }
@@ -67,12 +160,12 @@ class Segnalazione < ActiveRecord::Base
     end
     return res
   end
-
+  
   def is_lavorabile_or_in_lavorazione(user)
     grp = lavorabilita(user)
     grp.eql?("READY") or grp.eql?("IN LAVORAZIONE")  
   end
-
+  
   def is_in_stato?(stato)
     cda_stato == stato
   end
@@ -80,21 +173,21 @@ class Segnalazione < ActiveRecord::Base
   def ready_for?(user)
     case cda_stato
       when 'SE'
-        cda_verificatore == user       
+      cda_verificatore == user       
       when 'AA'
-        cda_risolutore_ana == user
+      cda_risolutore_ana == user
       when 'AS'
-        cda_risolutore == user
+      cda_risolutore == user
       when 'RS'
-        cda_validatore == user
-      else false     
+      cda_validatore == user
+    else false     
     end
   end
-
+  
   def wait_for?(user)
-
+    
   end
-
+  
   def tempo_stimato
     if aa?
       tempo_ris_ana_stimato
@@ -106,7 +199,7 @@ class Segnalazione < ActiveRecord::Base
       0
     end
   end
-
+  
   def performance_score
     ore_stima = :tempo_risol_stimato ? :tempo_risol_stimato : 1
     ore_impiegate = :tempo_risol_impiegato ? :tempo_risol_impiegato : 1;
@@ -120,15 +213,15 @@ class Segnalazione < ActiveRecord::Base
   def as?
     is_in_stato? 'AS'
   end
-
+  
   def rs?
     is_in_stato? 'RS'
   end
-
+  
   def ve?
     is_in_stato? 'VE'
   end
-
+  
   def tipo
     case cda_tipo_segna
       when 'A'
@@ -137,10 +230,10 @@ class Segnalazione < ActiveRecord::Base
         'Sviluppo prodotto'
       when 'R'
         'Richiesta implementazione'
-      else 'Sconosciuto'     
+    else 'Sconosciuto'     
     end
   end
-
+  
   # Virtual Attributres
   def cod_prodotto
     prodotto.cda_prodotto if prodotto
@@ -150,11 +243,11 @@ class Segnalazione < ActiveRecord::Base
     puts "SET cod_prodotto!!!! #{cda_prodotto}"
     self.prodotto = Prodotto.find_by_cda_prodotto(cda_prodotto) unless cda_prodotto.blank?
   end
-
+  
   def versione_pianificata
     cda_versione_pian ? cda_versione_pian : "Non pianificate" 
   end
-
+  
   def stati_che_coinvolgono(user)
     stati = []
     stati << StatoSegnalazione.find_by_cda_stato('VE') if cda_verificatore == user 
@@ -163,4 +256,31 @@ class Segnalazione < ActiveRecord::Base
     stati << StatoSegnalazione.find_by_cda_stato('RI') if cda_validatore == user 
     stati
   end
+  
+  def actor_associated
+    case cda_stato
+      when 'SE'
+      cda_verificatore
+      when 'AA'
+       ((cda_verificatore || "") + " --> " + cda_risolutore_ana) if cda_risolutore_ana
+      when 'AS'
+       ((cda_risolutore_ana || "") + " --> " + cda_risolutore) if cda_risolutore
+      when 'RS'
+       ((cda_risolutore || "") + " --> " + (cda_validatore || cda_verificatore)) if (cda_validatore || cda_verificatore)
+    end
+  end
+  
+  def date_associated
+    case cda_stato
+      when 'SE'
+        "il #{dtm_creaz}"
+      when 'AA'
+      nil
+      when 'AS'
+      nil
+      when 'RS'
+        "il #{dtm_risoluzione}"
+    end    
+  end
+  
 end

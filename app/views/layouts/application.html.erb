@@ -4,7 +4,6 @@
         <title><%= @content_for_title || "GS on Rails" %></title>
         <%= javascript_include_tag :defaults %>
         <%= javascript_include_tag 'jquery-1.4.2' %>
-        <%= javascript_include_tag 'jquery.scrollTo' %>
         <%= javascript_include_tag 'jquery-ui-1.8.1.custom.min' %>
 		<!-- Questa lib js va in conflitto con l'uploader -->
         <%= javascript_include_tag 'jquery.jqDock.min' unless params[:action] == 'new' %>
@@ -44,15 +43,19 @@
 	    
 		<!-- SIDEBAR -->
 		<div id="sidebar" class="sidebar_opened <%= sidebar_bg_class %>">
-	        <span class="sidebar_tools"><span title="Collassa tutti i blocchi",  class="collapse_all">&nbsp;&nbsp;&nbsp;</span><span title="Espandi tutti i blocchi",  class="expand_all">&nbsp;&nbsp;&nbsp;</span></span>
-	        <span title="Nascondi la barra degli strumenti",  class="sidebar_toggler hide_sidebar">&nbsp;&nbsp;&nbsp;</span>
-	        <div id="flash_messages">
-	            <% unless (flash[:notice].blank? and flash[:error].blank?) %>
-		            <% flash.each do |name, msg| %>
-			            <%= content_tag :div, msg, :id => "flash_#{name}" %>
-		            <% end %>
-	            <% end %>
-	        </div>
+	        <span class="sidebar_tools">
+	        	<span title="Collassa tutti i blocchi",  class="collapse_all">&nbsp;&nbsp;&nbsp;</span>
+				<span title="Espandi tutti i blocchi",  class="expand_all">&nbsp;&nbsp;&nbsp;</span></span>
+	        	<span title="Nascondi la barra degli strumenti",  class="sidebar_toggler hide_sidebar">&nbsp;&nbsp;&nbsp;</span>
+	        
+           	<% unless (flash[:notice].blank? and flash[:error].blank?) %>
+				<div id="flash_messages">
+	            	<% flash.each do |name, msg| %>
+		            	<%= content_tag :div, msg, :id => "flash_#{name}" %>
+	            	<% end %>
+	        	</div>
+           	<% end %>
+
 	        <div class="dynamic_sidebar_content">
 	            <%= yield :sidebar %>
 	        </div>

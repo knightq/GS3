@@ -51,4 +51,22 @@ class SegnalazioniController < ApplicationController
     
     respond_with @segnalazione
   end
+
+  # GET /segnalazioni/1/edit
+  def edit
+    @segnalazione = Segnalazione.find_by_prg_segna(params[:id])
+    respond_with(@segnalazione)
+  end
+
+  # DELETE /segnalazioni/1
+  # DELETE /segnalazioni/1.xml
+  def destroy
+    @utente = Segnalazione.find_by_prg_segna(params[:id])
+    @utente.destroy
+
+    respond_to do |format|
+      format.html { redirect_to(segnalazioni_url) }
+      format.xml  { head :ok }
+    end
+  end
 end

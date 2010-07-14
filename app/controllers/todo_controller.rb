@@ -22,7 +22,7 @@ class TodoController < ApplicationController
     @in_carico = segnalazioni.in_consegna
     @in_lavorazione = @in_carico << @segnalazione
     # Se l'aggiornamento va a buon fine...
-    #flash[:notice] = "Segnalazione #{@segnalazione.prg_segna} presa in carico!."
+    flash[:notice] = "Segnalazione #{@segnalazione.prg_segna} presa in carico!."
   end
   
   def update

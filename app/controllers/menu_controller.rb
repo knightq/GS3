@@ -3,6 +3,7 @@ require 'menu_from_PDF'
 class MenuController < ApplicationController
   
   respond_to :html
+  before_filter :require_user
 
   # GET /menu
   # GET /menu.xml
@@ -37,12 +38,10 @@ class MenuController < ApplicationController
   end
   
   def load_menu
-    @file = params[:menu][:uploaded_data]
     @menus = Array.new
-    puts "-- FILE:  #{@file} --"
     receiver = PDF::Reader::RegisterReceiver.new
     pdf = PDF::Reader.new
-    pdf.parse(@file, receiver)
+    pdf.parse(params[:menu][:uploaded_data], receiver)
     receiver.callbacks.each do |cb|
       if cb[:name].to_s =~ /show_text/ and not (valore = cb[:args].compact.first.strip).empty? and valore =~ /^[A-Za-z]/ 
         if valore =~ /\d{2}\/\d{2}\/\d{2}$/
@@ -54,10 +53,6 @@ class MenuController < ApplicationController
       end
     end
     puts "Menu caricato!"
-    #render :xml => @menus
-    #respond_with(@menu, :notice => 'Menu creato con successo!')
-    #redirect_to menu_index_path(:menus => @menus)
-    #render :action => 'index'
   end
   
   # GET /menu/1/edit

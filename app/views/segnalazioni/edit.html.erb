@@ -1,0 +1,11 @@
+<% title "Modifica segnalazione #{@segnalazione.prg_segna}" %>
+
+<% content_for :sidebar do %>
+	<%= render :partial => 'widgets/collapsible_box', :locals => { :title => "Informazioni generali", :content => 'segnalazione_side_info', :segnalazione => @segnalazione } %>
+<% end %>
+
+<div class="segna_desc">
+	<h1>GS <b><%= @segnalazione.prg_segna%></b></h1>
+</div>
+
+<%= render 'form' %>

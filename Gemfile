@@ -37,6 +37,14 @@ end
 # gem 'authlogic', :git => "git://github.com/odorcicd/authlogic.git", :branch => "rails3"
 gem 'authlogic'
 
+# State Machine
+gem 'workflow'
+
+#WMD Editor
+#gem 'wmd_on_rails', :git => 'git://github.com/crnixon/wmd_on_rails.git'
+# Markdown
+gem 'rdiscount'
+
 ###### MONGREL ######
 #gem 'mongrel', ">=1.1.6"
 #gem 'cgi_multipart_eof_fix'
