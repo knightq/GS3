@@ -53,6 +53,7 @@ class MenuController < ApplicationController
       end
     end
     puts "Menu caricato!"
+    return [@menus.first.giorno, @menus.last.giorno]
   end
   
   # GET /menu/1/edit
@@ -63,8 +64,10 @@ class MenuController < ApplicationController
   # POST /menu
   # POST /menu.xml
   def create
-    load_menu
+    @da_a = load_menu
+    puts "DA_A: #{@da_a}: FIRST: #{@da_a.first} LAST: #{@da_a.last}"
     respond_to do |format|
+      MensaMailer.pubblicazione_menu(@da_a).deliver  
       format.html { render :action => 'index'} # show.html.erb
     end
 #    @menu = Menu.new(params[:menu])
