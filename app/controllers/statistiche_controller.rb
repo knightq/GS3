@@ -4,20 +4,19 @@ class StatisticheController < ApplicationController
 
 	respond_to :html, :xml, :json, :js
 
-	attr_accessor :statistica
-
 	def index
 		puts "REQUEST_FORMAT: #{request.format}"
 		puts "REQUEST JS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" if request.format.js?
-		if not @statistica_filter
-			@statistica_filter = QueryStat.new
-			@statistica_filter.time_span_da = Date.today - 1.month
-			@statistica_filter.time_span_a = Date.today
-		end
-		if params[:query_stat]
-				@statistica_filter.time_span_da = params[:query_stat][:time_span_da]
-				@statistica_filter.time_span_a = params[:query_stat][:time_span_a]
-		end
+    unless @statistica_filter
+      puts "Creo un nuovo filtro... "  
+      @statistica_filter = QueryStat.new
+      @statistica_filter.time_span_da = Date.today - 1.month
+      @statistica_filter.time_span_a = Date.today
+    end
+    if params[:query_stat]
+        @statistica_filter.time_span_da = params[:query_stat][:time_span_da]
+        @statistica_filter.time_span_a = params[:query_stat][:time_span_a]
+    end
     @graph = open_flash_chart_object(600,400,"/statistiche/graph_code")
     @graph_ore = open_flash_chart_object(600,400,"/statistiche/graph_code_ore")
 		@graph_performance = open_flash_chart_object(600,400,"/statistiche/graph_code_performance")
@@ -25,11 +24,24 @@ class StatisticheController < ApplicationController
 	end
 
   def graph_code
-		calcola_statistiche(@statistica_filter)
-		num_segna = statistica.order("num_segna ASC").collect{|s| s.num_segna}.uniq.to_a
+    unless @statistica_filter
+      puts "Creo un nuovo filtro... "  
+      @statistica_filter = QueryStat.new
+      @statistica_filter.time_span_da = Date.today - 1.month
+      @statistica_filter.time_span_a = Date.today
+    end
+    if params[:query_stat]
+        @statistica_filter.time_span_da = params[:query_stat][:time_span_da]
+        @statistica_filter.time_span_a = params[:query_stat][:time_span_a]
+    end
+    @statistica = calcola_statistiche(@statistica_filter)
+		num_segna = @statistica.order("num_segna ASC").collect{|s| s.num_segna}.uniq.to_a
+    puts "NUMERO SEGNALAZIONI: #{num_segna}"
 		freq = num_segna.collect {|ns| num_svil_for_num_segna(ns)}
+    puts "FREQUENZA: #{freq}"
     title = Title.new("# segnalazioni risolte ultimo mese da sviluppatori")
 		data1 = []
+    puts "NUM_SEGNA MAX: #{num_segna.max}"
 		range_num_segna = (0..num_segna.max)
 		i = 0
 		range_num_segna.each do |f|
@@ -69,7 +81,7 @@ class StatisticheController < ApplicationController
     chart.add_element(bar)
 
 	  bar1 = Bar.new
-		user_val = statistica.where("CDA_RISOLUTORE = '#{@current_user.user_name}'")[0].num_segna
+		user_val = @statistica.where("CDA_RISOLUTORE = '#{@current_user.user_name}'")[0].num_segna
 		serie_svil = Array.new(data1.size) { |indx| indx == user_val ? data1[indx] : nil }
 		bar1.set_values(serie_svil)
     bar1.colour  = '#0000FF'
@@ -99,12 +111,22 @@ class StatisticheController < ApplicationController
 	end
 
 	def num_svil_for_num_segna(num_segna)
-		statistica.having("count(*) = #{num_segna}").to_a.count
+		@statistica.having("count(*) = #{num_segna}").to_a.count
 	end
 
   def graph_code_ore
-		calcola_statistiche(@statistica_filter)
-		ore_impiegate = statistica.order("ore_impiegate ASC").collect{|s| s.ore_impiegate}
+    unless @statistica_filter
+      puts "Creo un nuovo filtro... "  
+      @statistica_filter = QueryStat.new
+      @statistica_filter.time_span_da = Date.today - 1.month
+      @statistica_filter.time_span_a = Date.today
+    end
+    if params[:query_stat]
+        @statistica_filter.time_span_da = params[:query_stat][:time_span_da]
+        @statistica_filter.time_span_a = params[:query_stat][:time_span_a]
+    end
+		@statistica = calcola_statistiche(@statistica_filter)
+		ore_impiegate = @statistica.order("ore_impiegate ASC").collect{|s| s.ore_impiegate}
 		title = Title.new("Ore impiegate nell'ultimo mese dagli sviluppatori")
 
    	y = YAxis.new
@@ -113,7 +135,7 @@ class StatisticheController < ApplicationController
     x_legend = XLegend.new("Sviluppatori")
     x_legend.set_style('{font-size: 14px; color: #778877}')
 
-		lista_sviluppatori = statistica.order("ore_impiegate ASC").collect{|s| s.cda_risolutore}.to_a
+		lista_sviluppatori = @statistica.order("ore_impiegate ASC").collect{|s| s.cda_risolutore}.to_a
 
    	x = XAxis.new
 
@@ -136,7 +158,7 @@ class StatisticheController < ApplicationController
     chart.y_axis = y
 		chart.x_axis = x
 
-		ore_impiegate_svil = statistica.order("ore_impiegate ASC").where("CDA_RISOLUTORE = '#{@current_user.user_name}'")[0].ore_impiegate
+		ore_impiegate_svil = @statistica.order("ore_impiegate ASC").where("CDA_RISOLUTORE = '#{@current_user.user_name}'")[0].ore_impiegate
 	  bar = BarGlass.new
 		bar.colour  = '#11AAFF'
 		already_removed = false
@@ -155,7 +177,7 @@ class StatisticheController < ApplicationController
 	  bar1 = BarGlass.new
 		bar1.pad_x = 0
 		bar1.pad_y = 0
-		user_val = statistica.where("CDA_RISOLUTORE = '#{@current_user.user_name}'")[0].ore_impiegate
+		user_val = @statistica.where("CDA_RISOLUTORE = '#{@current_user.user_name}'")[0].ore_impiegate
 		serie_svil = Array.new(ore_impiegate.size) { |i| ore_impiegate[i] == user_val ? user_val : nil }
 		bar1.set_values(serie_svil)
     bar1.colour  = '#0000FF'
@@ -311,8 +333,11 @@ class StatisticheController < ApplicationController
 
 private
 	def calcola_statistiche(sf)
-		puts "CALCOLO STATISTICHE: #{sf}"
-		@statistica = Segnalazione.time_span(sf.time_span_a, (sf.time_span_da - sf.time_span_a)).risolte.select("cda_risolutore, count(*) as num_segna, sum(tempo_risol_impiegato) as ore_impiegate").group(:cda_risolutore)
+    if sf
+      puts "CALCOLO STATISTICHE da #{sf.time_span_da} a #{sf.time_span_a}..."
+		  @statistica = Segnalazione.time_span(sf.time_span_a, (sf.time_span_a - sf.time_span_da)).risolte.select("cda_risolutore, count(*) as num_segna, sum(tempo_risol_impiegato) as ore_impiegate").group(:cda_risolutore)
+		end
+    return @statistica
 	end
 
 end
