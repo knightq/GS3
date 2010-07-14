@@ -1,0 +1,37 @@
+==========================================================
+Prodotto: <%= @segnalazione.cda_prodotto %>
+Modulo: <%= @segnalazione.cda_modulo %>
+Programma: <%= @segnalazione.cda_programma %> (programma_des)
+Gravità: <%= @segnalazione.gravita_des %>, Priorità: <%= @segnalazione.priorita_des %>
+Cliente: <%= @segnalazione.cda_cliente %> - cliente_des
+<%= @segnalazione.tipo %> n. <%= @segnalazione.prg_segna %> 
+==========================================================
+
+
+----------------------------------------------------------
+DESCRIZIONE SEGNALAZIONE:
+----------------------------------------------------------
+<%= @segnalazione.des_segna %>
+
+
+----------------------------------------------------------
+DESCRIZIONE RISOLUZIONE:
+----------------------------------------------------------
+<%= @segnalazione.des_risoluzione %>
+
+
+----------------------------------------------------------
+TEMPI:
+----------------------------------------------------------
+Ore validazione stimate: <%= @segnalazione.tempo_val_stimato %>
+Ore validazione impiegate: <%= @segnalazione.tempo_val_impiegato %>
+Ore sviluppo stimate: <%= @segnalazione.tempo_risol_stimato %>
+Ore sviluppo impiegate: <%= @segnalazione.tempo_risol_impiegato %>
+Ore analisi stimate: <%= @segnalazione.tempo_ris_ana_stimato %>
+Ore analisi impiegate: <%= @segnalazione.tempo_ris_ana_impiegato %>
+----------------------------------------------------------
+STORIA:
+----------------------------------------------------------
+Segnalatore: <%= @segnalazione.cda_segnalatore %>   Versione @segnalazione: <%= @segnalazione.cda_versione %>.
+Verificatore: <%= @segnalazione.cda_verificatore %>   Versione pianificazione: <%= @segnalazione.cda_versione_pian %>.   Ore stimate: <%= @segnalazione.tempo_risol_stimato %>.
+Risolutore: <%= @segnalazione.cda_risolutore %>   Versione risoluzione: <%= @segnalazione.cda_versione_ris %>.   Data risoluzione: 17/12/2009.

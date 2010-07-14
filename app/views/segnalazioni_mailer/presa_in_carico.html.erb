@@ -1,0 +1,610 @@
+<% 
+	ore_validazione_vals = positions(@segnalazione.tempi_validazione)
+	ore_analisi_vals = positions(@segnalazione.tempi_analisi)
+	ore_risoluzione_vals = positions(@segnalazione.tempi_risoluzione)
+%>
+<style>
+	h1 {
+	   font:  140% sans-serif;
+	   color: #507AAA;
+	   border-bottom: 3px dotted #77d;
+	}
+	.summary {
+		border: 2px solid navy;
+		border-collapse: collapse;
+		background-color: #CFE0FF;
+		font: 1em "Arial", serif;
+		font-weight: bold;
+	}
+	.tempi {
+		border: 2px solid navy;
+		border-collapse: collapse;
+		background-color: #CFE0FF;
+		font: 1em "Arial", serif;
+		font-weight: bold;
+		width: 100%
+	}
+	.tempi tr {
+		line-height: 3em;
+	}
+	.tempi td {
+		text-align: center;
+	}
+	td {
+		vertical-align: top;
+	}
+	table.descrizione {
+		border: 2px solid navy;
+		background-color: #CFE0FF;
+		border-collapse: collapse;
+		font: 1em "Arial", serif;
+	}
+	th {
+		border: 1px solid navy;
+		background-color: #000080;
+		color: #fff;
+		font: 1.1em/1.2em "Arial", serif;
+		font-weight: normal;
+		text-align: right;
+	}
+	.regular {
+		font-weight: normal;
+	}
+	.center {
+		text-align: center;	
+	}
+	
+        /*	BULLET GRAPH */
+    div.box-wrap {
+        position: relative;
+        width: <%= max_width %>px;
+        height: 21px;
+        top: 0;
+        left: 0;
+        margin: 0;
+        padding: 0;
+    }
+            
+    /*	CHANGE THE WIDTH AND BACKGROUND COLORS AS NEEDED */
+    div.box1 {
+        position: absolute;
+        height: 20px;
+        width: 100%;
+        left: 0;
+        background-color: #eeeeee;
+        z-index: 1;
+        font-size: 0;
+    }
+                       
+    /* RED LINE */
+    div.target {
+        position: absolute;
+        height: 20px;
+        width: 1px;
+        left: <%= position(ore_validazione_vals ,@segnalazione.tempo_val_stimato) %>px;
+        top: 0;
+        background-color: #cc0000;
+        z-index: 7;
+        font-size: 0;
+    }
+            
+    /* ONE SEGMENT ONLY */
+    div.actual {
+        position: absolute;
+        height: 8px;
+        left: 0px;
+        top: 6px;
+        background-color: #000000;
+        font-size: 0;
+        z-index: 5;
+        font-size: 0;
+    }
+            
+    /* TWO SEGMENTS */
+    div.actualMAX {
+        position: absolute;
+        height: 8px;
+        left: 0px;
+        top: 6px;
+        background-color: #70a1d8;
+        font-size: 0;
+        z-index: 5;
+        font-size: 0;
+    }
+    
+    div.actualPART {
+        position: absolute;
+        height: 8px;
+        left: 0px;
+        top: 6px;
+        background-color: #0a50a1;
+        font-size: 0;
+        z-index: 5;
+        font-size: 0;
+    }
+            
+    div.mylabel {
+        position: relative;
+        height: 20px;
+        width: 145px;
+        left: -155px;
+        top: 2px;
+        background-color: #fff;
+        z-index: 7;
+        font-size: 0;
+        color: #000000;
+        font: 10pt Arial, sans-serif;
+        text-align: right;
+    }
+    
+    div.scale-tb1 {
+        padding: 0;
+        margin: 0;
+        font-size: 0;
+        width: 200px;
+        border: 0;
+        position: relative;
+        top: 10px;
+        left: 0px;
+        border-top: 1px solid #8f8f8f;
+    }
+    
+    div.scale-tb2 {
+        padding: 0;
+        margin: 0;
+        font-size: 0;
+        width: 200px;
+        border: 0;
+        position: relative;
+        top: 0px;
+        left: 0px;
+    }
+    
+    /*	SCALE MARKS */
+    div.sc21 {
+        position: absolute;
+        height: 7px;
+        width: 1px;
+        left: 0px;
+        top: 0px;
+        background-color: #8f8f8f;
+        z-index: 7;
+        font-size: 0;
+    }
+    
+    div.sc22 {
+        position: absolute;
+        height: 7px;
+        width: 1px;
+        left: 39px;
+        top: 0px;
+        background-color: #8f8f8f;
+        z-index: 7;
+        font-size: 0;
+    }
+    
+    div.sc23 {
+        position: absolute;
+        height: 7px;
+        width: 1px;
+        left: 79px;
+        top: 0px;
+        background-color: #8f8f8f;
+        z-index: 7;
+        font-size: 0;
+    }
+    
+    div.sc24 {
+        position: absolute;
+        height: 7px;
+        width: 1px;
+        left: 119px;
+        top: 0px;
+        background-color: #8f8f8f;
+        z-index: 7;
+        font-size: 0;
+    }
+    
+    div.sc25 {
+        position: absolute;
+        height: 7px;
+        width: 1px;
+        left: 159px;
+        top: 0px;
+        background-color: #8f8f8f;
+        z-index: 7;
+        font-size: 0;
+    }
+    
+    div.sc26 {
+        position: absolute;
+        height: 7px;
+        width: 1px;
+        left: 199px;
+        top: 0px;
+        background-color: #8f8f8f;
+        z-index: 7;
+        font-size: 0;
+    }
+    
+    div.sc31 {
+        position: absolute;
+        height: 7px;
+        width: 1px;
+        left: 0px;
+        top: 0px;
+        background-color: #8f8f8f;
+        z-index: 7;
+        font-size: 0;
+    }
+    
+    div.sc32 {
+        position: absolute;
+        height: 7px;
+        width: 1px;
+        left: 39px;
+        top: 0px;
+        background-color: #8f8f8f;
+        z-index: 7;
+        font-size: 0;
+    }
+    
+    div.sc33 {
+        position: absolute;
+        height: 7px;
+        width: 1px;
+        left: 79px;
+        top: 0px;
+        background-color: #8f8f8f;
+        z-index: 7;
+        font-size: 0;
+    }
+    
+    div.sc34 {
+        position: absolute;
+        height: 7px;
+        width: 1px;
+        left: 119px;
+        top: 0px;
+        background-color: #8f8f8f;
+        z-index: 7;
+        font-size: 0;
+    }
+    
+    div.sc35 {
+        position: absolute;
+        height: 7px;
+        width: 1px;
+        left: 159px;
+        top: 0px;
+        background-color: #8f8f8f;
+        z-index: 7;
+        font-size: 0;
+    }
+    
+    div.sc36 {
+        position: absolute;
+        height: 7px;
+        width: 1px;
+        left: 199px;
+        top: 0px;
+        background-color: #8f8f8f;
+        z-index: 7;
+        font-size: 0;
+    }
+    
+    /*	SCALE TEXT */
+    div.cap21 {
+        position: absolute;
+        top: 40px;
+        left: -2px;
+        width: 15px;
+        font: 8pt Arial, sans-serif;
+        text-align: center;
+        color: #575757;
+    }
+    
+    div.cap22 {
+        position: absolute;
+        top: 40px;
+        left: 35px;
+        width: 15px;
+        font: 8pt Arial, sans-serif;
+        text-align: center;
+        color: #575757;
+    }
+    
+    div.cap23 {
+        position: absolute;
+        top: 40px;
+        left: 71px;
+        width: 15px;
+        font: 8pt Arial, sans-serif;
+        text-align: center;
+        color: #575757;
+    }
+    
+    div.cap24 {
+        position: absolute;
+        top: 40px;
+        left: 112px;
+        width: 15px;
+        font: 8pt Arial, sans-serif;
+        text-align: center;
+        color: #575757;
+    }
+    
+    div.cap25 {
+        position: absolute;
+        top: 40px;
+        left: 152px;
+        width: 15px;
+        font: 8pt Arial, sans-serif;
+        text-align: center;
+        color: #575757;
+    }
+    
+    div.cap26 {
+        position: absolute;
+        top: 40px;
+        left: 191px;
+        width: 15px;
+        font: 8pt Arial, sans-serif;
+        text-align: center;
+        color: #575757;
+    }
+    
+    div.cap31 {
+        position: absolute;
+        top: 29px;
+        left: -2px;
+        width: 15px;
+        font: 8pt Arial, sans-serif;
+        text-align: center;
+        color: #575757;
+    }
+    
+    div.cap32 {
+        position: absolute;
+        top: 29px;
+        left: 35px;
+        width: 15px;
+        font: 8pt Arial, sans-serif;
+        text-align: center;
+        color: #575757;
+    }
+    
+    div.cap33 {
+        position: absolute;
+        top: 29px;
+        left: 71px;
+        width: 15px;
+        font: 8pt Arial, sans-serif;
+        text-align: center;
+        color: #575757;
+    }
+    
+    div.cap34 {
+        position: absolute;
+        top: 29px;
+        left: 112px;
+        width: 15px;
+        font: 8pt Arial, sans-serif;
+        text-align: center;
+        color: #575757;
+    }
+    
+    div.cap35 {
+        position: absolute;
+        top: 29px;
+        left: 152px;
+        width: 15px;
+        font: 8pt Arial, sans-serif;
+        text-align: center;
+        color: #575757;
+    }
+    
+    div.cap36 {
+        position: absolute;
+        top: 29px;
+        left: 191px;
+        width: 15px;
+        font: 8pt Arial, sans-serif;
+        text-align: center;
+        color: #575757;
+    }
+</style>
+
+<table class="summary">
+	<tr>
+		<th>Prodotto: </th>
+		<td colspan="2"><%= @segnalazione.cda_prodotto %></td>
+		<th colspan="6" class="center">Descrizione segnalazione</th>
+	</tr>
+	<tr>
+		<th>Modulo: </th>
+		<td colspan="2"><%= @segnalazione.cda_modulo %></td>
+		<td colspan="6" rowspan="6" class="regular"><%= @segnalazione.des_segna %></td>
+	</tr>
+	<tr>
+		<th>Programma: </th>
+		<td colspan="2"><%= @segnalazione.cda_programma %> (programma_des)</td>	
+	</tr>
+	<tr>
+		<th>Gravità: </th>
+		<td colspan="2"><%= @segnalazione.gravita_des %></td>
+	</tr>
+	<tr>
+		<th>Priorità: </th>
+		<td colspan="2"><%= @segnalazione.priorita_des %></td>
+	</tr>
+	<tr>
+		<th>Cliente: </th>
+		<td colspan="2"><%= @segnalazione.cda_cliente %> - cliente_des</td>
+	</tr>
+	<tr>
+		<td colspan="3" class="regular"><%= @segnalazione.tipo %> n.<b><%= @segnalazione.prg_segna %></b></td>
+	</tr>
+</table>
+<br/>
+
+<% if @segnalazione.des_risoluzione %>
+	<h1>Descrizione risoluzione</h1>
+	<table class="descrizione">
+		<tr>
+			<td>
+				<%= @segnalazione.des_risoluzione %>	
+			</td>
+		</tr>
+	</table>
+	<br/>
+<% end %>
+
+<h1>Tempi</h1>
+<table class="tempi">
+	<tr>
+		<th/>
+		<th class="center" >Stimato</th>
+		<th class="center" >Impiegato</th>
+		<th class="center">Rapporto</th>
+	</tr>
+
+	<tr>
+		<th>Ore validazione: </th> 
+		<td><%= @segnalazione.tempo_val_stimato %></td>
+		<td><%= @segnalazione.tempo_val_impiegato %></td>
+		<td class="right">
+			<div class="box-wrap">
+                <div class="box1" />
+                <div class="target" style="left: <%= position(ore_validazione_vals ,@segnalazione.tempo_val_stimato) %>px;" />
+                <div class="actualMAX" style="width: 20.12%" />
+                <div class="actualPART" style="width: 11.92%" />
+                <div class="cap31">
+                    0%
+                </div>
+                <div class="cap32">
+                    20%
+                </div>
+                <div class="cap33">
+                    40%
+                </div>
+                <div class="cap34">
+                    60%
+                </div>
+                <div class="cap35">
+                    80%
+                </div>
+                <div class="cap36">
+                    100%
+                </div>
+                <div class="mylabel">
+                    Ore validazione
+                </div>
+                <div class="scale-tb2">
+                    <div class="sc31" />
+                    <div class="sc32" />
+                    <div class="sc33" />
+                    <div class="sc34" />
+                    <div class="sc35" />
+                    <div class="sc36" />
+                </div>
+            </div>
+		</td>
+	</tr>
+
+	<tr>
+		<th>Ore sviluppo: </th> 
+		<td><%= @segnalazione.tempo_risol_stimato %></td>
+		<td><%= @segnalazione.tempo_risol_impiegato %></td>
+		<td class="right">
+			<div class="box-wrap">
+                <div class="box1" />
+                <div class="target" style="left: <%= position(ore_risoluzione_vals ,@segnalazione.tempo_risol_stimato) %>px;" />
+                <div class="actualMAX" style="width: 20.12%" />
+                <div class="actualPART" style="width: 11.92%" />
+                <div class="cap31">
+                    0%
+                </div>
+                <div class="cap32">
+                    20%
+                </div>
+                <div class="cap33">
+                    40%
+                </div>
+                <div class="cap34">
+                    60%
+                </div>
+                <div class="cap35">
+                    80%
+                </div>
+                <div class="cap36">
+                    100%
+                </div>
+                <div class="mylabel">
+                    Ore risoluzione
+                </div>
+                <div class="scale-tb2">
+                    <div class="sc31" />
+                    <div class="sc32" />
+                    <div class="sc33" />
+                    <div class="sc34" />
+                    <div class="sc35" />
+                    <div class="sc36" />
+                </div>
+            </div>
+		</td>
+	</tr>
+	
+	<tr>
+		<th>Ore analisi: </th> 
+		<td><%= @segnalazione.tempo_ris_ana_stimato %></td>
+		<td><%= @segnalazione.tempo_ris_ana_impiegato %></td>
+		<td class="right">
+            <div class="box-wrap">
+                <div class="box1" />
+                <div class="target" style="left: <%= position(ore_analisi_vals ,@segnalazione.tempo_ris_ana_stimato) %>px;" />
+                <div class="actualMAX" style="width: 20.12%" />
+                <div class="actualPART" style="width: 11.92%" />
+                <div class="cap31">
+                    0%
+                </div>
+                <div class="cap32">
+                    20%
+                </div>
+                <div class="cap33">
+                    40%
+                </div>
+                <div class="cap34">
+                    60%
+                </div>
+                <div class="cap35">
+                    80%
+                </div>
+                <div class="cap36">
+                    100%
+                </div>
+                <div class="mylabel">
+                    Ore risoluzione analisi
+                </div>
+                <div class="scale-tb2">
+                    <div class="sc31" />
+                    <div class="sc32" />
+                    <div class="sc33" />
+                    <div class="sc34" />
+                    <div class="sc35" />
+                    <div class="sc36" />
+                </div>
+            </div>
+		</td>
+	</tr>
+	
+</table>
+<br/>
+
+<h1>Storia</h1>
+<div class="storia">
+	Segnalatore: <b><%= @segnalazione.cda_segnalatore %></b> &nbsp;&nbsp;&nbsp; Versione segnalazione: <b><%= @segnalazione.cda_versione %></b>.<br/>
+	Verificatore: <b><%= @segnalazione.cda_verificatore %></b> &nbsp;&nbsp;&nbsp; Versione pianificazione: <b><%= @segnalazione.cda_versione_pian %></b>.<br/>
+	Risolutore: <b><%= @segnalazione.cda_risolutore %></b> &nbsp;&nbsp;&nbsp; Versione risoluzione: <b><%= @segnalazione.cda_versione_ris %></b>
+	<% if @segnalazione.risolta? %> &nbsp;&nbsp;&nbsp; Data risoluzione: <b><%= @segnalazione.dtm_risoluzione %></b><% end %>.
+</div>

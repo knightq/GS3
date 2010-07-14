@@ -25,7 +25,11 @@ class Menu
   end
 
   def parseRow(valore)
-    val = valore.split('  ').collect{|e| e unless ((e == "") or (e =~ /\$.*/) or (e =~ /\*.*/))}.compact.reverse
+    if valore =~ / G^/
+      puts "Condimenti!!! #{valore}"
+    end
+    val = valore.split('  ').collect{|e| e unless ((e == "") or (e =~ /\$.*/) or (e =~ /\*.*/) or (e =~ /\+ 2 CONTORNI A SCELTA
+    /))}.compact.reverse
     if(val.size == 9 or val.size == 6)
       @primi << {:cod => val.pop, :des => val.pop, :cal => val.pop}
       @secondi << {:cod => val.pop, :des => val.pop, :cal => val.pop}
@@ -33,7 +37,7 @@ class Menu
     elsif (val.size <= 4)
       puts "VAL <= 4 (size= #{val.size}): #{val}"
     end
-    puts "VALORE SPLITTATO: #{val}"
+    puts "VALORE SPLITTATO: #{val}" unless val.empty?
   end
 
   def to_s

@@ -1,0 +1,30 @@
+
+digraph segnalazioni_workflow {
+  graph [rankdir="LR", size="7,11.6", ratio="fill"];
+  node [shape=box];
+  edge [len=1];
+      
+  obsoleta [label="obsoleta"];
+  assegnata [label="assegnata"];
+  assegnata -> risolta [label="Risolvi" ];
+  assegnata -> analisi_assegnata [label="Riassegna ad analisi" ];
+  assegnata -> obsoleta [label="Dichiara obsoleta" ];
+  analisi_risolta [label="analisi_risolta"];
+  analisi_risolta -> assegnata [label="Assegna a sviluppo" ];
+  verificata [label="verificata"];
+  verificata -> rifiutata [label="Rifiuta" ];
+  verificata -> analisi_assegnata [label="Assegna a analisi" ];
+  verificata -> rimandata [label="Rimanda" ];
+  verificata -> assegnata [label="Assegna a sviluppo" ];
+  rifiutata [label="rifiutata"];
+  validata [label="validata"];
+  risolta [label="risolta"];
+  risolta -> validata [label="Valida" ];
+  risolta -> assegnata [label="Riassegna a sviluppo" ];
+  analisi_assegnata [label="analisi_assegnata"];
+  analisi_assegnata -> analisi_risolta [label="Risolvi analisi" ];
+  rimandata [label="rimandata"];
+  segnalata [label="segnalata"];
+  segnalata -> verificata [label="Verifica" ];
+}
+

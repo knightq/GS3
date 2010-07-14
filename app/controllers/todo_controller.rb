@@ -18,9 +18,11 @@ class TodoController < ApplicationController
   def presa_in_carico
     @segnalazione = Segnalazione.find_by_prg_segna(params['segnalazione'][:prg_segna]);
     segnalazioni = Segnalazione.where('cda_prodotto = ?', @segnalazione.cda_prodotto).where('cda_versione_pian = ?', @segnalazione.cda_versione_pian).find_by_user_todo(current_user.user_name).order('cda_prodotto ASC') 
-    #@segnalazione.consegna_flg = 1;
+    @segnalazione.consegna_flg = 1;
     @in_carico = segnalazioni.in_consegna
     @in_lavorazione = @in_carico << @segnalazione
+    #@segnalazione.save!
+    SegnalazioniMailer.presa_in_carico(current_user, @segnalazione).deliver  
     # Se l'aggiornamento va a buon fine...
     flash[:notice] = "Segnalazione #{@segnalazione.prg_segna} presa in carico!."
   end

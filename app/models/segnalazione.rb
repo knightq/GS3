@@ -8,6 +8,8 @@ class Segnalazione < ActiveRecord::Base
   
   # ====== STATI DELLA SEGNALAZIONE ====== 
   include Workflow
+  
+  # Workflow.create_workflow_diagram(Segnalazione, './')
   workflow_column :cda_stato
   workflow do
     state :segnalata do
@@ -15,6 +17,9 @@ class Segnalazione < ActiveRecord::Base
     end
 
     state :verificata do
+      on_entry do
+        consegna_flg = 0
+      end
       event :assegna_a_analisi, :transitions_to => :analisi_assegnata
       event :assegna_a_sviluppo, :transitions_to => :assegnata
       event :rifiuta, :transitions_to => :rifiutata
@@ -22,28 +27,60 @@ class Segnalazione < ActiveRecord::Base
     end
 
     state :analisi_assegnata do
+      on_entry do
+        consegna_flg = 0
+      end
       event :risolvi_analisi, :transitions_to => :analisi_risolta
     end
 
     state :analisi_risolta do
+      on_entry do
+        consegna_flg = 0
+      end
       event :assegna_a_sviluppo, :transitions_to => :assegnata
     end
 
     state :assegnata do
+      on_entry do
+        consegna_flg = 0
+      end
       event :risolvi, :transitions_to => :risolta
       event :riassegna_ad_analisi, :transition_to => :analisi_assegnata
       event :dichiara_obsoleta, :transition_to => :obsoleta
     end
 
     state :risolta do
+      on_entry do
+        consegna_flg = 0
+      end
       event :valida, :transitions_to => :validata     
       event :riassegna_a_sviluppo, :transition_to => :assegnata
     end
 
-    state :validata
-    state :rifiutata
-    state :rimandata
-    state :obsoleta
+    state :validata do
+      on_entry do
+        consegna_flg = 0
+      end
+    end
+
+    state :rifiutata do 
+      on_entry do
+        consegna_flg = 0
+      end
+    end
+
+    state :rimandata do 
+      on_entry do
+        consegna_flg = 0
+      end
+    end
+
+    state :obsoleta do
+      on_entry do
+        consegna_flg = 0
+      end      
+    end
+
   end
   
   def load_workflow_state
@@ -144,6 +181,14 @@ class Segnalazione < ActiveRecord::Base
     Segnalazione.risolutori(user_name).select("cda_risolutore, sum(NVL(tempo_risol_stimato,1))/sum(NVL(tempo_risol_impiegato,1)) as performance, TO_CHAR(dtm_risoluzione,'yyyy mm MON-yy')").group("cda_risolutore, TO_CHAR(dtm_risoluzione,'yyyy mm MON-yy')").having("sum(nvl(tempo_risol_impiegato,1)) > 0")
   end
   
+  def gravita_des
+    Gravita.des(cdn_gravita)
+  end
+
+  def priorita_des
+    Priorita.des(cdn_priorita.to_i)
+  end
+
   def stato_des
     StatoSegnalazione.des(cda_stato)
   end
@@ -282,5 +327,17 @@ class Segnalazione < ActiveRecord::Base
         "il #{dtm_risoluzione}"
     end    
   end
+
+  def tempi_analisi
+    [tempo_ris_ana_stimato, tempo_ris_ana_impiegato]
+  end
+
+  def tempi_risoluzione
+    [tempo_risol_stimato, tempo_risol_impiegato]
+  end
   
+  def tempi_validazione
+    [tempo_val_stimato, tempo_val_impiegato]
+  end
+
 end

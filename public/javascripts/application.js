@@ -145,6 +145,9 @@ $(document).ready(function(){
         $(this).parent().children('.gruppi_container').slideToggle(1000);
     });
     $(".gruppi_container").hide();
+	// Aperta la corrente
+	$(".corrente").parent().parent().parent().next().show();
+	$(".corrente").parent().parent().parent().parent().addClass("opened");
     
     $(".gruppo_head").toggle(function(){
         $(this).parent().addClass("opened");

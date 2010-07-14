@@ -1,0 +1,6 @@
+
+digraph cless_workflow {
+  graph [rankdir="LR", size="7,11.6", ratio="fill"];
+  node [shape=box];
+  edge [len=1];
+      
