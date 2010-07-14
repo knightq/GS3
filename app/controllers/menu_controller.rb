@@ -67,7 +67,7 @@ class MenuController < ApplicationController
     @da_a = load_menu
     puts "DA_A: #{@da_a}: FIRST: #{@da_a.first} LAST: #{@da_a.last}"
     respond_to do |format|
-      MensaMailer.pubblicazione_menu(@da_a).deliver  
+      MensaMailer.pubblicazione_menu(current_user, @da_a).deliver  
       format.html { render :action => 'index'} # show.html.erb
     end
 #    @menu = Menu.new(params[:menu])

@@ -8,6 +8,10 @@ class Menu
   attr_accessor :primi
   attr_accessor :secondi
   attr_accessor :contorni
+  attr_accessor :condimenti
+  attr_accessor :piatti_unici
+  attr_accessor :cestini
+
 
   def initialize(giorno = nil)
     @giorno = giorno
@@ -26,6 +30,8 @@ class Menu
       @primi << {:cod => val.pop, :des => val.pop, :cal => val.pop}
       @secondi << {:cod => val.pop, :des => val.pop, :cal => val.pop}
       @contorni << {:cod => val.pop, :des => val.pop, :cal => val.pop} unless val.size == 0
+    elsif (val.size <= 4)
+      puts "VAL <= 4 (size= #{val.size}): #{val}"
     end
     puts "VALORE SPLITTATO: #{val}"
   end

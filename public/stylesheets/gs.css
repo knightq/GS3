@@ -1074,7 +1074,48 @@ tr.oddrow {
 tr.evenrow {
 	background-color: #EFF9FF;
 }
+/* =============================== MENU =================== */
+table.menu {
+	border: 0px;
+	width: 100%;
+}
+table.menu table {
+	border: 0px;
+	border-bottom: 1px solid gray;
+}
+table.menu tr {
+	vertical-align: top;
+}
+table.menu table th {
+	background-color: #fff;
+}
 
+table.primi th.primi_head {
+	background-color: red;
+	color: white;
+ 	-moz-border-radius-topleft: 15px;
+	-moz-border-radius-topright: 15px;
+	-webkit-border-radius-topleft: 15px;
+	-webkit-border-radius-topright: 15px;
+}
+
+table.secondi th.secondi_head {
+	background-color: #23B4BF;
+	color: white;
+ 	-moz-border-radius-topleft: 15px;
+	-moz-border-radius-topright: 15px;
+	-webkit-border-radius-topleft: 15px;
+	-webkit-border-radius-topright: 15px;
+}
+
+table.contorni th.contorni_head {
+	background-color: #1A8F1F;
+	color: white;
+ 	-moz-border-radius-topleft: 15px;
+	-moz-border-radius-topright: 15px;
+	-webkit-border-radius-topleft: 15px;
+	-webkit-border-radius-topright: 15px;
+}
 /* =============================== RUBRICA ================= */
 table.rubrica thead {
 	position: fixed;

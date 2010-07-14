@@ -1,9 +1,10 @@
 class MensaMailer < ActionMailer::Base
   default :from => "Servizio mensa KION <asalicetti@kion.it>"
   
-  def pubblicazione_menu(da_a)
+  def pubblicazione_menu(user, da_a)
     @da_a = da_a
-    mail(:to => "asalicetti@kion.it", :subject => "[MENSA] Pubblicato nuovo menu")  
+    @user = user
+    mail(:to => user.user_mail, :subject => "[MENSA] Pubblicato nuovo menu")  
   end
 
 end

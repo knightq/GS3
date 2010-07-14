@@ -1,0 +1,12 @@
+<% title "Menu della prossima settimana" %>
+<h1>Menu per giorno</h1>
+
+<% if @menus %>
+	<ul>
+		<% @menus.each do |menu| %>
+		  <%= raw(menu) %>
+		<% end %>
+	</ul>
+<% end %>
+
+<%= link_to 'Nuovo Menu', new_menu_path %>

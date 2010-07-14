@@ -1,0 +1,41 @@
+<fieldset class="collapsible">
+		<legend class="trigger">
+			<%=menu.giorno %>
+		</legend>
+		<div class="menu_piatti">
+			<div class="menu_primi">
+				<table class="menu">
+					<tr>
+						<td>
+							<table class="primi">
+								<tr>
+									<th colspan="2" class="primi_head">Primi</th>
+									<th>KCal</th>									
+								</tr>
+								<%= render :partial => "piatto", :collection => menu.primi, :as => :piatto %>
+							</table>							
+						</td>
+						<td>
+							<table class="secondi">
+								<tr>
+									<th colspan="2" class="secondi_head">Secondi</th>
+									<th>KCal</th>									
+								</tr>
+								<%= render :partial => "piatto", :collection => menu.secondi, :as => :piatto %>
+							</table>														
+						</td>
+						<td>
+							<table class="contorni">
+								<tr>
+									<th colspan="2" class="contorni_head">Contorni</th>
+									<th>KCal</th>									
+								</tr>
+								<%= render :partial => "piatto", :collection => menu.contorni, :as => :piatto %>
+							</table>														
+						</td>
+					</tr>
+				</table>
+			</div>
+			<%#= raw(menu)%>
+		</div>
+</fieldset>
