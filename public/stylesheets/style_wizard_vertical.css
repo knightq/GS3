@@ -1,0 +1,145 @@
+/* - - - - - - CSS Document - - - - - - - - -
+Title : SmartWizard
+Author : http://tech-laboratory.blogspot.com
+Date: 
+- - - - - - - - - - - - - - - - - - - - - */
+
+ .wiz-container{
+      width:100%;
+      height: 400px;
+      top:10px;
+      margin:5px;
+      background:#F8F8F8;
+      overflow:hidden;
+      position:relative;
+      border:#E0E0E0 solid 1px;
+      padding:6;   /*12px 0px 2px 5px;*/    
+      color:#0464BB;
+      text-align:left;
+      -moz-border-radius:8px;
+      -webkit-border-radius: 8px;
+      z-index:100;
+  }
+  .wiz-content table {
+  	border: 0;
+	width: 100%;
+  }
+  .wiz-container ul{
+    list-style: none; 
+    position: relative; 
+    padding: 3px ; 
+    background:#F8F8F8;
+    height:400px;
+    margin:2px;
+    border-right: 1px solid #E0E0E0; 
+    width:150px;
+    float: left;
+  }
+  .wiz-container ul li{ 
+    position: relative; 
+    float: left; 
+    border-bottom-width: 0 !important; 
+    margin: 0; 
+    margin-top: 2px;
+    margin-right: 2px;
+    padding: 0; }
+  .wiz-container ul li a { 
+    display:block;
+    text-decoration: none;
+    padding-left: 3px;
+    height:71px;
+    width:145px;
+    color:#0464BB;
+  }
+  .wiz-container ul li a:hover {   
+    color:#0464BB; 
+  }
+  .wiz-anc-default, .wiz-anc-current, .wiz-anc-done {
+  	border: solid 1px;
+  	-moz-border-radius-bottomleft  : 20px;
+    -moz-border-radius-topleft     : 20px;
+    -moz-border-radius-bottomright   : 2px;
+    -moz-border-radius-topright      : 2px; 
+    -webkit-border-top-right-radius  : 2px;
+    -webkit-border-bottom-right-radius:2px;
+    -webkit-border-top-left-radius :15px;
+    -webkit-border-bottom-left-radius:15px;  
+  }
+  .wiz-anc-default{
+    background-color:#EBEBEB; 
+    border-color:#E0E0E0;  
+  }
+  .wiz-anc-current{
+    color:#FFF !important; 
+    background-color:#EA8511;
+    border-color:#EA8511;
+  }
+  .wiz-anc-done{
+    color:#FFF !important; 
+    background-color:#0464BB;
+    border-color:#0464BB;
+  }
+  .wiz-body{
+    display:block; 
+    position: relative;    
+    top:3px;
+    background:transparent; 
+    border-bottom: 0px solid #E0E0E0; 
+    width:690px;
+    height:400px;
+    float: left;
+  }
+  .wiz-body div.wiz-content {
+    display:block; 
+    position: relative;
+    top:0px;
+    left:0px;
+    text-decoration: none; 
+    padding: 3px;
+    margin : 3px;
+    border-bottom: 0px solid #E0E0E0; 
+    width:auto;
+    height:350px;
+    overflow:auto;
+  }
+  .wiz-nav {
+    display:block; 
+    position: absolute;
+    left:0px;
+    bottom:0px;
+    text-decoration: none; 
+    padding: 3px 5px 2px 5px;
+    background:#F8F8F8 ; 
+    height:35px;
+    width:99%;
+    margin : 0px 0px 0px 0px;
+    border: 0px solid #E0E0E0;
+    border-top: 1px solid #E0E0E0;
+  }
+  .wiz-nav #next {
+    float:right;
+  }
+  .wiz-nav #back{
+    float:left;
+  }
+  
+  /* Button Styles */
+  .btn{
+      width                 : 100px;
+      -moz-border-radius    : 8px;
+      -webkit-border-radius : 8px;
+      background            : #5A5655;
+      color                 : #FFFFFF;
+      margin                : 0px 10px 0px 10px;
+      padding               : 5px 5px 5px 5px;
+      text-align            : center;
+      border                : 1px solid #5A5655;    
+      text-decoration       : none; 
+  }
+  .btn:hover{
+      background      : #EA8511;
+      color           : #FFFFFF;
+      border          : 1px solid #EA8511; 
+      text-decoration : none; 
+  }
+  /* End Button Styles */

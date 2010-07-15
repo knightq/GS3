@@ -266,7 +266,11 @@ class Segnalazione < ActiveRecord::Base
   def ve?
     is_in_stato? 'VE'
   end
-  
+
+  def anomalia?
+    cda_tipo_segna == 'A'
+  end
+
   def tipo
     case cda_tipo_segna
       when 'A'
@@ -338,6 +342,14 @@ class Segnalazione < ActiveRecord::Base
   
   def tempi_validazione
     [tempo_val_stimato, tempo_val_impiegato]
+  end
+
+  def cliente_des
+    Cliente.find_by_cda_cliente(cda_cliente).des_cliente
+  end
+
+  def modulo_des
+    Modulo.find_by_cda_modulo(cda_modulo).des_modulo
   end
 
 end

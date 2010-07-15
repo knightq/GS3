@@ -38,3 +38,6 @@
     padding: 0 10px;
 	z-index: 6;
 }
+#menu {
+	z-index:200;
+}
