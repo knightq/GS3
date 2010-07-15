@@ -10,7 +10,7 @@ function validateTabs(tabIdx){
     switch (tabIdx) {
         case 0:
             if (document.getElementById("cda_segnalatore").value != '' && document.getElementById("cda_cliente").value != '' &&
-            document.getElementById("cda_prodotto").value != '') {
+            document.getElementsByClassName("segnalazione_cod_prodotto").value != '') {
                 document.getElementById("errMsg").innerHTML = "";
                 document.getElementById("errMsg").style.display = 'none';
                 ret = true;

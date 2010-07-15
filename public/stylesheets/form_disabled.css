@@ -1,0 +1,4 @@
+input[readonly][type='text'] {
+    border: 0;
+	background-color: transparent;
+}

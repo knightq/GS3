@@ -5,18 +5,18 @@ class Segnalazione < ActiveRecord::Base
   belongs_to :risolutore, :foreign_key => 'cda_risolutore', :class_name => 'Utente'
   belongs_to :risolutore_analisi, :foreign_key => 'cda_risolutore_ana', :class_name => 'Utente'
   belongs_to :prodotto, :foreign_key => 'cda_prodotto', :class_name => 'Prodotto'
-  
+
   # ====== STATI DELLA SEGNALAZIONE ====== 
   include Workflow
   
   # Workflow.create_workflow_diagram(Segnalazione, './')
   workflow_column :cda_stato
   workflow do
-    state :segnalata do
+    state :segnalata, :meta => {:order => 1} do
       event :verifica, :transitions_to => :verificata
     end
 
-    state :verificata do
+    state :verificata, :meta => {:order => 2} do
       on_entry do
         consegna_flg = 0
       end
@@ -26,21 +26,21 @@ class Segnalazione < ActiveRecord::Base
       event :rimanda, :transitions_to => :rimandata
     end
 
-    state :analisi_assegnata do
+    state :analisi_assegnata, :meta => {:order => 3} do
       on_entry do
         consegna_flg = 0
       end
       event :risolvi_analisi, :transitions_to => :analisi_risolta
     end
 
-    state :analisi_risolta do
+    state :analisi_risolta, :meta => {:order => 4} do
       on_entry do
         consegna_flg = 0
       end
       event :assegna_a_sviluppo, :transitions_to => :assegnata
     end
 
-    state :assegnata do
+    state :assegnata, :meta => {:order => 5} do
       on_entry do
         consegna_flg = 0
       end
@@ -49,7 +49,7 @@ class Segnalazione < ActiveRecord::Base
       event :dichiara_obsoleta, :transition_to => :obsoleta
     end
 
-    state :risolta do
+    state :risolta, :meta => {:order => 6} do
       on_entry do
         consegna_flg = 0
       end
@@ -57,28 +57,28 @@ class Segnalazione < ActiveRecord::Base
       event :riassegna_a_sviluppo, :transition_to => :assegnata
     end
 
-    state :validata do
+    state :validata, :meta => {:order => 10} do
       on_entry do
         consegna_flg = 0
       end
     end
 
-    state :rifiutata do 
+    state :rifiutata, :meta => {:order => 10} do
       on_entry do
         consegna_flg = 0
       end
     end
 
-    state :rimandata do 
+    state :rimandata, :meta => {:order => 3} do
       on_entry do
         consegna_flg = 0
       end
     end
 
-    state :obsoleta do
+    state :obsoleta, :meta => {:order => 10} do
       on_entry do
         consegna_flg = 0
-      end      
+      end
     end
 
   end
@@ -269,6 +269,14 @@ class Segnalazione < ActiveRecord::Base
 
   def anomalia?
     cda_tipo_segna == 'A'
+  end
+
+  def sviluppo?
+    cda_tipo_segna == 'S'
+  end
+
+  def richiesta?
+    cda_tipo_segna == 'R'
   end
 
   def tipo

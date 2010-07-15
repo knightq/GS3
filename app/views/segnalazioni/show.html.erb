@@ -1,204 +1,24 @@
 <% title "Dettaglio segnalazione #{@segnalazione.prg_segna}" %>
 <% content_for :head do %>
-<%= enable_wmd(:autostart => true) %>
-<%= javascript_include_tag 'SmartWizard' %>
-<%= javascript_include_tag 'segnalazione' %>
-<%= stylesheet_link_tag 'style_wizard_vertical' %>
-<script type="text/javascript">
-
-    
-</script>
+	<%= enable_wmd(:autostart => true) %>
 <% end %>
+
 <% content_for :sidebar do %>
 <%= render :partial => 'widgets/collapsible_box', :locals => { :title => "Informazioni generali", :content => 'segnalazione_side_info', :segnalazione => @segnalazione } %>
 <%= render :partial => 'widgets/collapsible_box', :locals => { :title => "Tempi", :content => 'segnalazione_side_tempi', :segnalazione => @segnalazione } %>
 <% end %>
 <div class="segna_desc">
     <% if @segnalazione.prg_segna %>
-		<h1>GS <b><%= @segnalazione.prg_segna %></b> del <%= @segnalazione.dtm_creaz %></h1>
-	<% else %>
-		<h1>Nuova GS</h1>
-	<% end %>
+    <h1>GS <b><%= @segnalazione.prg_segna %></b> del <%= @segnalazione.dtm_creaz %></h1>
+    <% else %>
+    <h1>Nuova GS</h1>
+    <% end %>
 </div>
 <div id="wmd-preview">
 </div>
 <div id="segnalazione_show_desc">
     <%= raw(markdown(@segnalazione.des_segna)) %>
 </div>
-<div id="smartwizard" class="wiz-container">
-    <ul id="wizard-anchor">
-        <li>
-            <a href="#wizard-1" <%= "isdone=\"1\"" if @segnalazione.verificata? %><h3>Passo 1</h3>
-                <small>
-                    Informazioni generali.
-                </small>
-            </a>
-        </li>
-        <li>
-            <a href="#wizard-2"><h2>Passo 2</h2>
-                <small>
-                    Verifica
-                </small>
-            </a>
-        </li>
-        <li>
-            <a href="#wizard-3"><h2>Passo 3</h2>
-                <small>
-                    Analisi
-                </small>
-            </a>
-        </li>
-        <li>
-            <a href="#wizard-4"><h2>Passo 4</h2>
-                <small>
-                    Risoluzione
-                </small>
-            </a>
-        </li>
-        <li>
-            <a href="#wizard-5"><h2>Passo 5</h2>
-                <small>
-                    Chiusura
-                </small>
-            </a>
-        </li>
-    </ul>
-    <div id="wizard-body" class="wiz-body">
-        <div id="wizard-1">
-            <div class="wiz-content">
-                <h2>Informazioni generali</h2>
-                <br/>
-                <table align="center">
-                    <tr>
-                        <td>
-                            Segnalatore:
-                        </td>
-                        <td>
-                            <input type="text" class="text" name="segnalatore" id="cda_segnalatore" value="<%=@segnalazione.cda_segnalatore%>">
-                        </td>
-						<td>
-                            Cliente:
-                        </td>
-                        <td>
-                            <input type="text" class="text" name="cliente" id="cda_cliente" value="<%= @segnalazione.cda_cliente %>" size="5" /> <b><%= @segnalazione.cliente_des %></b>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Prodotto:
-                        </td>
-                        <td>
-                            <input type="text" class="text" name="prodotto" id="cda_prodotto" value="<%=@segnalazione.cda_prodotto%>">
-                        </td>
-						<td>
-                            Versione:
-                        </td>
-                        <td>
-                            <input type="text" class="text" name="cliente" id="cda_versione" value="<%= @segnalazione.cda_versione %>" /></td>
-                    </tr>                
-                    <tr>
-                        <td>
-                            Modulo:
-                        </td>
-                        <td>
-                            <input type="text" class="text" name="modulo" id="cda_modulo" value="<%=@segnalazione.cda_modulo%>" size="5" /> <b><%=@segnalazione.modulo_des%></b>
-                        </td>
-						<td>
-                            Tipo segnalazione:
-                        </td>
-                        <td>
-                        	<%= select("@segnalazione", "cda_tipo_segna", TipoSegnalazione.all.collect {|ts| [ ts.des_tipo_segna, ts.cda_tipo_segna ] }) %>
-							<% if @segnalazione.anomalia? %>
-								<%= check_box("@segnalazione", "regressione_flg") %>
-								<%= image_tag 'thumb_down.png', :title => 'Regressione', :alt => 'Regressione' %>
-							<% end %>							
-						</td>
-                    </tr>
-				</table>
-            </div>
-            <div class="wiz-nav">
-                <div id="errMsg" class="error">
-                </div>
-                <input class="next btn" id="next" type="button" value="Verifica >" />
-            </div>
-        </div>
-        <div id="wizard-2">
-            <div class="wiz-content">
-                <h2>Informazioni di verifica</h2>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, 
-                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,  
-                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
-                    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                </p>
-			 </div>
-
-            <div class="wiz-nav">
-                <input class="back btn" id="back" type="button" value="< Info generali" /><input class="next btn" id="next" type="button" value="Analisi >" />
-            </div>
-        </div>
-        <div id="wizard-3">
-            <div class="wiz-content">
-                <h2>Step 3 Content</h2>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, 
-                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,  
-                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
-                    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                </p>
-                <br/>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, 
-                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,  
-                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
-                    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                </p>
-                <br/>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, 
-                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,  
-                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
-                    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                </p>
-            </div>
-            <div class="wiz-nav">
-                <input class="back btn" id="back" type="button" value="< Back" /><input class="next btn" id="next" type="button" value="Next >" />
-            </div>
-        </div>
-        <div id="wizard-4">
-            <div class="wiz-content">
-                <h2>Step 4 Content</h2>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, 
-                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,  
-                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
-                    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                </p>
-                <br/>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, 
-                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,  
-                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
-                    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                </p>
-                <br/>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, 
-                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,  
-                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
-                    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                </p>
-            </div>
-            <div class="wiz-nav">
-                <input class="back btn" id="back" type="button" value="< Back" /><input class="btn" id="next" type="button" value="Done" />
-            </div>
-        </div>
-    </div>
-</div><%= link_to 'Modifica', edit_segnalazione_path(@segnalazione.prg_segna) %>
+<%= render :partial => 'form_wizard' %>
+</div>
+<%= link_to 'Modifica', edit_segnalazione_path(@segnalazione.prg_segna) %>

@@ -14,23 +14,8 @@ var request = function(options){
     return false;
 };
 
-function dock() {
-  // set up the options to be used for jqDock...
-  var dockOptions =
-    { align: 'right' // vertical menu, with expansion LEFT from a fixed RIGHT edge
-    , distance: 24
-    , labels: true  // add labels (defaults to 'tl')
-    , fadeIn: 2000
-	, size: 28
-    };
-  // ...and apply...
-  $('#menu').jqDock(dockOptions);
-}
-
 $(document).ready(function(){
 	setTimeout(hideFlashes, 1000);
-
-	dock();
     
     // remote links handler
     $('a[data-remote=true]').live('click', function(){

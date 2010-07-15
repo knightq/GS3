@@ -1,0 +1,203 @@
+<% content_for :head do %>
+<%= enable_wmd(:autostart => true) %>
+<%= javascript_include_tag 'form_disabled' if params[:action]=='show' %>
+<%= javascript_include_tag 'segnalazione' %>
+<%= javascript_include_tag 'SmartWizard' %>
+<%= stylesheet_link_tag 'style_wizard_vertical' %>
+<%= stylesheet_link_tag 'form_disabled' if params[:action]=='show' %>
+<% end %>
+<div id="smartwizard" class="wiz-container">
+    <ul id="wizard-anchor">
+        <li>
+            <a href="#wizard-1"><h3>Passo 1</h3>
+                <small>
+                    Informazioni generali
+                </small>
+            </a>
+        </li>
+        <li>
+            <a href="#wizard-2" <%= "isdone='1' class='wiz-anc-done'" if @segnalazione.already?(:verificata) %>><h2>Passo 2</h2>
+                <small>
+                    Verifica
+                </small>
+            </a>
+        </li>
+        <li>
+            <a href="#wizard-3"><h2>Passo 3</h2>
+                <small>
+                    Analisi
+                </small>
+            </a>
+        </li>
+        <li>
+            <a href="#wizard-4"><h2>Passo 4</h2>
+                <small>
+                    Risoluzione
+                </small>
+            </a>
+        </li>
+        <li>
+            <a href="#wizard-5"><h2>Passo 5</h2>
+                <small>
+                    Chiusura
+                </small>
+            </a>
+        </li>
+    </ul>
+    <div id="wizard-body" class="wiz-body">
+        <div id="wizard-1">
+            <div class="wiz-content">
+                <h2>Informazioni generali</h2>
+                <br/>
+                <table align="center">
+                    <tr>
+                        <td>
+                            Segnalatore:
+                        </td>
+                        <td>
+                            <input type="text" class="text" name="segnalatore" id="cda_segnalatore" value="<%=@segnalazione.cda_segnalatore%>">
+                        </td>
+                        <td>
+                            Cliente:
+                        </td>
+                        <td>
+                            <input type="text" class="text" name="cliente" id="cda_cliente" value="<%= @segnalazione.cda_cliente %>" size="5" /><b><%= @segnalazione.cliente_des if @segnalazione.cda_cliente %></b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Prodotto:
+                        </td>
+                        <td>
+                            <%= text_field_with_auto_complete @segnalazione, :cda_prodotto, {:class => "segnalazione_cod_prodotto", :size => 12, :name => 'prodotto', :value => @segnalazione.cda_prodotto} %>
+                        </td>
+                        <td>
+                            Versione:
+                        </td>
+                        <td>
+                            <input type="text" class="text" name="cliente" id="cda_versione" value="<%= @segnalazione.cda_versione %>" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Modulo:
+                        </td>
+                        <td>
+                            <input type="text" class="text" name="modulo" id="cda_modulo" value="<%=@segnalazione.cda_modulo%>" size="5" /><b><%=@segnalazione.modulo_des if @segnalazione.cda_modulo %></b>
+                        </td>
+                        <td>
+                            Tipo segnalazione:
+                        </td>
+                        <td>
+                            <%= select("@segnalazione", "cda_tipo_segna", TipoSegnalazione.all.collect {|ts| [ ts.des_tipo_segna, ts.cda_tipo_segna ] }) %>
+                            <% if @segnalazione.anomalia? %>
+                            <%= check_box("@segnalazione", "regressione_flg") %>
+                            <%= image_tag 'thumb_down.png', :title => 'Regressione', :alt => 'Regressione' %>
+                            <% end %>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="wiz-nav">
+                <div id="errMsg" class="error">
+                </div>
+                <input class="next btn" id="next" type="button" value="Verifica >" />
+            </div>
+        </div>
+        <div id="wizard-2">
+        	<div class="wiz-content">
+                <h2>Informazioni di verifica</h2>
+                <% if @segnalazione.verificata? %>
+	                <p>
+	                    Hai appena confermato di aver verificato la segnalazione.
+	                    <br/>
+	                    Come intendi procedere?
+	                </p>
+	                <ul class="inside ">
+	                    <li>
+	                        La segnalazione è da risolversi per il prossimo rilascio.
+	                        <br/>
+	                        <input class="next btn auto_size" id="next" type="button" value="Inoltrala all'analista" />oppure <input class="next btn auto_size" id="next" type="button" value="Inoltrala allo sviluppatore" />
+	                    </li>
+	                    <li>
+	                        <% unless @segnalazione.verificata? %>
+	                        <% if @segnalazione.anomalia? %>
+	                        L'anomalia non è replicabile.<% elsif @segnalazione.richiesta? %>
+	                        La richiesta di implementazione non è compatibile con il funzionamento del prodotto.<% end %>
+	                        <input class="next btn" id="next" type="button" value="Rifiutala" /><% end %>
+	                    </li>
+	                    <li>
+	                        La segnalazione non è pianificabile nella prossima versione, <input class="next btn" id="next" type="button" value="Rimandala" />
+	                    </li>
+	                </ul>
+				<% else %>
+	                <p>
+	                    La segnalazione è stata verificata da <b><%= @segnalazione.cda_verificatore %></b>.
+	                </p>
+                <% end %>
+				<div class="postit dim" id="segnalazione_note_verificatore">
+					<div class="innerPostit filter">
+	    				<a name="expand nota_verificatore"><%= raw(markdown(truncate(@segnalazione.note_verificatore, 300, ". . ."))) %></a>
+					</div>
+				</div>
+				</div>
+            </div>
+            <div class="wiz-nav">
+                <input class="back btn" id="back" type="button" value="< Info generali" /><% unless @segnalazione.verificata? %>
+                <input class="next btn" id="next" type="button" value="Info analisi >" /><% end %>
+            </div>
+        </div>
+        <div id="wizard-3">
+            <div class="wiz-content">
+                <h2>Analisi</h2>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, 
+                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,  
+                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
+                    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                </p>
+                <br/>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, 
+                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,  
+                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
+                    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                </p>
+            </div>
+            <div class="wiz-nav">
+                <input class="back btn" id="back" type="button" value="< Info verifica" /><input class="next btn" id="next" type="button" value="Risolvi >" />
+            </div>
+        </div>
+        <div id="wizard-4">
+            <div class="wiz-content">
+                <h2>Risoluzione</h2>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, 
+                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,  
+                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
+                    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                </p>
+            </div>
+            <div class="wiz-nav">
+                <input class="back btn" id="back" type="button" value="< Analisi" /><input class="next btn" id="next" type="button" value="Valida >" />
+            </div>
+        </div>
+        <div id="wizard-5">
+            <div class="wiz-content">
+                <h2>Validazione</h2>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, 
+                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,  
+                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
+                    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                </p>
+            </div>
+            <div class="wiz-nav">
+                <input class="back btn" id="back" type="button" value="< Info risoluzione" /><input class="btn" id="next" type="button" value="Chiudi" />
+            </div>
+        </div>
+    </div>

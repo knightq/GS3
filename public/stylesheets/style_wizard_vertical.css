@@ -65,6 +65,15 @@ Date:
     -webkit-border-top-left-radius :15px;
     -webkit-border-bottom-left-radius:15px;  
   }
+  ul.inside {
+  	float: none;
+  	list-style: upper-roman inside;
+  	width: 100%;
+  }
+  ul.inside li {
+  	float: none;
+	list-style: upper-roman inside;
+  }
   .wiz-anc-default{
     background-color:#EBEBEB; 
     border-color:#E0E0E0;  
@@ -141,5 +150,8 @@ Date:
       color           : #FFFFFF;
       border          : 1px solid #EA8511; 
       text-decoration : none; 
+  }
+  .auto_size {
+  	width: auto;
   }
   /* End Button Styles */
