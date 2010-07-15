@@ -415,6 +415,7 @@
     }
 </style>
 
+<h1><%= @segnalazione.tipo %> n.<b><%= @segnalazione.prg_segna %></b></h1>
 <table class="summary">
 	<tr>
 		<th>Prodotto: </th>
@@ -441,9 +442,6 @@
 	<tr>
 		<th>Cliente: </th>
 		<td colspan="2"><%= @segnalazione.cda_cliente %> - cliente_des</td>
-	</tr>
-	<tr>
-		<td colspan="3" class="regular"><%= @segnalazione.tipo %> n.<b><%= @segnalazione.prg_segna %></b></td>
 	</tr>
 </table>
 <br/>
@@ -608,3 +606,6 @@
 	Risolutore: <b><%= @segnalazione.cda_risolutore %></b> &nbsp;&nbsp;&nbsp; Versione risoluzione: <b><%= @segnalazione.cda_versione_ris %></b>
 	<% if @segnalazione.risolta? %> &nbsp;&nbsp;&nbsp; Data risoluzione: <b><%= @segnalazione.dtm_risoluzione %></b><% end %>.
 </div>
+ <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+<%= bar_chart.render('chart').html_safe %>
+<div id='chart'></div>

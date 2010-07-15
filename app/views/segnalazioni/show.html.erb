@@ -6,6 +6,7 @@
 
 <% content_for :sidebar do %>
 	<%= render :partial => 'widgets/collapsible_box', :locals => { :title => "Informazioni generali", :content => 'segnalazione_side_info', :segnalazione => @segnalazione } %>
+	<%= render :partial => 'widgets/collapsible_box', :locals => { :title => "Tempi", :content => 'segnalazione_side_tempi', :segnalazione => @segnalazione } %>
 <% end %>
 
 <div class="segna_desc">

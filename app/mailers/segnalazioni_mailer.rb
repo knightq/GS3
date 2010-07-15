@@ -1,5 +1,5 @@
 class SegnalazioniMailer < ActionMailer::Base
-  helper_method :max_pos, :position, :positions
+  helper_method :max_width, :position, :positions, :bar_chart
 
   default :from => "GS on Rails <asalicetti@kion.it>"
   
@@ -33,6 +33,36 @@ class SegnalazioniMailer < ActionMailer::Base
       p_min = pos_max * values.min / values.max
       [p_min pos_max]
     end 
+  end
+
+
+  def bar_chart
+    raw_data = [['Analisi', segnalazione.tempo_ris_ana_stimato, segnalazione.tempo_ris_ana_impiegato],
+                  ['Risoluzione', segnalazione.tempo_risol_stimato, segnalazione.tempo_risol_impiegato],
+                  ['Validazione', segnalazione.tempo_val_stimato, segnalazione.tempo_val_impiegato]];
+    years = ['Stima', 'Impiegato'];
+                  
+    @chart = GoogleVisualr::BarChart.new
+    @chart.add_column('string', 'Year')
+    raw_data.each do |data|
+      @chart.add_column('number', data[0])      
+    end
+    @chart.add_rows(years.size)
+
+    for i in 0..(years.size-1)
+      @chart.set_value(i, 0, years[i])      
+    end
+    
+    for i in 0..(raw_data.size-1)
+      for j in 1..(raw_data[i].size-1)
+        @chart.set_value(j-1, i+1, raw_data[i][j])
+      end  
+    end
+    
+    options = { :width => 400, :height => 240, :title => 'Company Performance', :is3D => true, :isStacked => true }
+    options.each_pair { | key, value |  @chart.send "#{key}=", value }
+
+    @chart
   end
 
 end

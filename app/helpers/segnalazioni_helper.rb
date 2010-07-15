@@ -21,4 +21,32 @@ module SegnalazioniHelper
         :id => dom_id(brand, :span))
   end
 
+  def bar_chart(segnalazione)
+    raw_data = [['Analisi', segnalazione.tempo_ris_ana_stimato || 0, segnalazione.tempo_ris_ana_impiegato || 0],
+                  ['Risoluzione', segnalazione.tempo_risol_stimato  || 0, segnalazione.tempo_risol_impiegato  || 0],
+                  ['Validazione', segnalazione.tempo_val_stimato  || 0, segnalazione.tempo_val_impiegato  || 0]];
+    years = ['Stima', 'Impiegato'];
+                  
+    @chart = GoogleVisualr::BarChart.new
+    @chart.add_column('string', 'Year')
+    raw_data.each do |data|
+      @chart.add_column('number', data[0])      
+    end
+    @chart.add_rows(years.size)
+
+    for i in 0..(years.size-1)
+      @chart.set_value(i, 0, years[i])      
+    end
+    
+    for i in 0..(raw_data.size-1)
+      for j in 1..(raw_data[i].size-1)
+        @chart.set_value(j-1, i+1, raw_data[i][j])
+      end  
+    end
+    
+    options = { :width => 290, :height => 100, :is3D => true, :isStacked => true, :backgroundColor => '#CFE0FF', :legend => 'top' }
+    options.each_pair { | key, value |  @chart.send "#{key}=", value }
+
+    @chart
+  end
 end
