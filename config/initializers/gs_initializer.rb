@@ -10,7 +10,7 @@ end
 
 module Workflow::ActiveRecordInstanceMethods
   def already?(state_as_sym)
-    if current_state.meta and spec.states
+    if current_state and current_state.meta and spec and spec.states
       current_state.meta[:order] > spec.states.select{ |s| s[0].to_s==state_as_sym.to_s}[0][1].meta[:order]
     else 
       true
