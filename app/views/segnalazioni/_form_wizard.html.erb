@@ -6,10 +6,11 @@
 <%= stylesheet_link_tag 'style_wizard_vertical' %>
 <%= stylesheet_link_tag 'form_disabled' if params[:action]=='show' %>
 <% end %>
+<input id="lastWiz" type="hidden" value="<%= lastStepForMe %>">
 <div id="smartwizard" class="wiz-container">
     <ul id="wizard-anchor">
         <li>
-            <a href="#wizard-1"><h3>Passo 1</h3>
+            <a href="#wizard-1"><h2>Passo 1</h2>
                 <small>
                     Informazioni generali
                 </small>
@@ -83,7 +84,7 @@
                             Modulo:
                         </td>
                         <td>
-                            <input type="text" class="text" name="modulo" id="cda_modulo" value="<%=@segnalazione.cda_modulo%>" size="5" /><b><%=@segnalazione.modulo_des if @segnalazione.cda_modulo %></b>
+                            <input type="text" class="text" name="modulo" id="cda_modulo" value="<%=@segnalazione.cda_modulo%>" size="5" /> <b><%=@segnalazione.modulo_des if @segnalazione.cda_modulo %></b>
                         </td>
                         <td>
                             Tipo segnalazione:
@@ -96,7 +97,21 @@
                             <% end %>
                         </td>
                     </tr>
-                </table>
+                    <tr>
+                        <td>
+                            Task:
+                        </td>
+                        <td>
+                            <input type="text" class="text" name="task" id="task_id" value="<%=@segnalazione.task_id%>" size="5" /> <b><%=@segnalazione.task_des if @segnalazione.task_id %></b>
+                        </td>
+                        <td>
+                            Commessa:
+                        </td>
+                        <td>
+
+                        </td>
+                    </tr>
+				</table>
             </div>
             <div class="wiz-nav">
                 <div id="errMsg" class="error">
@@ -135,12 +150,13 @@
 	                    La segnalazione è stata verificata da <b><%= @segnalazione.cda_verificatore %></b>.
 	                </p>
                 <% end %>
-				<div class="postit dim" id="segnalazione_note_verificatore">
-					<div class="innerPostit filter">
-	    				<a name="expand nota_verificatore"><%= raw(markdown(truncate(@segnalazione.note_verificatore, :omission => ". . .", :lenght => 300))) %></a>
+				<% if @segnalazione.note_verificatore %> 
+					<div class="postit dim" id="segnalazione_note_verificatore">
+						<div class="innerPostit filter">
+		    				<a name="expand nota_verificatore"><%= raw(markdown(truncate(@segnalazione.note_verificatore, :omission => ". . .", :length => 300))) %></a>
+						</div>
 					</div>
-				</div>
-				</div>
+				<% end %>
             </div>
             <div class="wiz-nav">
                 <input class="back btn" id="back" type="button" value="< Info generali" /><% unless @segnalazione.verificata? %>
@@ -182,7 +198,7 @@
                 </p>
             </div>
             <div class="wiz-nav">
-                <input class="back btn" id="back" type="button" value="< Analisi" /><input class="next btn" id="next" type="button" value="Valida >" />
+                <input class="back btn" id="back" type="button" value="< Info Analisi" /><input class="next btn" id="next" type="button" value="Risolvi >" />
             </div>
         </div>
         <div id="wizard-5">
@@ -197,7 +213,7 @@
                 </p>
             </div>
             <div class="wiz-nav">
-                <input class="back btn" id="back" type="button" value="< Info risoluzione" /><input class="btn" id="next" type="button" value="Chiudi" />
+                <input class="back btn" id="back" type="button" value="< Info risoluzione" /><input class="btn" id="next" type="button" value="Valida" />
             </div>
         </div>
     </div>

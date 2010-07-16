@@ -10,6 +10,15 @@ end
 
 module Workflow::ActiveRecordInstanceMethods
   def already?(state_as_sym)
+      current_state.meta[:order] >= spec.states[state_as_sym].meta[:order]
+  end
+
+  def has_to_be?(state_as_sym)
+      current_state.meta[:order] < spec.states[state_as_sym].meta[:order]
+  end
+ 
+  def overcame?(state_as_sym)
       current_state.meta[:order] > spec.states[state_as_sym].meta[:order]
   end
+
 end

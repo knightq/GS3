@@ -1,10 +1,5 @@
 module SegnalazioniHelper
  def display_container
-#   Html.div(:id => "display_container") do |div|
-#     %w(exclusive, other, none).each do |state|
-#       div << display_type_section(state.titlecase, @brands[state])
-#     end
-#   end
  end
 
 	def display_type_section(type, brands)
@@ -15,11 +10,27 @@ module SegnalazioniHelper
     	div << table_into_cells(brands.map { |b| brand_span(b)}, 4)
     end
   end
- 
+
+  def lastStepForMe 
+    state = @segnalazione.current_state
+    lastStep = 0 # Tutti possono accedere all'ultimo stato utile della GS
+    while (lastStep == 0 and state.meta[:order] > 1)
+    	puts "== STATO: #{state.name} tipo #{state.name.class} == @segnalazione.actor_associated_to(state.name) = #{@segnalazione.actor_associated_to(state.name)}, == current_user.user_name = #{current_user.user_name}"
+      if @segnalazione.actor_associated_to(state.name) == current_user.user_name
+        lastStep = state.meta[:order] - 2
+      else
+        puts "Lo stato precedente a #{state.name} è #{@segnalazione.previous_state(state)}."
+        state = @segnalazione.spec.states[@segnalazione.previous_state(state)]
+      end
+    end 
+    return lastStep
+  end
+
   def brand_span(brand)
     Html.span(brand.name, :class => :brand_span,
         :id => dom_id(brand, :span))
   end
+
 
   def bar_chart(segnalazione)
     raw_data = [['Analisi', segnalazione.tempo_ris_ana_stimato || 0, segnalazione.tempo_ris_ana_impiegato || 0],

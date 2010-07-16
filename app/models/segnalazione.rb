@@ -326,7 +326,22 @@ class Segnalazione < ActiveRecord::Base
        ((cda_risolutore || "") + " --> " + (cda_validatore || cda_verificatore)) if (cda_validatore || cda_verificatore)
     end
   end
-  
+
+  def actor_associated_to(state_as_simbol)
+    case state_as_simbol
+      when :verificata
+        cda_verificatore
+      when :analisi_assegnata
+        cda_risolutore_ana
+      when :analisi_risolta
+        cda_risolutore_ana
+      when :assegnata
+        cda_risolutore
+      when :validata
+        cda_validatore
+    end
+  end
+
   def date_associated
     case cda_stato
       when 'SE'
@@ -358,6 +373,27 @@ class Segnalazione < ActiveRecord::Base
 
   def modulo_des
     Modulo.find_by_cda_modulo(cda_modulo).des_modulo
+  end
+  
+  def task_des
+    Task.find_by_task_id(task_id).des_task
+  end
+
+  def previous_state(state)
+    case state.name
+      when :obsoleta, :rimandata, :rifiutata, :analisi_assegnata
+        :verificata
+      when :validata
+        :risolta
+      when :risolta
+        :assegnata
+      when :assegnata
+        cda_risolutore_ana ? :analisi_risolta : :verificata 
+      when :analisi_risolta
+        :analisi_assegnata
+      when :verificata
+        :segnalata
+    end      
   end
 
 end

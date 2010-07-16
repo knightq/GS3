@@ -1,8 +1,12 @@
 $().ready(function(){
     $('.wiz-container').smartWizard({
-        selectedStep: 0,
+        selectedStep: $('#lastWiz').attr('value'),
         validatorFunc: validateTabs
     });
+	
+	if ($('#lastWiz').attr('value') == 4) {
+		$('wiz-nav').hide();
+	}
 });
 
 function validateTabs(tabIdx){
@@ -25,7 +29,8 @@ function validateTabs(tabIdx){
             }
             break;
         case 1:
-            ret = confirm("Vuoi proseguire?");
+            // ret = confirm("Vuoi proseguire?");
+			ret = true; // rimuovere se si decommenta la linea precedente
             break;
         case 2:
             ret = true;
