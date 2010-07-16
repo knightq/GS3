@@ -137,7 +137,7 @@
                 <% end %>
 				<div class="postit dim" id="segnalazione_note_verificatore">
 					<div class="innerPostit filter">
-	    				<a name="expand nota_verificatore"><%= raw(markdown(truncate(@segnalazione.note_verificatore, 300, ". . ."))) %></a>
+	    				<a name="expand nota_verificatore"><%= raw(markdown(truncate(@segnalazione.note_verificatore, :omission => ". . .", :lenght => 300))) %></a>
 					</div>
 				</div>
 				</div>
