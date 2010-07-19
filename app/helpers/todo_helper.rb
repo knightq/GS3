@@ -36,7 +36,7 @@ module TodoHelper
   end
 
   def ore_per_sezione(sezioni)
-    return sezioni.inject(0){|sum, sez| sum + sez.select{|el| el.instance_of? Array}[0].inject(0) {|sum, el| sum + el.tempo_stimato}}
+    return sezioni.inject(0){|sum, sez| sum + sez.select{|el| el.instance_of? Array}[0].inject(0) {|sum, el| sum + (el.tempo_stimato ? el.tempo_stimato : 0)}}
   end
 
   def grouped(segnalazioni)
