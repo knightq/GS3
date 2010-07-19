@@ -379,6 +379,14 @@ class Segnalazione < ActiveRecord::Base
     Task.find_by_task_id(task_id).des_task
   end
 
+  def priorita
+    (5 - cdn_priorita.to_i) % 5
+  end
+
+  def gravita
+    (5 - cdn_gravita.to_i) % 5
+  end
+
   def previous_state(state)
     case state.name
       when :obsoleta, :rimandata, :rifiutata, :analisi_assegnata

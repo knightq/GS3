@@ -1,16 +1,29 @@
 <% title "Nuova segnalazione" %>
-
 <% content_for :head do %>
-	<%= javascript_include_tag 'jquery.bgiframe.min' %>
-	<%= javascript_include_tag 'jquery.autocomplete' %>
-	
-	<%= stylesheet_link_tag 'jquery.autocomplete' %>
-	<%= stylesheet_link_tag 'jquery.ui.all' %>
+<%= javascript_include_tag 'jquery.bgiframe.min' %>
+<%= javascript_include_tag 'jquery.autocomplete' %>
+<%= stylesheet_link_tag 'jquery.autocomplete' %>
+<%= stylesheet_link_tag 'jquery.ui.all' %>
+<% end %>
+<% content_for :sidebar do %>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('textarea').focus(function(){
+            $(this).css("background", "#FFFFDD")
+        }).blur(function(){
+            if ($(this)[0].value == '') {
+                $(this).css("background", "#FFFFDD url(../images/descrizione.png) center center no-repeat")
+            }
+        });
+    });
+</script>
 <% end %>
 
-<% content_for :sidebar do %>
-<% end %>
+<span class="span_textarea_descrizione_segnalazione">
+	<textarea class="segnalazione_desc"></textarea>
+</span>
+
+<div class="wmd-preview"></div>
 
 <%= render :partial => 'form_wizard' %>
-
 <%= link_to 'Indietro', :back %>

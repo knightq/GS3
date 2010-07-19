@@ -763,6 +763,16 @@ div#segnalazione_show_desc {
 	margin: 5px;
 	padding: 6px;
 }
+textarea.segnalazione_desc {
+  -moz-border-radius:8px;
+  -webkit-border-radius: 8px;
+  background: #FFFFDD url(../images/descrizione.png) center center no-repeat; /* This ruins default border */
+  border: 1px solid #D7D7D7;
+  height: 10em;
+  margin: 5px;
+  padding: 6px;  
+  width: 97%;
+}
 .drag {
 	cursor: move;
 /*	background-image:url(../images/box.png);
@@ -1134,6 +1144,17 @@ table.rubrica tbody {
 #menu div.jqDock {cursor:pointer;}
 div.jqDockLabel {font-weight:bold; font-style:italic; white-space:nowrap; color:#000; cursor:pointer;}
 
+/* ================================ WMD ================= */
+.wmd-preview {
+  -moz-border-radius:8px;
+  -webkit-border-radius: 8px;
+  background: #FFFFDD url(../images/anteprima.png) center center no-repeat; /* This ruins default border */
+  border: 1px solid #D7D7D7;
+  height: 10em;
+  margin: 5px;
+  padding: 6px;  
+  width: 97%;
+}
 /* ================================ NOTE ================ */
 .postit{
 	background: transparent url(../images/postit.png) no-repeat;
