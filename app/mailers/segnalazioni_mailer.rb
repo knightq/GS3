@@ -1,6 +1,6 @@
 class SegnalazioniMailer < ActionMailer::Base
   helper_method :max_width, :position, :positions, :bar_chart
-
+  
   default :from => "GS on Rails <asalicetti@kion.it>"
   
   def presa_in_carico(user, segnalazione)
@@ -9,46 +9,48 @@ class SegnalazioniMailer < ActionMailer::Base
     subject = "GS-#{segnalazione.cda_tipo_segna}.#{segnalazione.prg_segna} - Modulo:#{segnalazione.cda_modulo} - Gravita:#{segnalazione.gravita_des} - Stato:#{segnalazione.stato_des} - Vers. Ris. Pian:#{segnalazione.cda_versione_pian} - E' stata presa in consegna da #{user.user_name}"
     mail(:to => user.user_mail, :subject => subject)  
   end
-
+  
   def max_width
     200
   end
-
+  
   def pos_max_rel
     3/4
   end
-
+  
   def pos_max
     max_width * pos_max_rel
   end
-
+  
   def position(val, min_max_array)
     if(val and min_max_array.compact!.size == 2)
       p_min = pos_max * val / min_max_array.max
     end 
   end
-
+  
   def positions(values)
+    res = [p_min pos_max]
     if(values and values.compact!.size == 2)
       p_min = pos_max * values.min / values.max
-      [p_min pos_max]
-    end 
+      res = [p_min pos_max]
+    end
+    return res
   end
-
-
+  
+  
   def bar_chart
     raw_data = [['Analisi', segnalazione.tempo_ris_ana_stimato, segnalazione.tempo_ris_ana_impiegato],
-                  ['Risoluzione', segnalazione.tempo_risol_stimato, segnalazione.tempo_risol_impiegato],
-                  ['Validazione', segnalazione.tempo_val_stimato, segnalazione.tempo_val_impiegato]];
+    ['Risoluzione', segnalazione.tempo_risol_stimato, segnalazione.tempo_risol_impiegato],
+    ['Validazione', segnalazione.tempo_val_stimato, segnalazione.tempo_val_impiegato]];
     years = ['Stima', 'Impiegato'];
-                  
+    
     @chart = GoogleVisualr::BarChart.new
     @chart.add_column('string', 'Year')
     raw_data.each do |data|
       @chart.add_column('number', data[0])      
     end
     @chart.add_rows(years.size)
-
+    
     for i in 0..(years.size-1)
       @chart.set_value(i, 0, years[i])      
     end
@@ -61,8 +63,8 @@ class SegnalazioniMailer < ActionMailer::Base
     
     options = { :width => 400, :height => 240, :title => 'Company Performance', :is3D => true, :isStacked => true }
     options.each_pair { | key, value |  @chart.send "#{key}=", value }
-
+    
     @chart
   end
-
+  
 end
