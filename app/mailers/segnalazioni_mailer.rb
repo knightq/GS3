@@ -29,12 +29,10 @@ class SegnalazioniMailer < ActionMailer::Base
   end
   
   def positions(values)
-    res = [p_min pos_max]
     if(values and values.compact!.size == 2)
       p_min = pos_max * values.min / values.max
-      res = [p_min pos_max]
+      [p_min, pos_max]
     end
-    return res
   end
   
   
