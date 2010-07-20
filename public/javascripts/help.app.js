@@ -29,7 +29,7 @@ $(document).ready(function(){
             var posY = e.pageY;
 			var contentKey = getHelp(document.location.pathname, posX, posY);
             
-            $.get('help/help.' + contentKey + '.html', {}, function(data){
+            $.get('/help/help.' + contentKey + '.html', {}, function(data){
                 var popup = $('<div style="display: none;background-color: white; border: solid 1px silver; padding: 4px; position: absolute; top:' + posY + 'px;left:' + posX + 'px; font-size: 0.8em;">' + data + '</div>"');
                 $('body').append(popup);
                 $(popup).show(500).delay(5000).fadeOut(500);
