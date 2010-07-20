@@ -841,6 +841,20 @@ div.in_carico .left_to_segna_desc {
 }
 div.segna_desc {
 }
+#segnalazione_show_desc h2 {
+	color: #43619E;
+	margin: 0.2em 0em 0.7em 0em;
+}
+#segnalazione_show_desc p, #segnalazione_show_desc li {
+	color: #43619E;
+	font-size: 0.9em;
+	margin: 2px;
+}
+#segnalazione_show_desc ul {
+	margin-top: 3px;
+	margin-bottom: 3px;
+	line-height: 1.1em;
+}
 table.segnalazioni {
 	min-width: 100%;
 	border: none;
