@@ -19,7 +19,6 @@ module SegnalazioniHelper
       if @segnalazione.actor_associated_to(state.name) == current_user.user_name
         lastStep = state.meta[:order] - 2
       else
-        puts "Lo stato precedente a #{state.name} è #{@segnalazione.previous_state(state)}."
         state = @segnalazione.spec.states[@segnalazione.previous_state(state)]
       end
     end 
