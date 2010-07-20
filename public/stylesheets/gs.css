@@ -461,10 +461,9 @@ li.organizator {
   padding-left: 50px;
 }
 
-#function_title {
+.function_title {
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
-#	background-color: #CFE0FF;
 	background-color: #67A0CF;
 	border: 2px solid navy;
 	color: #FFF;
@@ -474,7 +473,6 @@ li.organizator {
   	left: 350px;
 	line-height: 1em;
 	overflow:visible;
-#	text-align:center;
   	top: 55px;
   	width: 400px;
   	z-index: 2;
@@ -922,7 +920,7 @@ span.show_sidebar  {
 	cursor: pointer;
 }
 
-img.hide_btn {
+.hide_btn {
 	border: 0;
 	cursor: pointer;
 	float: right;
