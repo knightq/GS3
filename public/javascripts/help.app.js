@@ -32,7 +32,9 @@ $(document).ready(function(){
             $.get('/help/help.' + contentKey + '.html', {}, function(data){
                 var popup = $('<div style="display: none;background-color: white; border: solid 1px silver; padding: 4px; position: absolute; top:' + posY + 'px;left:' + posX + 'px; font-size: 0.8em;">' + data + '</div>"');
                 $('body').append(popup);
-                $(popup).show(500).delay(5000).fadeOut(500);
+                $(popup).show(500).click(function(e){
+					$(popup).fadeOut(500);
+				});
 				$('.help-context').removeClass('highlight-help');
             });
 			$('.help-context').removeClass('highlight-help');

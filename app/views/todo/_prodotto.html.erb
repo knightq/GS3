@@ -1,7 +1,7 @@
 <% if prodotto and prodotto[1] %>
 	<% versioni = prodotto[1].group_by(&:versione_pianificata).sort %>
 <% end %>
-<fieldset class="collapsible">
+<fieldset class="collapsible help-context" helpId="prodotto.fieldset">
 	<% if prodotto %>
 	
 		<legend class="trigger">
