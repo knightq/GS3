@@ -2,7 +2,7 @@
 <% content_for :sidebar do %>
 <%= render :partial => 'widgets/collapsible_box', :locals => { :title => "Informazioni generali", :content => 'segnalazione_side_info', :segnalazione => @segnalazione } %>
 <% end %>
-<%= form_for @segnalazione, :as => :s, :remote => true, :url => {:action => params[:action] == 'show' ? "update" : "create"} do |f| %>
+<%= form_for @segnalazione, :as => :s, :remote => true, :url => {:action => params[:action] == 'edit' ? "update" : "create"} do |f| %>
 <span class="span_textarea_descrizione_segnalazione"><%= f.text_area :des_segna, :class => "segnalazione_desc" %>
 </span>
 <%= submit_tag %>

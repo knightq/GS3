@@ -18,7 +18,7 @@
             </a>
         </li>
         <li>
-            <a href="#wizard-2" <%= "isdone='1' class='wiz-anc-done'" if @segnalazione.already?(:verificata) %>><h2>Passo 2</h2>
+            <a href="#wizard-2" <%= "isdone='1' class='wiz-anc-done'" if @segnalazione.already?(:VE) %>><h2>Passo 2</h2>
                 <small>
                     Verifica
                 </small>
@@ -123,7 +123,7 @@
         <div id="wizard-2">
         	<div class="wiz-content">
                 <h2>Informazioni di verifica</h2>
-                <% if @segnalazione.verificata? %>
+                <% if @segnalazione.VE? %>
 	                <p>
 	                    Hai appena confermato di aver verificato la segnalazione.
 	                    <br/>
@@ -136,7 +136,7 @@
 	                        <input class="next btn auto_size" id="next" type="button" value="Inoltrala all'analista" />oppure <input class="next btn auto_size" id="next" type="button" value="Inoltrala allo sviluppatore" />
 	                    </li>
 	                    <li>
-	                        <% unless @segnalazione.verificata? %>
+	                        <% unless @segnalazione.VE? %>
 	                        <% if @segnalazione.anomalia? %>
 	                        L'anomalia non è replicabile.<% elsif @segnalazione.richiesta? %>
 	                        La richiesta di implementazione non è compatibile con il funzionamento del prodotto.<% end %>
@@ -160,7 +160,7 @@
 				<% end %>
             </div>
             <div class="wiz-nav">
-                <input class="back btn" id="back" type="button" value="< Info generali" /><% unless @segnalazione.verificata? %>
+                <input class="back btn" id="back" type="button" value="< Info generali" /><% unless @segnalazione.VE? %>
                 <input class="next btn" id="next" type="button" value="Info analisi >" /><% end %>
             </div>
         </div>

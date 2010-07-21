@@ -6,6 +6,12 @@ var hideFlashes = function(){
     $("#flash_messages").slideUp(800);
 }
 
+var showFlashes = function(){
+	$("#flash_notice, #flash_error").show();
+    $("#flash_notice, #flash_error").fadeIn(800);
+    $("#flash_messages").slideDown(800);
+}
+
 var request = function(options){
     $.ajax($.extend({
         url: options.url,

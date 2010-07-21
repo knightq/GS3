@@ -1,5 +1,6 @@
 class Segnalazione < ActiveRecord::Base
   set_table_name "FW_SEGNA"
+  set_primary_key :prg_segna
   
   belongs_to :gravita, :foreign_key => 'cdn_gravita', :class_name => 'Gravita'
   belongs_to :risolutore, :foreign_key => 'cda_risolutore', :class_name => 'Utente'
@@ -12,131 +13,79 @@ class Segnalazione < ActiveRecord::Base
   # Workflow.create_workflow_diagram(Segnalazione, './')
   workflow_column :cda_stato
   workflow do
-    state :segnalata, :meta => {:order => 1} do
-      event :verifica, :transitions_to => :verificata
+    state :SE, :meta => {:order => 1} do
+      event :verifica, :transitions_to => :VE
     end
 
-    state :verificata, :meta => {:order => 2} do
+    state :VE, :meta => {:order => 2} do
       on_entry do
         consegna_flg = 0
       end
-      event :assegna_a_analisi, :transitions_to => :analisi_assegnata
-      event :assegna_a_sviluppo, :transitions_to => :assegnata
-      event :rifiuta, :transitions_to => :rifiutata
-      event :rimanda, :transitions_to => :rimandata
+      event :assegna_a_analisi, :transitions_to => :AA
+      event :assegna_a_sviluppo, :transitions_to => :AS
+      event :rifiuta, :transitions_to => :RF
+      event :rimanda, :transitions_to => :RI
     end
 
-    state :analisi_assegnata, :meta => {:order => 3} do
+    state :AA, :meta => {:order => 3} do
       on_entry do
         consegna_flg = 0
       end
-      event :risolvi_analisi, :transitions_to => :analisi_risolta
+      event :risolvi_analisi, :transitions_to => :RA
     end
 
-    state :analisi_risolta, :meta => {:order => 4} do
+    state :RA, :meta => {:order => 4} do
       on_entry do
         consegna_flg = 0
       end
-      event :assegna_a_sviluppo, :transitions_to => :assegnata
+      event :assegna_a_sviluppo, :transitions_to => :AS
     end
 
-    state :assegnata, :meta => {:order => 5} do
+    state :AS, :meta => {:order => 5} do
       on_entry do
         consegna_flg = 0
       end
-      event :risolvi, :transitions_to => :risolta
-      event :riassegna_ad_analisi, :transition_to => :analisi_assegnata
-      event :dichiara_obsoleta, :transition_to => :obsoleta
+      event :risolvi, :transitions_to => :RS
+      event :riassegna_ad_analisi, :transition_to => :AA
+      event :dichiara_obsoleta, :transition_to => :OB
     end
 
-    state :risolta, :meta => {:order => 6} do
+    state :RS, :meta => {:order => 6} do
       on_entry do
         consegna_flg = 0
       end
-      event :valida, :transitions_to => :validata     
-      event :riassegna_a_sviluppo, :transition_to => :assegnata
+      event :valida, :transitions_to => :VL     
+      event :riassegna_a_sviluppo, :transition_to => :AS
     end
 
-    state :validata, :meta => {:order => 10} do
-      on_entry do
-        consegna_flg = 0
-      end
-    end
-
-    state :rifiutata, :meta => {:order => 10} do
+    state :VL, :meta => {:order => 10} do
       on_entry do
         consegna_flg = 0
       end
     end
 
-    state :rimandata, :meta => {:order => 3} do
+    state :RF, :meta => {:order => 10} do
       on_entry do
         consegna_flg = 0
       end
     end
 
-    state :obsoleta, :meta => {:order => 10} do
+    state :RI, :meta => {:order => 3} do
+      on_entry do
+        consegna_flg = 0
+      end
+    end
+
+    state :OB, :meta => {:order => 10} do
       on_entry do
         consegna_flg = 0
       end
     end
 
   end
-  
-  def load_workflow_state
-    case cda_stato
-      when 'SE'
-        :segnalata
-      when 'VE'
-        :verificata
-      when 'AA'
-        :analisi_assegnata
-      when 'RA'
-        :analisi_risolta
-      when 'AS'
-        :assegnata
-      when 'RS'
-        :risolta
-      when 'VL'
-        :validata
-      when 'RF'
-        :rifiutata
-      when 'RI'
-        :rimandata
-      when 'OB'
-        :obsoleta
-    end
-  end
-
-  def persist_workflow_state(new_value)
-    case new_value
-      when :segnalata
-        cda_stato = 'SE'
-      when :verificata
-        cda_stato = 'VE'
-      when :analisi_assegnata
-        cda_stato = 'AA'
-      when :analisi_risolta
-        cda_stato = 'RA'
-      when :assegnata
-        cda_stato = 'AS'
-      when :risolta
-        cda_stato = 'RS'
-      when :validata
-        cda_stato = 'VL'
-      when :rifiutata
-        cda_stato = 'RF'
-      when :rimandata
-        cda_stato = 'RI'
-      when :obsoleta
-        cda_stato = 'RI'
-    end
-    save!
-  end
-
     
   # ============ VALIDATORI ============ 
-  validates_presence_of :prodotto
+  #validates_presence_of :prodotto
   
   scope :time_span, lambda { |da, time_span_behind| where("dtm_risoluzione between ? and ?", da - time_span_behind, da) }
   scope :time_span_by_today, lambda { |time_span_behind| time_span(Time.zone.now, time_span_behind) }
@@ -329,15 +278,15 @@ class Segnalazione < ActiveRecord::Base
 
   def actor_associated_to(state_as_simbol)
     case state_as_simbol
-      when :verificata
+      when :VE
         cda_verificatore
-      when :analisi_assegnata
+      when :AA
         cda_risolutore_ana
-      when :analisi_risolta
+      when :RA
         cda_risolutore_ana
-      when :assegnata
+      when :AS
         cda_risolutore
-      when :validata
+      when :VL
         cda_validatore
     end
   end
@@ -393,18 +342,18 @@ class Segnalazione < ActiveRecord::Base
 
   def previous_state(state)
     case state.name
-      when :obsoleta, :rimandata, :rifiutata, :analisi_assegnata
-        :verificata
-      when :validata
-        :risolta
-      when :risolta
-        :assegnata
-      when :assegnata
-        cda_risolutore_ana ? :analisi_risolta : :verificata 
-      when :analisi_risolta
-        :analisi_assegnata
-      when :verificata
-        :segnalata
+      when :OB, :RI, :RF, :AA
+        :VE
+      when :VL
+        :RS
+      when :RS
+        :AS
+      when :AS
+        cda_risolutore_ana ? :RA : :VE 
+      when :RA
+        :AA
+      when :VE
+        :SE
     end      
   end
 

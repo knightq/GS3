@@ -28,9 +28,10 @@ class SegnalazioniController < ApplicationController
 
 	def update
     nuova_des = params[:s][:des_segna]
+    puts "Recupero segnalazione con PRG_SEGNA = #{params[:id]} per aggiornamento descrizione..."
     @segnalazione = Segnalazione.find_by_prg_segna(params[:id])
     @segnalazione.des_segna = nuova_des
-    begin
+#    begin
       if(@segnalazione.save)
         puts "_______________________________ OK ___________________________ "
         flash[:notice] = "Segnalazione #{@segnalazione.prg_segna} aggiornata con successo!"
@@ -38,10 +39,12 @@ class SegnalazioniController < ApplicationController
         puts "_______________________________ KO ___________________________ "
         flash[:error] = "Aggiornamento fallito!"
       end
-    rescue NoMethodError
-        puts "_______________________________ KO ___________________________ "
-        flash[:error] = "Aggiornamento fallito!"
-    end
+#    rescue NoMethodError => e
+#        puts "_______________________________ KO ___________________________ "
+#        puts "ECCEZIONE: #{e.inspect}"
+#        puts "DETTAGLI: #{e.backtrace}"
+#        flash[:error] = "Aggiornamento fallito (NoMethodError)!"
+#    end
     respond_to do |format|
       format.html { }
 			format.js {

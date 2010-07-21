@@ -1,4 +1,8 @@
 page.insert_html :bottom, :partial => 'descrizione', :locals => {:segnalazione => @segnalazione}
 page.replace_html :notice, flash[:notice]
-page.alert(flash[:error])
-page.redirect_to(:action => 'show') if flash[:error].empty?
+page.redirect_to(:action => 'show')
+
+page.replace_html :flash_notice, flash[:notice]
+page.show('flash_messages', 'flash_notice')
+
+page.call 'showFlashes'

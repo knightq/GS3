@@ -604,7 +604,7 @@
 	Segnalatore: <b><%= @segnalazione.cda_segnalatore %></b> &nbsp;&nbsp;&nbsp; Versione segnalazione: <b><%= @segnalazione.cda_versione %></b>.<br/>
 	Verificatore: <b><%= @segnalazione.cda_verificatore %></b> &nbsp;&nbsp;&nbsp; Versione pianificazione: <b><%= @segnalazione.cda_versione_pian %></b>.<br/>
 	Risolutore: <b><%= @segnalazione.cda_risolutore %></b> &nbsp;&nbsp;&nbsp; Versione risoluzione: <b><%= @segnalazione.cda_versione_ris %></b>
-	<% if @segnalazione.risolta? %> &nbsp;&nbsp;&nbsp; Data risoluzione: <b><%= @segnalazione.dtm_risoluzione %></b><% end %>.
+	<% if @segnalazione.RS? %> &nbsp;&nbsp;&nbsp; Data risoluzione: <b><%= @segnalazione.dtm_risoluzione %></b><% end %>.
 </div>
  <script type="text/javascript" src="http://www.google.com/jsapi"></script>
 <%= bar_chart.render('chart').html_safe %>
