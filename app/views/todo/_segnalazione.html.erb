@@ -18,27 +18,15 @@
 	<tr class="segnalazione_details segnalazione_details_<%= segnalazione.prg_segna %>">
 		<td id="segnalazione_summary">
 			<span style="white-space:nowrap;">
-				<%= render :partial => "widgets/discrete_meter", :locals => { 
-					:label => 'Gravità',
-					:width => '120px', 
-					:range => Gravita.range,
-					:selected => segnalazione.cdn_gravita - 1,
-					:style_class => 'no-border'
-					}%>
-					 <br/>
-				<%= render :partial => "widgets/discrete_meter", :locals => { 
-					:label => 'Priorità',				
-					:width => '120px', 
-					:range => Priorita.range,
-					:selected => segnalazione.cdn_priorita - 1,
-					:style_class => 'no-border'
-				} %>
+				Gravità: <%= image_tag "/images/lev#{segnalazione.gravita}.png" %> |
+				Priorità: <%= image_tag "/images/lev#{segnalazione.priorita}.png" %>
+				 <br/>
 				Stato: <b><%=segnalazione.stato_des %></b><br/>
 				Stima ore: <b><%=segnalazione.tempo_risol_stimato %></b><br/>
 			</span>	
 		</td>
 		<td id="segnalazione_descrizione">
-			<%=text_area_tag 'Descrizione', segnalazione.des_segna, :size => "70x4", :disabled => true, :class => 'descrizione_segnalazione_todo' %>
+			<%=text_area_tag 'Descrizione', segnalazione.des_segna, :size => "80x3", :disabled => true, :class => 'descrizione_segnalazione_todo' %>
 		</td>
 	</tr>
 

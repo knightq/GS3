@@ -1,3 +1,12 @@
+<!-- Uso:
+	 <%= render :partial => "widgets/discrete_meter", :locals => { 
+					:label => 'Gravità',
+					:width => '120px', 
+					:range => Gravita.range,
+					:selected => segnalazione.cdn_gravita - 1,
+					:style_class => 'no-border'
+					}%>
+-->
 <% 	
 		from_color ||= 0x0F0 
 		to_color ||= 0xF00
