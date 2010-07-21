@@ -16,7 +16,7 @@ $(document).ready(function(){
         
         $('#toolbox-help').data('helpInfo', helpInfo);
         
-        $('body').append('<div id="hover-help" style="width: 100%; height: 100%;"></div>');
+        $('body').append('<div id="hover-help"></div>');
         $('#hover-help').css('cursor', 'help');
         
 		$('.help-context').addClass('highlight-help');
@@ -30,7 +30,7 @@ $(document).ready(function(){
 			var contentKey = getHelp(document.location.pathname, posX, posY);
             
             $.get('/help/help.' + contentKey + '.html', {}, function(data){
-                var popup = $('<div style="display: none;background-color: white; border: solid 1px silver; padding: 4px; position: absolute; top:' + posY + 'px;left:' + posX + 'px; font-size: 0.8em;">' + data + '</div>"');
+                var popup = $('<div style="display: none; background-color: white; border: solid 1px silver; padding: 4px; position: absolute; top:' + posY + 'px;left:' + posX + 'px; font-size: 0.8em; z-index: 9000;">' + data + '</div>"');
                 $('body').append(popup);
                 $(popup).show(500).click(function(e){
 					$(popup).fadeOut(500);
