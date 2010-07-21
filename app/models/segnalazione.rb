@@ -341,6 +341,10 @@ class Segnalazione < ActiveRecord::Base
         cda_validatore
     end
   end
+  
+  def actor_associated_to_current_state
+    actor_associated_to(current_state.name)
+  end
 
   def date_associated
     case cda_stato
