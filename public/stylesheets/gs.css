@@ -4,6 +4,9 @@
 .float-right {
 	float: right;
 }
+.hand {
+	cursor:pointer;
+}
 .login_form {
     color: navy;
     font-weight: bold;
