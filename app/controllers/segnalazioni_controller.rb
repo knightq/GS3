@@ -6,6 +6,8 @@ class SegnalazioniController < ApplicationController
   # POST /segnalazioni
   # POST /segnalazioni.xml
   def create
+    puts "CREATE!!!!!!!!!!!!!!!!!11"
+    puts "params[:s]: #{params[:s]}"
     @segnalazione = Segnalazione.new(params[:segnalazione])
 
     respond_to do |format|
@@ -25,8 +27,21 @@ class SegnalazioniController < ApplicationController
 	end
 
 	def update
-		prg_segna = params[:id]
-		puts "====================== PRESA IN CARICO! #{prg_segna}======================"
+    nuova_des = params[:s][:des_segna]
+    @segnalazione = Segnalazione.find_by_prg_segna(params[:id])
+    @segnalazione.des_segna = nuova_des
+    begin
+      if(@segnalazione.save)
+        puts "_______________________________ OK ___________________________ "
+        flash[:notice] = "Segnalazione #{@segnalazione.prg_segna} aggiornata con successo!"
+      else 
+        puts "_______________________________ KO ___________________________ "
+        flash[:error] = "Aggiornamento fallito!"
+      end
+    rescue NoMethodError
+        puts "_______________________________ KO ___________________________ "
+        flash[:error] = "Aggiornamento fallito!"
+    end
     respond_to do |format|
       format.html { }
 			format.js {

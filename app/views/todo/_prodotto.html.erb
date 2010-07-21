@@ -7,7 +7,7 @@
 		<legend class="trigger">
 			<%=prodotto.first %> (<%= pluralize(versioni.inject(0){|sum, n| sum + n[1].size}, 'segnalazione') if versioni %> in <%= pluralize(versioni.size, 'versione')  if versioni %>)
 		</legend>
-		<div class="versioni_container">
+		<div class="versioni_container help-context" helpId="versioni.container">
 			<table class="versioni">
 				<%= render :partial => "versione_pian", :collection => versioni, :as => :versione %>			
 			</table>

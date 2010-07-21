@@ -56,7 +56,6 @@ function getHelp(url, x, y){
             x <= element.pos.xx &&
             y <= element.pos.yy) {
                 message_key = element.content;
-                break;
             }
         }
     }

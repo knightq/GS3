@@ -8,15 +8,9 @@
 <%= render :partial => 'widgets/collapsible_box', :locals => { :title => "Tempi", :content => 'segnalazione_side_tempi', :segnalazione => @segnalazione } %>
 <% end %>
 
-<div class="segna_desc">
-    <% if @segnalazione.prg_segna %>
-    <h1>GS <b><%= @segnalazione.prg_segna %></b> del <%= @segnalazione.dtm_creaz %></h1>
-    <% else %>
-    <h1>Nuova GS</h1>
-    <% end %>
-</div>
-<div id="wmd-preview">
-</div>
+<%= render :partial => 'descrizione' %>
+
+<div id="wmd-preview"></div>
 <div id="segnalazione_show_desc">
     <%= raw(markdown(@segnalazione.des_segna)) %>
 </div>

@@ -6,13 +6,14 @@
 <%= stylesheet_link_tag 'style_wizard_vertical' %>
 <%= stylesheet_link_tag 'form_disabled' if params[:action]=='show' %>
 <% end %>
+
 <input id="lastWiz" type="hidden" value="<%= lastStepForMe %>">
 <div id="smartwizard" class="wiz-container">
     <ul id="wizard-anchor">
         <li>
             <a href="#wizard-1"><h2>Passo 1</h2>
                 <small>
-                    Informazioni generali
+                    Informazioni <%= params[:action] == 'show' ? "update" : "create" %> generali
                 </small>
             </a>
         </li>
