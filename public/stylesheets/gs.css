@@ -1063,8 +1063,15 @@ div.kion_div {
 	padding-right: 2em;
 }
 
-textarea.descrizione_segnalazione_todo {
+.descrizione_segnalazione_todo {
+	height: 5em;
+	line-height: 1em;
+	overflow-x:auto;
 	width: 100%;
+}
+.descrizione_segnalazione_todo p {
+	font-size: 0.8em;
+	margin: 0px;
 }
 
 table.segnalazioni_in_carico {
