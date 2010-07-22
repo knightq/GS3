@@ -1,6 +1,6 @@
 class SegnalazioniController < ApplicationController
 
-	respond_to :html, :xml, :json
+	respond_to :html, :xml, :json, :rdf
 	before_filter :require_user
 
   # POST /segnalazioni

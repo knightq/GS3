@@ -1,13 +1,12 @@
 <% title "Modifica segnalazione #{@segnalazione.prg_segna}" %>
 
 <% content_for :sidebar do %>
-<%= render :partial => 'widgets/collapsible_box', :locals => { :title => "Informazioni generali", :content => 'segnalazione_side_info', :segnalazione => @segnalazione } %>
+	<%= render :partial => 'widgets/collapsible_box', :locals => { :title => "Informazioni generali", :content => 'segnalazione_side_info', :segnalazione => @segnalazione } %>
 <% end %>
+
 <%= form_for @segnalazione, :as => :s, :remote => true, :url => {:action => params[:action] == 'edit' ? "update" : "create"} do |f| %>
 	<span class="span_textarea_descrizione_segnalazione"><%= f.text_area :des_segna, :class => "segnalazione_desc" %>
 	</span>
 <% end %>
-<div class="wmd-preview">
-</div>
+<div class="wmd-preview segnalazione_show_desc"></div>
 <%= render :partial => 'form_wizard' %>
-</div>

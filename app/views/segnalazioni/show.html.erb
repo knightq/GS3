@@ -11,10 +11,8 @@
 
 <%= render :partial => 'descrizione' %>
 
-<div id="wmd-preview"></div>
-<div id="segnalazione_show_desc">
+<div id="segnalazione_show_desc" class="segnalazione_show_desc">
     <%= raw(markdown(@segnalazione.des_segna)) %>
 </div>
 <%= render :partial => 'form_wizard' %>
 </div>
-<%= link_to 'Modifica', edit_segnalazione_path(@segnalazione.prg_segna) %>

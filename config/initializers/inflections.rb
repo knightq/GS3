@@ -13,6 +13,7 @@ ActiveSupport::Inflector.inflections do |inflect|
   inflect.singular /^([\w]*)e/i, '\1a'
   inflect.plural /^([\w]*)o/i, '\1i'
   inflect.singular /^([\w]*)i/i, '\1o'
+  inflect.irregular 'causa', 'cause'
   inflect.irregular 'funzione', 'funzioni'
   inflect.irregular 'giorno', 'giorni'
   inflect.irregular 'gravita', 'gravita'

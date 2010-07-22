@@ -5,20 +5,28 @@
 <%= javascript_include_tag 'SmartWizard' %>
 <%= stylesheet_link_tag 'style_wizard_vertical' %>
 <%= stylesheet_link_tag 'form_disabled' if params[:action]=='show' %>
+<%= javascript_include_tag 'jquery.bgiframe.min' %>
+<%= javascript_include_tag 'jquery.autocomplete' %>
+<script>
+    $(document).ready(function(){
+        $(".segnalazione_cda_segnalatore:enabled").autocomplete("/utenti.js");
+    });
+</script>
+<%= stylesheet_link_tag 'jquery.autocomplete' %>
+<%= stylesheet_link_tag 'jquery.ui.all' %>
 <% end %>
-
 <input id="lastWiz" type="hidden" value="<%= lastStepForMe %>">
 <div id="smartwizard" class="wiz-container">
     <ul id="wizard-anchor">
         <li>
             <a href="#wizard-1"><h2>Passo 1</h2>
                 <small>
-                    Informazioni <%= params[:action] == 'show' ? "update" : "create" %> generali
+                    Informazioni <%= params[:action] == 'show' ? "update" : "create" %>generali
                 </small>
             </a>
         </li>
         <li>
-            <a href="#wizard-2" <%= "isdone='1' class='wiz-anc-done'" if @segnalazione.already?(:VE) %>><h2>Passo 2</h2>
+            <a href="#wizard-2"<%= "isdone='1' class='wiz-anc-done'" if @segnalazione.already?(:VE) %>><h2>Passo 2</h2>
                 <small>
                     Verifica
                 </small>
@@ -57,7 +65,7 @@
                             Segnalatore:
                         </td>
                         <td>
-                            <input type="text" class="text" name="segnalatore" id="cda_segnalatore" value="<%=@segnalazione.cda_segnalatore%>">
+                            <%= text_field_with_auto_complete @segnalazione, :cda_segnalatore, {:class => "segnalazione_cda_segnalatore", :size => 15, :value => @segnalazione.cda_segnalatore}, :disabled => params[:action] == 'show' %>
                         </td>
                         <td>
                             Cliente:
@@ -85,7 +93,7 @@
                             Modulo:
                         </td>
                         <td>
-                            <input type="text" class="text" name="modulo" id="cda_modulo" value="<%=@segnalazione.cda_modulo%>" size="5" /> <b><%=@segnalazione.modulo_des if @segnalazione.cda_modulo %></b>
+                            <input type="text" class="text" name="modulo" id="cda_modulo" value="<%=@segnalazione.cda_modulo%>" size="5" /><b><%=@segnalazione.modulo_des if @segnalazione.cda_modulo %></b>
                         </td>
                         <td>
                             Tipo segnalazione:
@@ -103,16 +111,15 @@
                             Task:
                         </td>
                         <td>
-                            <input type="text" class="text" name="task" id="task_id" value="<%=@segnalazione.task_id%>" size="5" /> <b><%=@segnalazione.task_des if @segnalazione.task_id %></b>
+                            <input type="text" class="text" name="task" id="task_id" value="<%=@segnalazione.task_id%>" size="5" /><b><%=@segnalazione.task_des if @segnalazione.task_id %></b>
                         </td>
                         <td>
                             Commessa:
                         </td>
                         <td>
-
                         </td>
                     </tr>
-				</table>
+                </table>
             </div>
             <div class="wiz-nav">
                 <div id="errMsg" class="error">
@@ -121,43 +128,42 @@
             </div>
         </div>
         <div id="wizard-2">
-        	<div class="wiz-content">
+            <div class="wiz-content">
                 <h2>Informazioni di verifica</h2>
                 <% if @segnalazione.VE? %>
-	                <p>
-	                    Hai appena confermato di aver verificato la segnalazione.
-	                    <br/>
-	                    Come intendi procedere?
-	                </p>
-	                <ul class="inside ">
-	                    <li>
-	                        La segnalazione è da risolversi per il prossimo rilascio.
-	                        <br/>
-	                        <input class="next btn auto_size" id="next" type="button" value="Inoltrala all'analista" />oppure <input class="next btn auto_size" id="next" type="button" value="Inoltrala allo sviluppatore" />
-	                    </li>
-	                    <li>
-	                        <% unless @segnalazione.VE? %>
-	                        <% if @segnalazione.anomalia? %>
-	                        L'anomalia non è replicabile.<% elsif @segnalazione.richiesta? %>
-	                        La richiesta di implementazione non è compatibile con il funzionamento del prodotto.<% end %>
-	                        <input class="next btn" id="next" type="button" value="Rifiutala" /><% end %>
-	                    </li>
-	                    <li>
-	                        La segnalazione non è pianificabile nella prossima versione, <input class="next btn" id="next" type="button" value="Rimandala" />
-	                    </li>
-	                </ul>
-				<% else %>
-	                <p>
-	                    La segnalazione è stata verificata da <b><%= @segnalazione.cda_verificatore %></b>.
-	                </p>
+                <p>
+                    Hai appena confermato di aver verificato la segnalazione.
+                    <br/>
+                    Come intendi procedere?
+                </p>
+                <ul class="inside ">
+                    <li>
+                        La segnalazione è da risolversi per il prossimo rilascio.
+                        <br/>
+                        <input class="next btn auto_size" id="next" type="button" value="Inoltrala all'analista" />oppure <input class="next btn auto_size" id="next" type="button" value="Inoltrala allo sviluppatore" />
+                    </li>
+                    <li>
+                        <% unless @segnalazione.VE? %>
+                        <% if @segnalazione.anomalia? %>
+                        L'anomalia non è replicabile.<% elsif @segnalazione.richiesta? %>
+                        La richiesta di implementazione non è compatibile con il funzionamento del prodotto.<% end %>
+                        <input class="next btn" id="next" type="button" value="Rifiutala" /><% end %>
+                    </li>
+                    <li>
+                        La segnalazione non è pianificabile nella prossima versione, <input class="next btn" id="next" type="button" value="Rimandala" />
+                    </li>
+                </ul><% else %>
+                <p>
+                    La segnalazione è stata verificata da <b><%= @segnalazione.cda_verificatore %></b>.
+                </p>
                 <% end %>
-				<% if @segnalazione.note_verificatore %> 
-					<div class="postit dim" id="segnalazione_note_verificatore">
-						<div class="innerPostit filter">
-		    				<a name="expand nota_verificatore"><%= raw(markdown(truncate(@segnalazione.note_verificatore, :omission => ". . .", :length => 300))) %></a>
-						</div>
-					</div>
-				<% end %>
+                <% if @segnalazione.note_verificatore %>
+                <div class="postit dim" id="segnalazione_note_verificatore">
+                    <div class="innerPostit filter">
+                        <a name="expand nota_verificatore"><%= raw(markdown(truncate(@segnalazione.note_verificatore, :omission => ". . .", :length => 300))) %></a>
+                    </div>
+                </div>
+                <% end %>
             </div>
             <div class="wiz-nav">
                 <input class="back btn" id="back" type="button" value="< Info generali" /><% unless @segnalazione.VE? %>
@@ -188,16 +194,76 @@
             </div>
         </div>
         <div id="wizard-4">
-            <div class="wiz-content">
-                <h2>Risoluzione</h2>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, 
-                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,  
-                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
-                    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                </p>
-            </div>
+        	<%= form_for @segnalazione, :as => :s4, :remote => true, :url => {:action => "update"} do |f| %>
+	            <div class="wiz-content">
+	                <h2>Risoluzione</h2>
+	                <table class="wizard_descrizione_risoluzione">
+	                    <tr>
+	                        <th>
+	                            Risolutore: 
+	                        </th>
+	                        <td>
+	                            <b>
+	                            	<% if params[:action] == 'edit' and @segnalazione.has_to_be?(:RS) %>
+										<%= text_field_with_auto_complete @segnalazione, :cda_risolutore, {:class => "segnalazione_cda_risolutore", :size => 15, :value => @segnalazione.cda_risolutore} %>
+									<% else %>
+										<b><%= @segnalazione.cda_risolutore %></b>
+									<% end %>
+	                            </b>
+	                        </td>
+	                        <th>
+	                            Tempi per la risoluzione: 
+	                        </th>
+	                        <td>
+	                            <table class="fit">
+	                                <tr>
+	                                    <th>
+	                                        Stimate
+	                                    </th>
+	                                    <th>
+	                                        Impiegate
+	                                    </th>
+	                                </tr>
+	                                <tr>
+	                                    <td>
+	                                        <b><%= @segnalazione.tempo_risol_stimato %></b>
+	                                        ore
+	                                    </td>
+	                                    <td>
+	                                        <b><%= @segnalazione.tempo_risol_impiegato %></b>
+	                                        ore
+	                                    </td>
+	                                </tr>
+	                            </table>
+	                        </td>
+	                    </tr>
+						<% if @segnalazione.already?(:RS) %>
+							<tr>
+								<th>Data risoluzione: </th>
+								<td><b><%= @segnalazione.dtm_risoluzione %></b></td>
+								<th>Data rilascio: </th>
+								<td></td>
+							</tr>
+							<tr>
+								<th>Causa: </th>
+								<td colspan=="3"><b><%= Causa.des(@segnalazione.cda_causa) %></b></td>							
+							</tr>
+						<% else %>
+							<tr>
+								<th>Causa: </th>
+								<td colspan=="3"><%= f.collection_select :cda_causa, Causa.all, :cod_causa, :des, :include_blank => true %></td>							
+							</tr>
+						<% end %>
+						<tr>
+							<td colspan="4">
+								<span class="span_textarea_descrizione_segnalazione">
+									<%= f.text_area :des_risoluzione, :class => "segnalazione_desc_risoluzione" %>
+								</span>
+							</td>
+						</tr>						
+	                </table>
+	            </div>
+			<% end %>
             <div class="wiz-nav">
                 <input class="back btn" id="back" type="button" value="< Info Analisi" /><input class="next btn" id="next" type="button" value="Risolvi >" />
             </div>

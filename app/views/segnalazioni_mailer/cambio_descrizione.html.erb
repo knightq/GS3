@@ -4,6 +4,10 @@
 	   color: #507AAA;
 	   border-bottom: 3px dotted #77d;
 	}
+	h1 a {
+		color: #507AAA;
+		text-decoration: none;
+	}
 	h2 {
 	   font:  110% sans-serif;
 	   color: #507AAA;
@@ -17,17 +21,17 @@
 		padding:6px;
 		width:97%;
 	}
-	.diffdel {
+	.diffdel, del.diffmod {
 		color: #5F5F5F;
 		text-decoration: line-through;
 	}
-	.diffins {
+	.diffins, ins.diffmod {
 		background-color: #B6EFB3;
 		text-decoration: none;
 	}
 </style>
 
-<h1><%= @segnalazione.tipo %> n.<b><%= @segnalazione.prg_segna %></b></h1>
+<h1><%= @segnalazione.tipo %> n.<b><%= link_to(@segnalazione.prg_segna.to_s, segnalazione_url(@segnalazione)) %></b> </h1>
 <h2>Cambio descrizione</h2>
 <p><b><%= @user.user_name%></b> ha appena cambiato la descrizione della segnalazione:</p>
 <div class="descrizione">
