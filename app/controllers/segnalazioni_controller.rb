@@ -30,10 +30,13 @@ class SegnalazioniController < ApplicationController
     nuova_des = params[:s][:des_segna]
     puts "Recupero segnalazione con PRG_SEGNA = #{params[:id]} per aggiornamento descrizione..."
     @segnalazione = Segnalazione.find_by_prg_segna(params[:id])
+    old_des = @segnalazione.des_segna
     @segnalazione.des_segna = nuova_des
 #    begin
       if(@segnalazione.save)
+        SegnalazioniMailer.cambio_descrizione(current_user, @segnalazione, old_des).deliver  
         puts "_______________________________ OK ___________________________ "
+        puts "__des_segna = #{@segnalazione.des_segna} ed era #{@segnalazione.des_segna_was}___________________ "
         flash[:notice] = "Segnalazione #{@segnalazione.prg_segna} aggiornata con successo!"
       else 
         puts "_______________________________ KO ___________________________ "

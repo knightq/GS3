@@ -1,9 +1,30 @@
 $().ready(function(){
+	$('#s_edit').hide();
+
+	$('.wmd-preview').click(function () {
+		 $(this).addClass('anteprima');
+         $('#s_edit').slideDown(800, function() {
+			$('#s_des_segna').focus();
+	  	});
+    });
+
+	$('#save_btn').click(function () {
+		 $('.wmd-preview').removeClass('anteprima');
+         $('#s_edit').slideUp(800, function() {
+    		$(this).hide();
+	  	});
+	});
+
     $('.wiz-container').smartWizard({
         selectedStep: $('#lastWiz').attr('value'),
         validatorFunc: validateTabs
     });
 	
+	$('#save_btn').click(function(){
+		$('#s_edit').submit();
+		return false;
+    });
+
 	if ($('#lastWiz').attr('value') == 4) {
 		$('wiz-nav').hide();
 	}

@@ -1,5 +1,13 @@
+require 'lib/htmldiff' 
+require 'rdiscount'
+
 class SegnalazioniMailer < ActionMailer::Base
-  helper_method :max_width, :position, :positions, :bar_chart
+
+  include HTMLDiff
+  include ActionView::Helpers::TextHelper
+  
+
+  helper_method :max_width, :position, :positions, :bar_chart, :diff, :markdown
   
   default :from => "GS on Rails <asalicetti@kion.it>"
   
@@ -9,7 +17,16 @@ class SegnalazioniMailer < ActionMailer::Base
     subject = "GS-#{segnalazione.cda_tipo_segna}.#{segnalazione.prg_segna} - Modulo:#{segnalazione.cda_modulo} - Gravita:#{segnalazione.gravita_des} - Stato:#{segnalazione.stato_des} - Vers. Ris. Pian:#{segnalazione.cda_versione_pian} - E' stata presa in consegna da #{user.user_name}"
     mail(:to => user.user_mail, :subject => subject)  
   end
-  
+
+  def cambio_descrizione(user, segnalazione, old_des)
+    @segnalazione = segnalazione
+    @user = user
+    @descrizione_nuova = RDiscount.new(@segnalazione.des_segna) 
+    @descrizione_vecchia = RDiscount.new(old_des)
+    subject = "GS-#{segnalazione.cda_tipo_segna}.#{segnalazione.prg_segna} [CAMBIO DESCRIZIONE]"
+    mail(:to => user.user_mail, :subject => subject)    
+  end
+
   def max_width
     200
   end

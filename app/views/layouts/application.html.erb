@@ -22,16 +22,21 @@
     <body>
     <div id="banner">
         <!-- Titolo del programma --><span class="application_title">GS <i><span class="application_title_on_rails">on Rails</span></i></span>
-        <!-- Titolo della pagina --><% if show_title? %>
-        <div id="function_title" class="function_title help-context" helpId="function.title">
-            <% if params[:action] == 'show' %>
-	            <%= link_to image_tag('/images/back.gif', :title => 'Indietro', :border=>0), :back, :class => 'float-left' %>
-			<% end %>
-            <span class="function_title_des"><%= @content_for_title %></span>
-            <% if params[:action] == 'show' %>
-				<%= link_to content_tag(:span, "", :class => 'ui-icon ui-widget-content ui-icon-pencil'), edit_segnalazione_path, :class => 'float-right' %>
-			<% end %>
-        </div>
+        <!-- Titolo della pagina -->
+		<% if show_title? %>
+	        <div id="function_title" class="function_title help-context" helpId="function.title">
+	            <% if params[:action] == 'show' %>
+		            <%#= link_to image_tag('/images/back.gif', :title => 'Indietro', :border=>0), :back, :class => 'float-left' %>
+					<%= link_to tag('span', {:class => 'ui-icon ui-widget-content ui-icon-arrow-1-w help-context', :helpId => "elenco.btn"}), segnalazioni_path, :class => 'float-left', :alt => 'Elenco', :title => 'Torna alla pagina di ricerca delle segnalazioni' %>
+				<% end %>
+	            <span class="function_title_des"><%= @content_for_title %></span>
+	            <% if params[:action] == 'show' %>
+					<%= link_to content_tag(:span, "", :class => 'ui-icon ui-widget-content ui-icon-pencil'), edit_segnalazione_path, :class => 'float-right', :alt => 'Modifica', :title => 'Modifica il modello correntemente visualizzato' %>
+		        <% elsif params[:action] == 'edit' %>
+					<%= link_to content_tag(:span, "", :class => 'ui-icon ui-widget-content ui-icon-close'), segnalazione_path, :class => 'float-right', :alt => 'Annulla', :title => 'Ritorna alla pagina di dettaglio del modello corrente, senza salvare le ultime modifiche.' %>
+					<%= content_tag(:span, "", :id => 'save_btn', :class => 'ui-icon ui-widget-content ui-icon-check float-right hand', :alt => 'Salva', :title => 'Salva le modifiche apportate al modello corrente.') %>
+				<% end %>
+	        </div>
         <% end %>
         <!-- Informazioni di account e link di uscita --><% if @current_user %>
         <div id="user_info">

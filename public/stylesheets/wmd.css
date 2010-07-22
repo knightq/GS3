@@ -1,14 +1,20 @@
 div.wmd-preview {
   -moz-border-radius:8px;
   -webkit-border-radius: 8px;
-  background: #FFFFDD url(../images/anteprima.png) center center no-repeat; /* This ruins default border */
+  background-color: #FFFFDD;
   border: 1px solid #D7D7D7;
   height: 10em;
   margin: 5px;
-  overflow-y: scroll;
+  overflow-y: auto;
   padding: 6px;  
   width: 97%;
   line-height:130%;
+}
+
+.anteprima {
+	background-image: url(../images/anteprima.png); /* This ruins default border */
+	background-position: center;
+	background-repeat: no-repeat;
 }
 
 div.grippie {
