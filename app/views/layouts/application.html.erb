@@ -27,7 +27,7 @@
 	        <div id="function_title" class="function_title help-context" helpId="function.title">
 	            <% if params[:action] == 'show' %>
 		            <%#= link_to image_tag('/images/back.gif', :title => 'Indietro', :border=>0), :back, :class => 'float-left' %>
-					<%= link_to tag('span', {:class => 'ui-icon ui-widget-content ui-icon-arrow-1-w help-context', :helpId => "elenco.btn"}), segnalazioni_path, :class => 'float-left', :alt => 'Elenco', :title => 'Torna alla pagina di ricerca delle segnalazioni' %>
+					<%= link_to tag('span', {:class => 'ui-icon ui-widget-content ui-icon-arrow-1-w help-context', :helpId => "elenco.btn"}, true, false), segnalazioni_path, :class => 'float-left', :alt => 'Elenco', :title => 'Torna alla pagina di ricerca delle segnalazioni' %>
 				<% end %>
 	            <span class="function_title_des"><%= @content_for_title %></span>
 	            <% if params[:action] == 'show' %>

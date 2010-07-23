@@ -13,9 +13,13 @@ class SegnalazioniMailer < ActionMailer::Base
   
   def presa_in_carico(user, segnalazione)
     @segnalazione = segnalazione
+    ccies = segnalazione.actors.collect do |a| 
+      attore = Utente.find_by_user_id(a)
+      attore.user_mail unless attore.user_name == user.user_name
+    end
     @user = user
     subject = "GS-#{segnalazione.cda_tipo_segna}.#{segnalazione.prg_segna} - Modulo:#{segnalazione.cda_modulo} - Gravita:#{segnalazione.gravita_des} - Stato:#{segnalazione.stato_des} - Vers. Ris. Pian:#{segnalazione.cda_versione_pian} - E' stata presa in consegna da #{user.user_name}"
-    mail(:to => user.user_mail, :subject => subject)  
+    mail(:to => user.user_mail, :cc => ccies.compact, :subject => subject)  
   end
 
   def cambio_descrizione(user, segnalazione, old_des)
@@ -53,7 +57,7 @@ class SegnalazioniMailer < ActionMailer::Base
   end
   
   
-  def bar_chart
+  def bar_chart(segnalazione)
     raw_data = [['Analisi', segnalazione.tempo_ris_ana_stimato, segnalazione.tempo_ris_ana_impiegato],
     ['Risoluzione', segnalazione.tempo_risol_stimato, segnalazione.tempo_risol_impiegato],
     ['Validazione', segnalazione.tempo_val_stimato, segnalazione.tempo_val_impiegato]];

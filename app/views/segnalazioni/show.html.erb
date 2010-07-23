@@ -11,8 +11,10 @@
 
 <%= render :partial => 'descrizione' %>
 
-<div id="segnalazione_show_desc" class="segnalazione_show_desc">
-    <%= raw(markdown(@segnalazione.des_segna)) %>
-</div>
-<%= render :partial => 'form_wizard' %>
+<div class="split-horizontal">
+	<div id="segnalazione_show_desc" class="segnalazione_show_desc">
+	    <%= raw(markdown(@segnalazione.des_segna)) %>
+	</div>
+	
+	<%= render :partial => 'form_wizard' %>
 </div>

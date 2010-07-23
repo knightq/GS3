@@ -1,5 +1,6 @@
 class Utente < ActiveRecord::Base
 	set_table_name "P18_USER"
+
   belongs_to :gruppo, :foreign_key => "grp_id"
 
   has_one :recapito, :primary_key => "user_mail", :foreign_key => "cda_email"

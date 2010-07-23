@@ -34,18 +34,17 @@ function validateTabs(tabIdx){
     ret = true;
     switch (tabIdx) {
         case 0:
-            if (document.getElementById("cda_segnalatore").value != '' && document.getElementById("cda_cliente").value != '' &&
-            document.getElementsByClassName("segnalazione_cod_prodotto").value != '') {
+			cliente = document.getElementById("cda_cliente");
+			prodotto = document.getElementsByClassName("segnalazione_cod_prodotto");
+			segnalatore = document.getElementById("cda_segnalatore");
+            if (segnalatore && segnalatore.value != '' && cliente && cliente.value != '' && prodotto && prodotto.value != '') {
                 document.getElementById("errMsg").innerHTML = "";
                 document.getElementById("errMsg").style.display = 'none';
                 ret = true;
             }
             else {
                 document.getElementById("errMsg").innerHTML = "Compilare tutti i campi obbligatori.";
-                //document.getElementById("errMsg").style.display='block';
-                //alert($("#errMsg").html());
                 $("#errMsg").effect("highlight");
-                
                 ret = false;
             }
             break;

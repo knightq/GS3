@@ -415,7 +415,7 @@
     }
 </style>
 
-<h1><%= @segnalazione.tipo %> n.<b><%= @segnalazione.prg_segna %></b></h1>
+<h1><%= @segnalazione.tipo %> n.<b><%= link_to(@segnalazione.prg_segna.to_s, segnalazione_url(@segnalazione)) %></b> </h1>
 <table class="summary">
 	<tr>
 		<th>Prodotto: </th>
@@ -607,5 +607,5 @@
 	<% if @segnalazione.RS? %> &nbsp;&nbsp;&nbsp; Data risoluzione: <b><%= @segnalazione.dtm_risoluzione %></b><% end %>.
 </div>
  <script type="text/javascript" src="http://www.google.com/jsapi"></script>
-<%= bar_chart.render('chart').html_safe %>
+<%= bar_chart(@segnalazione).render('chart').html_safe %>
 <div id='chart'></div>

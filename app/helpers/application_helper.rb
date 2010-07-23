@@ -61,6 +61,8 @@ module ApplicationHelper
   end
 
   def markdown(text)
+    puts " ============================================================================== "
+    puts text
     RDiscount.new(text, :filter_html).to_html
   end
 

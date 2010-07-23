@@ -246,7 +246,6 @@ class Segnalazione < ActiveRecord::Base
   end
   
   def cod_prodotto=(cda_prodotto)
-    puts "SET cod_prodotto!!!! #{cda_prodotto}"
     self.prodotto = Prodotto.find_by_cda_prodotto(cda_prodotto) unless cda_prodotto.blank?
   end
   
@@ -263,6 +262,15 @@ class Segnalazione < ActiveRecord::Base
     stati
   end
   
+  def actors
+    people = Array.new
+    spec.states.keys.each do |stato_sym|
+      actor = actor_associated_to(stato_sym)
+      people << actor if actor
+    end
+    people
+  end
+
   def actor_associated
     case cda_stato
       when 'SE'

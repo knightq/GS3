@@ -49,6 +49,7 @@ class SegnalazioniController < ApplicationController
 #        flash[:error] = "Aggiornamento fallito (NoMethodError)!"
 #    end
     respond_to do |format|
+      puts "====================== FORMAT: #{format} ======================"
       format.html { }
 			format.js {
 				puts "====================== RJS!!!! ======================"

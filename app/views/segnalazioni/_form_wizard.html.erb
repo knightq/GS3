@@ -13,7 +13,6 @@
     });
 </script>
 <%= stylesheet_link_tag 'jquery.autocomplete' %>
-<%= stylesheet_link_tag 'jquery.ui.all' %>
 <% end %>
 <input id="lastWiz" type="hidden" value="<%= lastStepForMe %>">
 <div id="smartwizard" class="wiz-container">
@@ -65,7 +64,7 @@
                             Segnalatore:
                         </td>
                         <td>
-                            <%= text_field_with_auto_complete @segnalazione, :cda_segnalatore, {:class => "segnalazione_cda_segnalatore", :size => 15, :value => @segnalazione.cda_segnalatore}, :disabled => params[:action] == 'show' %>
+                            <%= text_field_with_auto_complete @segnalazione, :cda_segnalatore, {:id => 'cda_segnalatore', :class => "segnalazione_cda_segnalatore", :size => 15, :value => @segnalazione.cda_segnalatore}, :disabled => params[:action] == 'show' %>
                         </td>
                         <td>
                             Cliente:

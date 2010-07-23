@@ -1,39 +1,10 @@
 <% if @statistica.num_segna > 0 %>
 
-	<%= content_for :head do %>
-		<%= javascript_include_tag 'swfobject' %>
-		<script type="text/javascript">
-		$(function() {
-			$("#progressbar_num_segna").slider({		
-				disabled: true,
-				range: true,
-				min: 0,
-				max: <%= @statistica.worst_num_segna_performance_last_month %>,
-				values: [<%= @statistica.worst_num_segna_performance_last_month %>, <%= @statistica.num_segna %>]
-			});
-		});
-		$(function() {
-			$("#prova").slider({		
-				disabled: true,
-				min: 0,
-				max: 100,
-				values: [10, 50, 90]
-			})
-		});
-		$(function() {
-			$("#progressbar_tot_ore").progressbar({
-				value: <%= @statistica.tot_ore %>
-			});
-		});
-	</script>
-	<% end %>
-
 	<table border="0" style="width: 290px;">		
 		<tr>
 			<td># segnalazioni:</td>
-			<td id="num_segna"><b><%= @statistica.num_segna %></b>
-			</td>
-	</tr>
+			<td id="num_segna"><b><%= @statistica.num_segna %></b></td>
+		</tr>
 		<tr>
 			<td>Totale ore:</td>
 			<td><b><%= @statistica.tot_ore %></b></td>
@@ -41,6 +12,6 @@
 	</table>
 
 <% else %>
-		<i>Non sono presenti segnalazioni nell'ultimo mese.</i>
+	<i>Non sono presenti segnalazioni nell'ultimo mese.</i>
 <% end %>
 
