@@ -29,6 +29,7 @@ Date:
     border-right: 1px solid #E0E0E0; 
     width:150px;
     float: left;
+	z-index:100;
   }
   	.wiz-container ul li{ 
 	    position: relative; 
@@ -78,7 +79,8 @@ Date:
   }
   .wiz-anc-default{
     background-color:#EBEBEB; 
-    border-color:#E0E0E0;  
+    border-color:#E0E0E0;
+	cursor: default;
   }
   .wiz-anc-current{
     color:#FFF !important; 
