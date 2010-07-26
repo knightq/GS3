@@ -58,6 +58,8 @@ Gs3::Application.routes.draw do |map|
   map.logout 'logout', :controller => "user_sessions", :action => 'destroy' 
   # See how all your routes lay out with "rake routes"
 
+  match 'prodotti/data' => 'prodotti#data'
+  match 'prodotti/dbaction' => 'prodotti#dbaction'
   match 'recapiti/data' => 'recapiti#data'
   match 'recapiti/dbaction' => 'recapiti#dbaction'
   match 'statistiche' => 'statistiche#index'

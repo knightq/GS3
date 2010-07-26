@@ -1,0 +1,42 @@
+<% title "Prodotti" %>
+
+<%= content_for :head do %>
+  <script src="/javascripts/codebase/dhtmlxcommon.js" type="text/javascript" charset="utf-8">
+  </script>
+  <script src="/javascripts/codebase/dhtmlxgrid.js" type="text/javascript" charset="utf-8">
+  </script>
+  <script src="/javascripts/codebase/dhtmlxgridcell.js" type="text/javascript" charset="utf-8">
+  </script>
+  <script src="/javascripts/codebase/ext/dhtmlxgrid_filter.js"  type="text/javascript" charset="utf-8">
+  </script>
+  <script src="/javascripts/codebase/dhtmlxdataprocessor.js"  type="text/javascript" charset="utf-8"></script>
+
+  <link rel="stylesheet" href="/javascripts/codebase/dhtmlxgrid.css" type="text/css" media="screen" charset="utf-8">
+  <link rel="stylesheet" href="/javascripts/codebase/skins/dhtmlxgrid_dhx_skyblue.css" type="text/css" media="screen" charset="utf-8">
+<% end %>
+
+<div id="grid_here" style="width:100%; height:550px;"></div>
+
+<script type="text/javascript" charset="utf-8">
+    var grid = new dhtmlXGridObject("grid_here");
+    grid.setImagePath("/javascripts/codebase/imgs/");
+    grid.setHeader("Prodotto, Descrizione prodotto, KIM, Iso9000");
+	grid.attachHeader("#text_filter,#text_filter,#select_filter,#select_filter"); //added !
+	grid.getCombo(2).put("0","No");
+	grid.getCombo(2).put(1,"Sì");
+	grid.getCombo(3).put("0","No");
+	grid.getCombo(3).put(1,"Sì");
+    grid.setColAlign("right,left,center,center")
+	grid.setColTypes("ro,edtxt,ch,ch")
+	grid.setColSorting("str,str,str,str");  //added !
+    grid.setInitWidths("120,*,60,60");
+    grid.setSkin("dhx_skyblue");
+    grid.init();
+	grid.load("/prodotti/data");
+	//grid.sortRows(1, "str", "asc");
+    dp = new dataProcessor("/prodotti/dbaction/");
+    dp.init(grid);
+</script>
+
+<input type="button" value="Aggiungi" onclick="grid.addRow(grid.uid(),'Nuovo prodotto');">
+<input type="button" disabled="true" value="Cancella" onclick="grid.deleteSelectedRows();">

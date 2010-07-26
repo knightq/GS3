@@ -1,6 +1,8 @@
 $().ready(function(){
 	$('#s_edit').hide();
 
+	$('blockquote').after('<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" width="110" height="14" id="clippy" ><param name="movie" value="/swf/clippy.swf"/><param name="allowScriptAccess" value="always" /><param name="quality" value="high" /><param name="scale" value="noscale" /><param NAME="FlashVars" value="text=' + $(this).children().text() +'"><param name="bgcolor" value="#fff"><embed src="/swf/clippy.swf" width="110" height="14" name="clippy" quality="high" allowScriptAccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" FlashVars="text=' + $(this).children().text() +' bgcolor="#fff" /></object>');
+	
 	$('.wmd-preview').click(function () {
 		 $(this).addClass('anteprima');
          $('#s_edit').slideDown(800, function() {
