@@ -14,14 +14,16 @@ module SegnalazioniHelper
   def lastStepForMe 
     state = @segnalazione.current_state
     lastStep = 0 # Tutti possono accedere all'ultimo stato utile della GS
-    while (lastStep == 0 and state.meta[:order] > 1)
-    	puts "== STATO: #{state.name} tipo #{state.name.class} == @segnalazione.actor_associated_to(state.name) = #{@segnalazione.actor_associated_to(state.name)}, == current_user.user_name = #{current_user.user_name}"
-      if @segnalazione.actor_associated_to(state.name) == current_user.user_name
-        lastStep = state.meta[:order] - 2
-      else
-        state = @segnalazione.spec.states[@segnalazione.previous_state(state)]
+    if current_user
+      while (lastStep == 0 and state.meta[:order] > 1)
+      	puts "== STATO: #{state.name} tipo #{state.name.class} == @segnalazione.actor_associated_to(state.name) = #{@segnalazione.actor_associated_to(state.name)}, == current_user.user_name = #{current_user.user_name}"
+        if @segnalazione.actor_associated_to(state.name) == current_user.user_name
+          lastStep = state.meta[:order] - 2
+        else
+          state = @segnalazione.spec.states[@segnalazione.previous_state(state)]
+        end
       end
-    end 
+    end
     return lastStep
   end
 
