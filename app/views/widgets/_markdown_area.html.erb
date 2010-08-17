@@ -1,0 +1,13 @@
+<% 
+	div_id ||= 'editable_textarea'
+	div_class ||= 'editable_textarea'
+	content = master[field]
+	content ||= ''
+%>
+
+<% content_for :head do %>
+	<%= enable_wmd(:autostart => true) %>
+<% end %>
+<div id="<%= div_id %>" class="<%= div_class %>">
+    <%= raw(markdown(content))%>
+</div>

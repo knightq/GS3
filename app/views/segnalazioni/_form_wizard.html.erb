@@ -172,21 +172,8 @@
         <div id="wizard-3">
             <div class="wiz-content">
                 <h2>Analisi</h2>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, 
-                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,  
-                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
-                    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                </p>
-                <br/>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, 
-                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,  
-                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
-                    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                </p>
+					<%= render :partial => 'widgets/markdown_area', :locals => { :div_id => 'segnalazione_desc_risoluzione_analisi', :div_class => 'segnalazione_desc_risoluzione_analisi', :master => @segnalazione, :field => 'des_risoluzione_ana' } %>
+					<%#= f.text_area :des_risoluzione, :class => "segnalazione_desc_risoluzione" %>
             </div>
             <div class="wiz-nav">
                 <input class="back btn" id="back" type="button" value="< Info verifica" /><input class="next btn" id="next" type="button" value="Risolvi >" />
@@ -256,7 +243,8 @@
 						<tr>
 							<td colspan="4">
 								<span class="span_textarea_descrizione_segnalazione">
-									<%= f.text_area :des_risoluzione, :class => "segnalazione_desc_risoluzione" %>
+									<%= render :partial => 'widgets/markdown_area', :locals => { :div_id => 'segnalazione_desc_risoluzione', :div_class => 'segnalazione_desc_risoluzione', :master => @segnalazione, :field => 'des_risoluzione' } %>
+									<%#= f.text_area :des_risoluzione, :class => "segnalazione_desc_risoluzione" %>
 								</span>
 							</td>
 						</tr>						

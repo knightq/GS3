@@ -1,9 +1,5 @@
 <% title "Dettaglio segnalazione #{@segnalazione.prg_segna}" %>
 
-<% content_for :head do %>
-	<%= enable_wmd(:autostart => true) %>
-<% end %>
-
 <% content_for :sidebar do %>
 <%= render :partial => 'widgets/collapsible_box', :locals => { :title => "Informazioni generali", :content => 'segnalazione_side_info', :segnalazione => @segnalazione } %>
 <%= render :partial => 'widgets/collapsible_box', :locals => { :title => "Tempi", :content => 'segnalazione_side_tempi', :segnalazione => @segnalazione } %>
@@ -12,9 +8,7 @@
 <%= render :partial => 'descrizione' %>
 
 <div class="split-horizontal">
-	<div id="segnalazione_show_desc" class="segnalazione_show_desc">
-	    <%= raw(markdown(@segnalazione.des_segna)) %>
-	</div>
+	<%= render :partial => 'widgets/markdown_area', :locals => { :div_id => 'segnalazione_show_desc', :div_class => 'segnalazione_show_desc', :master => @segnalazione, :field => 'des_segna' } %>
 	
 	<%= render :partial => 'form_wizard' %>
 </div>

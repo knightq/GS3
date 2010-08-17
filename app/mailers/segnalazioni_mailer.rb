@@ -24,11 +24,15 @@ class SegnalazioniMailer < ActionMailer::Base
 
   def cambio_descrizione(user, segnalazione, old_des)
     @segnalazione = segnalazione
+    ccies = segnalazione.actors.collect do |a| 
+      attore = Utente.find_by_user_id(a)
+      attore.user_mail unless attore.user_name == user.user_name
+    end
     @user = user
     @descrizione_nuova = RDiscount.new(@segnalazione.des_segna) 
     @descrizione_vecchia = RDiscount.new(old_des)
     subject = "GS-#{segnalazione.cda_tipo_segna}.#{segnalazione.prg_segna} [CAMBIO DESCRIZIONE]"
-    mail(:to => user.user_mail, :subject => subject)    
+    mail(:to => user.user_mail, :cc => ccies.compact, :subject => subject)    
   end
 
   def max_width

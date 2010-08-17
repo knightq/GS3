@@ -1,0 +1,23 @@
+<%
+	preview_class ||= 'segnalazione_show_desc'
+	span_container_class ||= 'span_textarea_descrizione_segnalazione'
+	textarea_class ||= 'segnalazione_desc'
+%>
+
+<% content_for :head do %>
+	<%= javascript_include_tag 'markdown' %>
+	<%= enable_wmd(:autostart => true) %>
+<% end %>
+
+<%= form_for master, :as => :s, :remote => true, :url => {:action => params[:action] == 'edit' ? "update" : "create"} do |f| %>
+	<% if params[:action] == 'show' %>
+		<%= link_to content_tag(:span, "", :class => 'ui-icon ui-widget-content ui-icon-pencil'), edit_segnalazione_path, :class => 'float-right', :alt => 'Modifica', :title => 'Modifica il modello correntemente visualizzato' %>
+	<% elsif params[:action] == 'edit' %>
+		<%= link_to content_tag(:span, "", :class => 'ui-icon ui-widget-content ui-icon-close'), segnalazione_path, :class => 'float-right', :alt => 'Annulla', :title => 'Ritorna alla pagina di dettaglio del modello corrente, senza salvare le ultime modifiche.' %>
+		<%= content_tag(:span, "", :class => 'save_btn ui-icon ui-widget-content ui-icon-check float-right hand', :alt => 'Salva', :title => 'Salva le modifiche apportate al modello corrente.') %>
+	<% end %>
+	<span class="textarea_container <%=span_container_class%>">
+		<%= f.text_area field, :class => textarea_class %>
+	</span>
+<% end %>
+<div class="wmd-preview <%=preview_class%>"></div>

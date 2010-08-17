@@ -3,9 +3,11 @@
     <head>
         <title><%= @content_for_title || "GS on Rails" %></title>
         <%= javascript_include_tag :defaults %>
+        <%= javascript_include_tag 'jrails' %>
         <%= javascript_include_tag 'jquery-1.4.2' %>
         <%= javascript_include_tag 'jquery-ui-1.8.1.custom.min' %>
-        <!-- Questa lib js va in conflitto con l'uploader --><%= javascript_include_tag 'jquery.jqDock.min' unless params[:action] == 'new' %>
+        <!-- Questa lib js va in conflitto con l'uploader -->
+		<%= javascript_include_tag 'jquery.jqDock.min' unless params[:action] == 'new' %>
         <%= javascript_include_tag 'dock' unless params[:action] == 'new' %>
         <%= javascript_include_tag 'help.app' %>
         <%= stylesheet_link_tag 'application' %>
