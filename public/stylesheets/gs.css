@@ -81,6 +81,14 @@ blockquote p {
     height: 120px;
 }
 
+.info_gen, .info_gen tbody {
+	width: 400px;
+}
+
+.info_gen tbody td  {
+	width: 50%;
+}
+
 div.in_carico {
     position: relative;
     #	background-image:url(../images/burden.gif);
@@ -787,7 +795,7 @@ div.versione th.chiusa {
 	text-align: left;
 	top: 15px;
 }
-.segnalazione_show_desc {
+.segnalazione_show_desc, .segnalazione_show_desc_ana {
    	-moz-border-radius:8px;
 	-webkit-border-radius: 8px;
   	background: #FFFFDD none repeat scroll 0 0;
@@ -795,6 +803,7 @@ div.versione th.chiusa {
 	margin: 5px;
 	padding: 6px;
 }
+
 textarea.segnalazione_desc {
   -moz-border-radius:8px;
   -webkit-border-radius: 8px;
@@ -805,7 +814,7 @@ textarea.segnalazione_desc {
   padding: 6px;  
   width: 97%;
 }
-textarea.segnalazione_desc_risoluzione {
+textarea.segnalazione_desc_risoluzione, textarea.segnalazione_desc_risoluzione_analisi {
   -moz-border-radius:8px;
   -webkit-border-radius: 8px;
   background: #FFFFDD url(../images/descrizione_risoluzione.png) center center no-repeat; /* This ruins default border */
@@ -815,6 +824,10 @@ textarea.segnalazione_desc_risoluzione {
   padding: 6px;  
   width: 97%;
 }
+textarea.segnalazione_desc_risoluzione_analisi {
+  background: #FFFFDD url(../images/descrizione_risoluzione.png) center center no-repeat; /* This ruins default border */	
+}
+
 .drag {
 	cursor: move;
 /*	background-image:url(../images/box.png);

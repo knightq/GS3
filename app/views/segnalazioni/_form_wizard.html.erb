@@ -56,9 +56,8 @@
     <div id="wizard-body" class="wiz-body">
         <div id="wizard-1">
             <div class="wiz-content">
-                <h2>Informazioni generali</h2>
                 <br/>
-                <table align="center">
+                <table align="center" class="info_gen">
                     <tr>
                         <td>
                             Segnalatore:
@@ -128,7 +127,6 @@
         </div>
         <div id="wizard-2">
             <div class="wiz-content">
-                <h2>Informazioni di verifica</h2>
                 <% if @segnalazione.VE? %>
                 <p>
                     Hai appena confermato di aver verificato la segnalazione.
@@ -171,9 +169,7 @@
         </div>
         <div id="wizard-3">
             <div class="wiz-content">
-                <h2>Analisi</h2>
-					<%= render :partial => 'widgets/markdown_area', :locals => { :div_id => 'segnalazione_desc_risoluzione_analisi', :div_class => 'segnalazione_desc_risoluzione_analisi', :master => @segnalazione, :field => 'des_risoluzione_ana' } %>
-					<%#= f.text_area :des_risoluzione, :class => "segnalazione_desc_risoluzione" %>
+				<%= render :partial => 'widgets/markdown_editable', :locals => { :div_id => 'segnalazione_desc_risoluzione_analisi', :div_class => 'segnalazione_show_desc_ana', :master => @segnalazione, :field => 'des_risoluzione_ana' } %>
             </div>
             <div class="wiz-nav">
                 <input class="back btn" id="back" type="button" value="< Info verifica" /><input class="next btn" id="next" type="button" value="Risolvi >" />
@@ -182,7 +178,6 @@
         <div id="wizard-4">
         	<%= form_for @segnalazione, :as => :s4, :remote => true, :url => {:action => "update"} do |f| %>
 	            <div class="wiz-content">
-	                <h2>Risoluzione</h2>
 	                <table class="wizard_descrizione_risoluzione">
 	                    <tr>
 	                        <th>
@@ -243,8 +238,7 @@
 						<tr>
 							<td colspan="4">
 								<span class="span_textarea_descrizione_segnalazione">
-									<%= render :partial => 'widgets/markdown_area', :locals => { :div_id => 'segnalazione_desc_risoluzione', :div_class => 'segnalazione_desc_risoluzione', :master => @segnalazione, :field => 'des_risoluzione' } %>
-									<%#= f.text_area :des_risoluzione, :class => "segnalazione_desc_risoluzione" %>
+									<%= render :partial => 'widgets/markdown_editable', :locals => { :div_id => 'segnalazione_desc_risoluzione', :div_class => 'segnalazione_desc_risoluzione', :master => @segnalazione, :field => 'des_risoluzione' } %>
 								</span>
 							</td>
 						</tr>						
@@ -257,7 +251,6 @@
         </div>
         <div id="wizard-5">
             <div class="wiz-content">
-                <h2>Validazione</h2>
                 <p>
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit, 
                     sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,  
