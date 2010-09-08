@@ -1,4 +1,4 @@
-require 'lib/htmldiff' 
+require 'htmldiff' 
 require 'rdiscount'
 
 class SegnalazioniMailer < ActionMailer::Base

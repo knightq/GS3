@@ -6,6 +6,9 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(:default, Rails.env) if defined?(Bundler)
 
+# Aggiunto per ovviare al problema delle lib
+Dir.glob("./lib/*.{rb}").each { |file| require file }
+
 module Gs3
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.

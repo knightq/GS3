@@ -41,7 +41,7 @@ gem 'authlogic'
 gem 'workflow'
 
 #WMD Editor
-#gem 'wmd_on_rails', :git => 'git://github.com/crnixon/wmd_on_rails.git'
+#gem 'wmd_on_rails', :git => 'git://github.com/ochko/wmd_on_rails.git'
 # Markdown
 gem 'rdiscount'
 
@@ -51,10 +51,12 @@ gem 'rdiscount'
 #gem 'fastthread'
 ####################
 
+gem 'htmldiff', :git => 'git://github.com/myobie/htmldiff.git'
+
 gem 'ruby-oci8', '>=2.0.4'
 # gem 'activerecord-oracle_enhanced-adapter', '>=1.3.0.beta2', :git => 'git://github.com/rsim/oracle-enhanced.git', :branch => 'rails3',
 #  :require => 'active_record/connection_adapters/oracle_enhanced_adapter'
-gem 'activerecord-oracle_enhanced-adapter'
+gem 'activerecord-oracle_enhanced-adapter', '>=1.3.0', :git => 'git://github.com/rsim/oracle-enhanced.git'
 
 # optionally also use ruby-plsql
 gem "ruby-plsql", ">=0.4.3"
