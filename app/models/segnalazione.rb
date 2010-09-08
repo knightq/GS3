@@ -212,6 +212,10 @@ class Segnalazione < ActiveRecord::Base
     is_in_stato? 'RS'
   end
   
+  def se?
+    is_in_stato? 'SE'
+  end
+
   def ve?
     is_in_stato? 'VE'
   end
@@ -363,6 +367,10 @@ class Segnalazione < ActiveRecord::Base
       when :VE
         :SE
     end      
+  end
+
+  def funzione_label
+    return '[' << cda_programma << '] - ' << Programma.find_by_cda_programma(cda_programma).des_programma
   end
 
 end

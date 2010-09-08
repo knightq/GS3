@@ -32,11 +32,16 @@
             </a>
         </li>
         <li>
-            <a href="#wizard-3"><h2>Passo 3</h2>
+            <% if @segnalazione_cda_risolutore_ana %>
+				<a href="#wizard-3">
+			<% end %>
+            	<h2>Passo 3</h2>
                 <small>
                     Analisi
                 </small>
-            </a>
+            <% if @segnalazione_cda_risolutore_ana %>
+	            </a>
+			<% end %>
         </li>
         <li>
             <a href="#wizard-4"><h2>Passo 4</h2>
@@ -59,41 +64,48 @@
                 <br/>
                 <table align="center" class="info_gen">
                     <tr>
-                        <td>
+                        <td style="width: 20%;">
                             Segnalatore:
                         </td>
                         <td>
-                            <%= text_field_with_auto_complete @segnalazione, :cda_segnalatore, {:id => 'cda_segnalatore', :class => "segnalazione_cda_segnalatore", :size => 15, :value => @segnalazione.cda_segnalatore}, :disabled => params[:action] == 'show' %>
+                        	<% if @segnalazione.se? %>
+								<%= text_field_with_auto_complete @segnalazione, :cda_segnalatore, {:id => 'cda_segnalatore', :class => "segnalazione_cda_segnalatore", :size => 15, :value => @segnalazione.cda_segnalatore}, :disabled => params[:action] == 'show' %>
+							<% else %>
+	                            <b><%= @segnalazione.cda_segnalatore if @segnalazione.cda_segnalatore %></b>
+							<% end %>
                         </td>
-                        <td>
+                        <td style="width: 20%;">
                             Cliente:
                         </td>
                         <td>
-                            <input type="text" class="text" name="cliente" id="cda_cliente" value="<%= @segnalazione.cda_cliente %>" size="5" /><b><%= @segnalazione.cliente_des if @segnalazione.cda_cliente %></b>
+                            <b><%= @segnalazione.cliente_des if @segnalazione.cda_cliente %></b>
                         </td>
                     </tr>
                     <tr>
-                        <td>
+                        <td style="width: 20%;">
                             Prodotto:
                         </td>
                         <td>
-                            <%= text_field_with_auto_complete @segnalazione, :cda_prodotto, {:class => "segnalazione_cod_prodotto", :size => 12, :name => 'prodotto', :value => @segnalazione.cda_prodotto} %>
+                        	<b><%= @segnalazione.cda_prodotto if @segnalazione.cda_prodotto %></b>
+                            <%#= text_field_with_auto_complete @segnalazione, :cda_prodotto, {:class => "segnalazione_cod_prodotto", :size => 12, :name => 'prodotto', :value => @segnalazione.cda_prodotto} %>
                         </td>
-                        <td>
+                        <td style="width: 20%;">
                             Versione:
                         </td>
                         <td>
-                            <input type="text" class="text" name="cliente" id="cda_versione" value="<%= @segnalazione.cda_versione %>" />
+                        	<b><%= @segnalazione.cda_versione if @segnalazione.cda_versione %></b>
+                            <!--<input type="text" class="text" name="cliente" id="cda_versione" value="<%= @segnalazione.cda_versione %>" />-->
                         </td>
                     </tr>
                     <tr>
-                        <td>
+                        <td style="width: 20%;">
                             Modulo:
                         </td>
                         <td>
-                            <input type="text" class="text" name="modulo" id="cda_modulo" value="<%=@segnalazione.cda_modulo%>" size="5" /><b><%=@segnalazione.modulo_des if @segnalazione.cda_modulo %></b>
+                            <!--<input type="text" class="text" name="modulo" id="cda_modulo" value="<%=@segnalazione.cda_modulo%>" size="5" /><b><%=@segnalazione.modulo_des if @segnalazione.cda_modulo %></b>-->
+							<b><%= @segnalazione.cda_modulo if @segnalazione.cda_modulo %></b>
                         </td>
-                        <td>
+                        <td style="width: 20%;">
                             Tipo segnalazione:
                         </td>
                         <td>
@@ -105,14 +117,27 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>
+                        <td style="width: 20%;">
                             Task:
                         </td>
                         <td>
                             <input type="text" class="text" name="task" id="task_id" value="<%=@segnalazione.task_id%>" size="5" /><b><%=@segnalazione.task_des if @segnalazione.task_id %></b>
                         </td>
-                        <td>
+                        <td style="width: 20%;">
                             Commessa:
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 20%;">
+                            Funzione:
+                        </td>
+                        <td>
+                            <b><%= @segnalazione.funzione_label if @segnalazione.cda_programma %></b>
+                        </td>
+                        <td style="width: 20%;">
+                            Funzionalità:
                         </td>
                         <td>
                         </td>
