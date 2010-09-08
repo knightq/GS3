@@ -23,6 +23,12 @@ blockquote p {
 	margin: 4px; 
 }
 
+.descrizione_segnalazione_todo h1 {
+	font-size: 100%;
+	margin-top: 0;
+	margin-bottom: 0.3em;
+}
+
 .float-left {
 	float: left;
 }
@@ -1120,7 +1126,7 @@ div.kion_div {
 	overflow-x:auto;
 	width: 100%;
 }
-.descrizione_segnalazione_todo p {
+.descrizione_segnalazione_todo p, .descrizione_segnalazione_todo li {
 	font-size: 0.8em;
 	margin: 0px;
 }
