@@ -13,11 +13,10 @@ class RecapitiController < ApplicationController
     if request.format == 'application/json' || request.format == 'text/javascript' then
       cognome = request.GET[:cognome]
       tel = request.GET[:tel]
-      if cognome and not cognome.empty?
-        @recapiti = Recapito.where("cda_cognome like '%#{cognome}%' ").order(:cda_cognome).to_a
-      elsif tel and not tel.empty?
-        @recapiti = Recapito.where("cda_telefono like '%#{tel}%' ").order(:cda_cognome).to_a
-      end
+      @recapiti = Recapito.order(:cda_cognome)
+      @recapiti = @recapiti.where("cda_cognome like '%#{cognome}%' ") if (cognome and not cognome.empty?)
+      @recapiti = @recapiti.where("cda_telefono like '%#{tel}%' ") if (tel and not tel.empty?)
+      @recapiti = @recapiti.to_a
     else
       @recapiti = Recapito.scoped.order(:cda_cognome).to_a
       @recapiti_group = @recapiti.to_a.group_by{ |u| u.cda_cognome.to_s[0..0].upcase }  
@@ -41,7 +40,7 @@ class RecapitiController < ApplicationController
     @recapiti = Recapito.where("cda_cognome like '%#{request.GET[:cognome]}%' ").order(:cda_cognome).to_a
     respond_to do |format|
       format.js {
-         respond_with @recapiti.collect{|u| "#{u.cda_nome} #{u.cda_cognome}: #{u.cda_telefono}"}.join(', ')
+         respond_with @recapiti.collect{|u| "#{u.cda_nome} #{u.cda_cognome}: #{u.cda_telefono}"}.join(',')
       }
     end
   end
