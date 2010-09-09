@@ -2,18 +2,47 @@ require 'active_support/builder' unless defined?(Builder)
 
 class RecapitiController < ApplicationController
 	respond_to :html, :xml, :json, :js
-  before_filter :require_user#, :only => [:show, :edit, :update]
+  #before_filter :require_user, :except => [:data, :index]
 
   #protect_from_forgery :except => [:rubrica_data_grid]
  
   # GET /recapiti
   # GET /recapiti.xml
   def index
-    @recapiti = Recapito.scoped.order(:cda_cognome).to_a
-		@recapiti_group = @recapiti.to_a.group_by{ |u| u.cda_cognome.to_s[0..0].upcase }  
+    puts "FORMATO: #{request.format}"
+    if request.format == 'application/json' || request.format == 'text/javascript' then
+      cognome = request.GET[:cognome]
+      tel = request.GET[:tel]
+      if cognome and not cognome.empty?
+        @recapiti = Recapito.where("cda_cognome like '%#{cognome}%' ").order(:cda_cognome).to_a
+      elsif tel and not tel.empty?
+        @recapiti = Recapito.where("cda_telefono like '%#{tel}%' ").order(:cda_cognome).to_a
+      end
+    else
+      @recapiti = Recapito.scoped.order(:cda_cognome).to_a
+      @recapiti_group = @recapiti.to_a.group_by{ |u| u.cda_cognome.to_s[0..0].upcase }  
+    end
     respond_to do |format|
       format.html { puts "------------------ HTML!!!! ----- "; } # show.html.erb
       format.xml { puts "------------------ XML!!!! ----- "; render :xml => @recapiti }
+      format.json {
+        puts request.GET
+        respond_with @recapiti.to_json
+      }
+      format.js {
+        @elenco = @recapiti.collect{|u| "#{u.cda_nome} #{u.cda_cognome}: #{u.cda_telefono}"}.join(', ').to_s
+        puts "ELENCO: #{@elenco}"
+        respond_with @elenco
+      }
+    end
+  end
+
+  def tel
+    @recapiti = Recapito.where("cda_cognome like '%#{request.GET[:cognome]}%' ").order(:cda_cognome).to_a
+    respond_to do |format|
+      format.js {
+         respond_with @recapiti.collect{|u| "#{u.cda_nome} #{u.cda_cognome}: #{u.cda_telefono}"}.join(', ')
+      }
     end
   end
 
