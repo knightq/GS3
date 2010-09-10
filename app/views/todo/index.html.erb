@@ -1,8 +1,5 @@
 <% title "TODO List" %>
 
-<%= content_for :head do %>
-<% end %>
-
 <%= content_for :sidebar do %>
 	<%#= render :partial => 'widgets/collapsible_box', :locals => { :title => "Opzioni di visualizzazione", :content => 'todo_view_options' } %>
 	<%= render :partial => 'widgets/collapsible_box', :locals => { :title => "Filtra per", :content => 'filtri', :segnalazioni => @prodotti, :closeable => true } %>

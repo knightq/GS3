@@ -25,23 +25,18 @@
             </a>
         </li>
         <li>
-            <a href="#wizard-2"<%= "isdone='1' class='wiz-anc-done'" if @segnalazione.already?(:VE) %>><h2>Passo 2</h2>
+            <a href="#wizard-2" <%= "isdone='1'" if @segnalazione.already?(:VE) %><%= a_verifica_class %>><h2>Passo 2</h2>
                 <small>
                     Verifica
                 </small>
             </a>
         </li>
         <li>
-            <% if @segnalazione_cda_risolutore_ana %>
-				<a href="#wizard-3">
-			<% end %>
-            	<h2>Passo 3</h2>
+            <a href="#wizard-3" <%= "isdone='1'" if @segnalazione.already?(:RA) %><%= a_analisi_class %>><h2>Passo 3</h2>
                 <small>
                     Analisi
                 </small>
-            <% if @segnalazione_cda_risolutore_ana %>
-	            </a>
-			<% end %>
+            </a>
         </li>
         <li>
             <a href="#wizard-4"><h2>Passo 4</h2>
@@ -64,17 +59,17 @@
                 <br/>
                 <table align="center" class="info_gen">
                     <tr>
-                        <td style="width: 20%;">
+                        <td style="width: 12%;">
                             Segnalatore:
                         </td>
                         <td>
-                        	<% if @segnalazione.se? %>
-								<%= text_field_with_auto_complete @segnalazione, :cda_segnalatore, {:id => 'cda_segnalatore', :class => "segnalazione_cda_segnalatore", :size => 15, :value => @segnalazione.cda_segnalatore}, :disabled => params[:action] == 'show' %>
-							<% else %>
-	                            <b><%= @segnalazione.cda_segnalatore if @segnalazione.cda_segnalatore %></b>
-							<% end %>
+                            <% if @segnalazione.se? %>
+                            <%= text_field_with_auto_complete @segnalazione, :cda_segnalatore, {:id => 'cda_segnalatore', :class => "segnalazione_cda_segnalatore", :size => 15, :value => @segnalazione.cda_segnalatore}, :disabled => params[:action] == 'show' %>
+                            <% else %>
+                            <b><%= @segnalazione.cda_segnalatore if @segnalazione.cda_segnalatore %></b>
+                            <% end %>
                         </td>
-                        <td style="width: 20%;">
+                        <td style="width: 12%;">
                             Cliente:
                         </td>
                         <td>
@@ -82,30 +77,29 @@
                         </td>
                     </tr>
                     <tr>
-                        <td style="width: 20%;">
+                        <td style="width: 12%;">
                             Prodotto:
                         </td>
                         <td>
-                        	<b><%= @segnalazione.cda_prodotto if @segnalazione.cda_prodotto %></b>
+                            <b><%= @segnalazione.cda_prodotto if @segnalazione.cda_prodotto %></b>
                             <%#= text_field_with_auto_complete @segnalazione, :cda_prodotto, {:class => "segnalazione_cod_prodotto", :size => 12, :name => 'prodotto', :value => @segnalazione.cda_prodotto} %>
                         </td>
-                        <td style="width: 20%;">
+                        <td style="width: 12%;">
                             Versione:
                         </td>
                         <td>
-                        	<b><%= @segnalazione.cda_versione if @segnalazione.cda_versione %></b>
+                            <b><%= @segnalazione.cda_versione if @segnalazione.cda_versione %></b>
                             <!--<input type="text" class="text" name="cliente" id="cda_versione" value="<%= @segnalazione.cda_versione %>" />-->
                         </td>
                     </tr>
                     <tr>
-                        <td style="width: 20%;">
+                        <td style="width: 12%;">
                             Modulo:
                         </td>
                         <td>
-                            <!--<input type="text" class="text" name="modulo" id="cda_modulo" value="<%=@segnalazione.cda_modulo%>" size="5" /><b><%=@segnalazione.modulo_des if @segnalazione.cda_modulo %></b>-->
-							<b><%= @segnalazione.cda_modulo if @segnalazione.cda_modulo %></b>
+                            <!--<input type="text" class="text" name="modulo" id="cda_modulo" value="<%=@segnalazione.cda_modulo%>" size="5" /><b><%=@segnalazione.modulo_des if @segnalazione.cda_modulo %></b>--><b><%= @segnalazione.cda_modulo if @segnalazione.cda_modulo %></b>
                         </td>
-                        <td style="width: 20%;">
+                        <td style="width: 12%;">
                             Tipo segnalazione:
                         </td>
                         <td>
@@ -117,26 +111,26 @@
                         </td>
                     </tr>
                     <tr>
-                        <td style="width: 20%;">
+                        <td style="width: 12%;">
                             Task:
                         </td>
                         <td>
                             <input type="text" class="text" name="task" id="task_id" value="<%=@segnalazione.task_id%>" size="5" /><b><%=@segnalazione.task_des if @segnalazione.task_id %></b>
                         </td>
-                        <td style="width: 20%;">
+                        <td style="width: 12%;">
                             Commessa:
                         </td>
                         <td>
                         </td>
                     </tr>
                     <tr>
-                        <td style="width: 20%;">
+                        <td style="width: 12%;">
                             Funzione:
                         </td>
                         <td>
                             <b><%= @segnalazione.funzione_label if @segnalazione.cda_programma %></b>
                         </td>
-                        <td style="width: 20%;">
+                        <td style="width: 12%;">
                             Funzionalità:
                         </td>
                         <td>
@@ -194,82 +188,94 @@
         </div>
         <div id="wizard-3">
             <div class="wiz-content">
-				<%= render :partial => 'widgets/markdown_editable', :locals => { :div_id => 'segnalazione_desc_risoluzione_analisi', :div_class => 'segnalazione_show_desc_ana', :master => @segnalazione, :field => 'des_risoluzione_ana' } %>
+                <%= render :partial => 'widgets/markdown_editable', :locals => { :div_id => 'segnalazione_desc_risoluzione_analisi', :div_class => 'segnalazione_show_desc_ana', :master => @segnalazione, :field => 'des_risoluzione_ana' } %>
             </div>
             <div class="wiz-nav">
                 <input class="back btn" id="back" type="button" value="< Info verifica" /><input class="next btn" id="next" type="button" value="Risolvi >" />
             </div>
         </div>
         <div id="wizard-4">
-        	<%= form_for @segnalazione, :as => :s4, :remote => true, :url => {:action => "update"} do |f| %>
-	            <div class="wiz-content">
-	                <table class="wizard_descrizione_risoluzione">
-	                    <tr>
-	                        <th>
-	                            Risolutore: 
-	                        </th>
-	                        <td>
-	                            <b>
-	                            	<% if params[:action] == 'edit' and @segnalazione.has_to_be?(:RS) %>
-										<%= text_field_with_auto_complete @segnalazione, :cda_risolutore, {:class => "segnalazione_cda_risolutore", :size => 15, :value => @segnalazione.cda_risolutore} %>
-									<% else %>
-										<b><%= @segnalazione.cda_risolutore %></b>
-									<% end %>
-	                            </b>
-	                        </td>
-	                        <th>
-	                            Tempi per la risoluzione: 
-	                        </th>
-	                        <td>
-	                            <table class="fit">
-	                                <tr>
-	                                    <th>
-	                                        Stimate
-	                                    </th>
-	                                    <th>
-	                                        Impiegate
-	                                    </th>
-	                                </tr>
-	                                <tr>
-	                                    <td>
-	                                        <b><%= @segnalazione.tempo_risol_stimato %></b>
-	                                        ore
-	                                    </td>
-	                                    <td>
-	                                        <b><%= @segnalazione.tempo_risol_impiegato %></b>
-	                                        ore
-	                                    </td>
-	                                </tr>
-	                            </table>
-	                        </td>
-	                    </tr>
-						<% if @segnalazione.already?(:RS) %>
-							<tr>
-								<th>Data risoluzione: </th>
-								<td><b><%= @segnalazione.dtm_risoluzione %></b></td>
-								<th>Data rilascio: </th>
-								<td></td>
-							</tr>
-							<tr>
-								<th>Causa: </th>
-								<td colspan=="3"><b><%= Causa.des(@segnalazione.cda_causa) %></b></td>							
-							</tr>
-						<% else %>
-							<tr>
-								<th>Causa: </th>
-								<td colspan=="3"><%= f.collection_select :cda_causa, Causa.all, :cod_causa, :des, :include_blank => true %></td>							
-							</tr>
-						<% end %>
-						<tr>
-							<td colspan="4">
-								<span class="span_textarea_descrizione_segnalazione">
-									<%= render :partial => 'widgets/markdown_editable', :locals => { :div_id => 'segnalazione_desc_risoluzione', :div_class => 'segnalazione_desc_risoluzione', :master => @segnalazione, :field => 'des_risoluzione' } %>
-								</span>
-							</td>
-						</tr>						
-	                </table>
-	            </div>
-			<% end %>
+            <%= form_for @segnalazione, :as => :s4, :remote => true, :url => {:action => "update"} do |f| %>
+            <div class="wiz-content">
+                <table class="wizard_descrizione_risoluzione">
+                    <tr>
+                        <th>
+                            Risolutore: 
+                        </th>
+                        <td>
+                            <b><% if params[:action] == 'edit' and @segnalazione.has_to_be?(:RS) %>
+                                <%= text_field_with_auto_complete @segnalazione, :cda_risolutore, {:class => "segnalazione_cda_risolutore", :size => 15, :value => @segnalazione.cda_risolutore} %>
+                                <% else %>
+                                <b><%= @segnalazione.cda_risolutore %></b><% end %>
+                            </b>
+                        </td>
+                        <th>
+                            Tempi per la risoluzione: 
+                        </th>
+                        <td>
+                            <table class="fit">
+                                <tr>
+                                    <th>
+                                        Stimate
+                                    </th>
+                                    <th>
+                                        Impiegate
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <b><%= @segnalazione.tempo_risol_stimato %></b>
+                                        ore
+                                    </td>
+                                    <td>
+                                        <b><%= @segnalazione.tempo_risol_impiegato %></b>
+                                        ore
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <% if @segnalazione.already?(:RS) %>
+                    <tr>
+                        <th>
+                            Data risoluzione: 
+                        </th>
+                        <td>
+                            <b><%= @segnalazione.dtm_risoluzione %></b>
+                        </td>
+                        <th>
+                            Data rilascio: 
+                        </th>
+                        <td>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            Causa: 
+                        </th>
+                        <td colspan=="3">
+                            <b><%= Causa.des(@segnalazione.cda_causa) %></b>
+                        </td>
+                    </tr>
+                    <% else %>
+                    <tr>
+                        <th>
+                            Causa: 
+                        </th>
+                        <td colspan=="3">
+                            <%= f.collection_select :cda_causa, Causa.all, :cod_causa, :des, :include_blank => true %>
+                        </td>
+                    </tr>
+                    <% end %>
+                    <tr>
+                        <td colspan="4">
+                            <span class="span_textarea_descrizione_segnalazione"><%= render :partial => 'widgets/markdown_editable', :locals => { :div_id => 'segnalazione_desc_risoluzione', :div_class => 'segnalazione_desc_risoluzione', :master => @segnalazione, :field => 'des_risoluzione' } %>
+                            </span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <% end %>
             <div class="wiz-nav">
                 <input class="back btn" id="back" type="button" value="< Info Analisi" /><input class="next btn" id="next" type="button" value="Risolvi >" />
             </div>

@@ -61,4 +61,23 @@ module SegnalazioniHelper
 
     @chart
   end
+  
+  def a_verifica_class
+   classe = "class='"
+   if @segnalazione.already?(:VE)
+      classe << "wiz-anc-done"
+   end
+   if @segnalazione.note_verificatore
+     classe << " with_note" 
+   end
+   classe << '\''
+ end
+
+  def a_analisi_class
+   classe = "class='"
+   if @segnalazione.already?(:RA)
+      classe << "wiz-anc-done"
+   end
+   classe << '\''
+  end
 end

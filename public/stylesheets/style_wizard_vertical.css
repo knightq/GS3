@@ -41,6 +41,11 @@ Date:
 		padding: 0; 
 	}
 
+	.with_note{
+		background-image: url(../images/post-it.gif);
+		background-repeat: no-repeat;
+		background-position:bottom right;
+	}
   .wiz-container ul li a { 
     display:block;
     cursor: hand;

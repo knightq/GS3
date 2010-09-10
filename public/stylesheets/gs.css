@@ -89,6 +89,7 @@ blockquote p {
 
 .info_gen, .info_gen tbody {
 	min-width: 100%;
+	font-size: 0.94em;
 }
 
 .info_gen tbody td  {
