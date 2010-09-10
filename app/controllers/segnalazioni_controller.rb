@@ -21,7 +21,7 @@ class SegnalazioniController < ApplicationController
     end
   end
 
-	def show
+	def show 
 		@segnalazione = Segnalazione.find_by_prg_segna(params[:id])
 		respond_with @segnalazione 
 	end

@@ -44,9 +44,10 @@
 				<% end %>
 	        </div>
         <% end %>
-        <!-- Informazioni di account e link di uscita --><% if @current_user %>
+        <!-- Informazioni di account e link di uscita -->
+		<% if current_user %>
         <div id="user_info">
-            Sei autenticato come <b><%= @current_user.user_name %></b>
+            Sei autenticato come <b><%= current_user.user_name %></b>
             |<%= link_to "Esci", logout_url %>
         </div>
         <% end %>
