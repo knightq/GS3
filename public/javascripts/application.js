@@ -25,7 +25,16 @@ $(document).ready(function(){
 	/*var elems = ["c++", "java", "php", "coldfusion", "javascript", "asp", "ruby", "python", "c", "scala", "groovy", "haskell", "pearl"];*/
 	$("#input_gs_quick_search").autocomplete("gsprg", {
 		width: 80,
-		selectFirst: false
+		selectFirst: false,
+	 	extraParams: {
+		 	user_id:function() {
+			 	if($('#myonly').is(':checked')) {
+					return $('#user_id').val()
+		     	} else {
+					return -1
+				}
+	        }
+		}
 	}).result(function(event, item) {
   		location.href = 'segnalazioni/' + item;
 	});

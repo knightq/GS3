@@ -71,7 +71,13 @@ class SegnalazioniController < ApplicationController
 
   def gsprg
       gs = request.GET[:q]
-      @gs = Segnalazione.select(:prg_segna).where("prg_segna LIKE '#{gs}%'").limit(request.GET[:limit]).collect{|g| g.prg_segna}
+#      myonly = request.GET[:myonly]
+      user_id = request.GET[:user_id]
+      @gs = Segnalazione.select(:prg_segna).where("prg_segna LIKE '#{gs}%'").limit(request.GET[:limit])
+      unless user_id == '-1' 
+        @gs = @gs.where('cda_risolutore = ?', user_id)
+      end
+      @gs = @gs.collect{|g| g.prg_segna}
       puts "GS recuperate: #{@gs}"
       respond_with @gs
   end

@@ -52,6 +52,10 @@
 		<div class="search_gs">
 			<form autocomplete="off">
 				<input id="input_gs_quick_search" type="text" size="6" maxlength="6" />
+				<input id="myonly" type="checkbox" />
+				<input id="user_id" type="hidden" value="<%= current_user.user_id %>" />
+				<label for="myonly">Solo le mie</label>
+				
 			</form>
 		</div>
         <div id="user_info">
