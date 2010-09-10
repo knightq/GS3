@@ -64,6 +64,7 @@ Gs3::Application.routes.draw do |map|
   match 'recapiti/dbaction' => 'recapiti#dbaction'
   match 'statistiche' => 'statistiche#index'
   match 'todo' => 'todo#index'
+  match 'gsprg' => 'segnalazioni#gsprg'
 
   resource :account, :controller => "utenti"
   resources :funzioni

@@ -1,6 +1,7 @@
 // Place your application-specific JavaScript functions and classes here
 // This file is automatically included by javascript_include_tag :defaults
 
+
 var hideFlashes = function(){
     $("#flash_notice, #flash_error").fadeOut(800);
     $("#flash_messages").slideUp(800);
@@ -21,6 +22,19 @@ var request = function(options){
 };
 
 $(document).ready(function(){
+	/*var elems = ["c++", "java", "php", "coldfusion", "javascript", "asp", "ruby", "python", "c", "scala", "groovy", "haskell", "pearl"];*/
+	$("#input_gs_quick_search").autocomplete("gsprg", {
+		width: 80,
+		selectFirst: false
+	}).result(function(event, item) {
+  		location.href = 'segnalazioni/' + item;
+	});
+	$("#input_gs_quick_search").result(function(event, data, formatted) {
+		if (data)
+			$(this).parent().next().find("input").val(data[1]);
+	});
+
+
 	setTimeout(hideFlashes, 1000);
     
     // remote links handler

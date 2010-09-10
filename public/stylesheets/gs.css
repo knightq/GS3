@@ -1258,3 +1258,14 @@ div.jqDockLabel {font-weight:bold; font-style:italic; white-space:nowrap; color:
 	padding: 20px;
 	width:280px;
 }
+
+.search_gs {
+	position: absolute;
+	top: 20px;
+	right: 60px;
+	/*-moz-user-input:enabled;*/
+}
+#input_gs_quick_search {
+	-moz-user-input:enabled;
+	-moz-user-modify:read-write;
+}

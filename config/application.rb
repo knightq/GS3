@@ -48,6 +48,9 @@ module Gs3
 
     # Middleware per la generazione dei PDF a partire dall'HTML
     config.middleware.use "PDFKit::Middleware", :print_media_type => true
+    
+    #Default JS
+    config.action_view.javascript_expansions[:defaults] = ['jquery-1.4.2.min', 'application']
   end
 
 end

@@ -14,5 +14,3 @@ ActionMailer::Base.default_charset = "utf-8"
 ActionMailer::Base.default_content_type = "text/html" # default: "text/plain"
 ActionMailer::Base.default_mime_version = "1.0"
 ActionMailer::Base.default_implicit_parts_order = [ "text/html", "text/plain"]
-
-

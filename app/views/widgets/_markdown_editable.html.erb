@@ -6,14 +6,15 @@
 
 <% content_for :head do %>
 	<%= javascript_include_tag 'markdown' %>
-	<%= enable_wmd(:autostart => true) %>
+	<%#= enable_wmd(:autostart => true) %>
 <% end %>
 
 <%= form_for master, :as => :s, :remote => true, :url => {:action => params[:action] == 'edit' ? "update" : "create"} do |f| %>
 	<% if params[:action] == 'show' %>
 		<%= link_to content_tag(:span, "", :class => 'ui-icon ui-widget-content ui-icon-pencil'), edit_segnalazione_path, :class => 'float-right', :alt => 'Modifica', :title => 'Modifica il modello correntemente visualizzato' %>
 	<% elsif params[:action] == 'edit' %>
-		<%= link_to content_tag(:span, "", :class => 'ui-icon ui-widget-content ui-icon-close'), segnalazione_path, :class => 'float-right', :alt => 'Annulla', :title => 'Ritorna alla pagina di dettaglio del modello corrente, senza salvare le ultime modifiche.' %>
+		<%#= link_to content_tag(:span, "", :class => 'ui-icon ui-widget-content ui-icon-close'), segnalazione_path, :class => 'float-right', :alt => 'Annulla', :title => 'Ritorna alla pagina di dettaglio del modello corrente, senza salvare le ultime modifiche.' %>
+		<%= content_tag(:span, "", :class => 'cancel_btn ui-icon ui-widget-content ui-icon-close float-right hand', :alt => 'Annulla', :title => 'Annulla le modifiche apportate al modello corrente.') %>
 		<%= content_tag(:span, "", :class => 'save_btn ui-icon ui-widget-content ui-icon-check float-right hand', :alt => 'Salva', :title => 'Salva le modifiche apportate al modello corrente.') %>
 	<% end %>
 	<span class="textarea_container <%=span_container_class%>">

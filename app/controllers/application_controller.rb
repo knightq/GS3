@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
   layout 'application' #Rails 3
+  before_filter :save_origin_url, :only => :show
 
 	attr_accessor :funzione
 
@@ -53,6 +54,11 @@ class ApplicationController < ActionController::Base
   def esci
     @current_user_session = nil
     redirect_to home_path
+  end
+
+  def save_origin_url
+    @origin_url = request.referer
+    puts "Salvato origin path: #{@origin_url}"
   end
 
 end

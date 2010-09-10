@@ -1,7 +1,7 @@
 class SegnalazioniController < ApplicationController
-
+  layout "application", :except => :gsprg
 	respond_to :html, :xml, :json, :rdf
-	before_filter :require_user, :except => :show
+	before_filter :require_user, :except => [:show, :gsprg]
 
   # POST /segnalazioni
   # POST /segnalazioni.xml
@@ -59,10 +59,21 @@ class SegnalazioniController < ApplicationController
   end
 
   def index
-		@segnalazioni = Segnalazione.risolutore(current_user.user_name)
-		respond_with @segnalazioni
+    @segnalazioni = Segnalazione.risolutore(current_user.user_name)
+    respond_to do |format|
+      format.html {
+          respond_with @segnalazioni
+      }
+    end
   rescue ActiveRecord::RecordNotFound
     render_404
+  end
+
+  def gsprg
+      gs = request.GET[:q]
+      @gs = Segnalazione.select(:prg_segna).where("prg_segna LIKE '#{gs}%'").limit(request.GET[:limit]).collect{|g| g.prg_segna}
+      puts "GS recuperate: #{@gs}"
+      respond_with @gs
   end
 
   # GET /segnalazioni/new

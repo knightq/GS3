@@ -1,20 +1,22 @@
 <% content_for :head do %>
-<%= enable_wmd(:autostart => true) %>
-<%= javascript_include_tag 'form_disabled' if params[:action]=='show' %>
-<%= javascript_include_tag 'segnalazione' %>
-<%= javascript_include_tag 'SmartWizard' %>
-<%= stylesheet_link_tag 'style_wizard_vertical' %>
-<%= stylesheet_link_tag 'form_disabled' if params[:action]=='show' %>
-<%= javascript_include_tag 'jquery.bgiframe.min' %>
-<%= javascript_include_tag 'jquery.autocomplete' %>
-<script>
-    $(document).ready(function(){
-        $(".segnalazione_cda_segnalatore:enabled").autocomplete("/utenti.js");
-    });
-</script>
-<%= stylesheet_link_tag 'jquery.autocomplete' %>
+	<%= enable_wmd(:autostart => true) %>
+	<%= javascript_include_tag 'form_disabled' if params[:action]=='show' %>
+	<%= javascript_include_tag 'segnalazione' %>
+	<%= javascript_include_tag 'SmartWizard' %>
+	<%= javascript_include_tag 'jquery.autocomplete' %>
+	<%= javascript_include_tag 'jquery.bgiframe.min' %>
+	<script>
+	    $(document).ready(function(){
+	        $(".segnalazione_cda_segnalatore:enabled").autocomplete("/utenti.js");
+	    });
+	</script>
+	<%= stylesheet_link_tag 'form_disabled' if params[:action]=='show' %>
+	<%= stylesheet_link_tag 'jquery.autocomplete' %>
+	<%= stylesheet_link_tag 'style_wizard_vertical' %>
 <% end %>
+
 <input id="lastWiz" type="hidden" value="<%= lastStepForMe %>">
+
 <div id="smartwizard" class="wiz-container">
     <ul id="wizard-anchor">
         <li>
@@ -174,11 +176,7 @@
                 </p>
                 <% end %>
                 <% if @segnalazione.note_verificatore %>
-                <div class="postit dim" id="segnalazione_note_verificatore">
-                    <div class="innerPostit filter">
-                        <a name="expand nota_verificatore"><%= raw(markdown(truncate(@segnalazione.note_verificatore, :omission => ". . .", :length => 300))) %></a>
-                    </div>
-                </div>
+                  <%= render :partial => 'widgets/markdown_editable', :locals => { :div_id => 'segnalazione_desc_note_verificatore', :div_class => 'segnalazione_show_note_verificatore', :master => @segnalazione, :field => 'note_verificatore' } %>
                 <% end %>
             </div>
             <div class="wiz-nav">
@@ -188,6 +186,7 @@
         </div>
         <div id="wizard-3">
             <div class="wiz-content">
+            	
                 <%= render :partial => 'widgets/markdown_editable', :locals => { :div_id => 'segnalazione_desc_risoluzione_analisi', :div_class => 'segnalazione_show_desc_ana', :master => @segnalazione, :field => 'des_risoluzione_ana' } %>
             </div>
             <div class="wiz-nav">

@@ -91,5 +91,4 @@ module ApplicationHelper
     EOF
   end
 
-
 end
