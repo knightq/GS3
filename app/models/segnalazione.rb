@@ -281,11 +281,11 @@ class Segnalazione < ActiveRecord::Base
       when 'SE'
       cda_verificatore
       when 'AA'
-       ((cda_verificatore || "") + " --> " + cda_risolutore_ana) if cda_risolutore_ana
+       ((cda_verificatore || cda_segnalatore) + ' ' + 8594.chr + ' ' + cda_risolutore_ana) if cda_risolutore_ana
       when 'AS'
-       ((cda_risolutore_ana || "") + " --> " + cda_risolutore) if cda_risolutore
+       ((cda_risolutore_ana || cda_verificatore || cda_segnalatore) + ' ' + 8594.chr + ' ' + cda_risolutore) if cda_risolutore
       when 'RS'
-       ((cda_risolutore || "") + " --> " + (cda_validatore || cda_verificatore)) if (cda_validatore || cda_verificatore)
+       ((cda_risolutore || "") + ' ' + 8594.chr + ' ' + (cda_validatore || cda_verificatore)) if (cda_validatore || cda_verificatore)
     end
   end
 
