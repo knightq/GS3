@@ -99,6 +99,7 @@ class Segnalazione < ActiveRecord::Base
   scope :risolutore_analisi, lambda { |user| where("cda_risolutore_ana = ?", user) }
   scope :risolutori, lambda { |users| where("cda_risolutore in (?)", users) }
   scope :risolutori_analisi, lambda { |user| where("cda_risolutore_ana = in (?) ", users) }
+  scope :involved, lambda { |user| where("? in (cda_segnalatore, cda_verificatore, cda_risolutore_ana, cda_risolutore, cda_validatore)", user) }
   
   def self.find_by_user_todo(user_id)
     Segnalazione.in_todo(user_id)
