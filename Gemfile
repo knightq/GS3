@@ -20,6 +20,9 @@ gem 'i18n'
 # gem 'sqlite3-ruby', :require => 'sqlite3'
 # gem 'aws-s3', :require => 'aws/s3'
 
+gem 'inherited_resources'
+gem 'has_scope'
+
 # Bundle gems for certain environments:
 gem 'rspec', :group => :test
 

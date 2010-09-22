@@ -371,7 +371,8 @@ class Segnalazione < ActiveRecord::Base
   end
 
   def funzione_label
-    return '[' << cda_programma << '] - ' << Programma.find_by_cda_programma(cda_programma).des_programma
+    programma = Programma.find_by_cda_programma(cda_programma)
+    return '[' << cda_programma << '] - ' << programma.des_programma if programma
   end
 
 end

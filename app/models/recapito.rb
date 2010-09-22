@@ -1,11 +1,18 @@
 class Recapito < ActiveRecord::Base
 	set_table_name "FW_RUBRICA"
-  set_primary_key "PRG_ID" 
+  set_primary_key :prg_id 
 
   belongs_to :utente, :primary_key => "user_mail", :foreign_key => "cda_email"
 
+  default_scope :order => 'cda_cognome ASC'
+
   scope :attivi, where('disable_flg = 0')
   scope :exclude_uni, where("user_name not like 'UNI%'")
+  scope :cda_cognome_LIKE, lambda { |cognome| where("cda_cognome LIKE ?", "%#{cognome}%") } 
+  scope :cda_telefono_LIKE, lambda { |telefono| where("cda_telefono LIKE ?", "%#{telefono}%") } 
+
+  validates_presence_of :cda_nome, :cda_cognome
+  validates_format_of :cda_email, :with => /^[-a-z0-9_+\.]+\@([-a-z0-9]+\.)+[a-z0-9]{2,4}$/i  
 
   acts_as_authentic do |c|
 		# for available options see documentation in: Authlogic::ActsAsAuthentic

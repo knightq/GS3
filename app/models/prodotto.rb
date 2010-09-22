@@ -4,4 +4,7 @@ class Prodotto < ActiveRecord::Base
 
 	has_many :versions
 
+  scope :cda_prodotto_like, proc { |cda_prodotto| where("cda_prodotto LIKE ?", "%#{cda_prodotto.upcase}%") }
+
+
 end

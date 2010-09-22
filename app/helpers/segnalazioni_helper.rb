@@ -73,6 +73,17 @@ module SegnalazioniHelper
    classe << '\''
  end
 
+  def a_valida_class
+   classe = "class='"
+   if @segnalazione.already?(:VL)
+      classe << "wiz-anc-done"
+   end
+   if @segnalazione.note_validatore and @segnalazione.note_validatore.gsub(/\s/, '').length > 0 
+     classe << " with_note" 
+   end
+   classe << '\''
+ end
+
   def a_analisi_class
    classe = "class='"
    if @segnalazione.already?(:RA)

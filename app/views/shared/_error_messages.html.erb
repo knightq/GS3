@@ -1,0 +1,10 @@
+<% if target.errors.any? %>  
+ <div id="errorExplanation">  
+	<h2><%= pluralize(target.errors.count, "errore") %> <%= pluralize(target.errors.count, "ha") %> impedito il corretto salvataggio dei dati:</h2>
+    <ul>  
+      <% target.errors.full_messages.each do |msg| %>  
+        <li><%= msg %></li>  
+      <% end %>  
+    </ul>  
+  </div>
+<% end %>  

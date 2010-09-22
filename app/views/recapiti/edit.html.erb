@@ -1,12 +1,6 @@
 <% title "Modifica dettagli su #{@recapito.cda_nome} #{@recapito.cda_cognome}" %>
 
-<% form_for(@recapito) do |f| %>
-  <%= f.error_messages %>
+<%#= render 'form', :id => @recapito %>
 
-  <p>
-    <%= f.submit 'Applica' %>
-  </p>
-<% end %>
-
-<%= link_to 'Mostra', @recapito %> |
+<%= link_to 'Mostra', recapito_path(@recapito.prg_id.to_i) %> |
 <%= link_to 'Indietro', recapiti_path %>

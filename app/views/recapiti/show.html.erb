@@ -1,4 +1,11 @@
 <% title "Dettagli su #{@recapito.cda_nome} #{@recapito.cda_cognome}" %>
 
-<%= link_to 'Modifica', edit_recapito_path(@recapito) %> |
+	<h2><b><%=@recapito.cda_nome%> <%=@recapito.cda_cognome %></b></h2>
+	<p>
+		Tel.: <b><%= @recapito.cda_telefono %></b> - Cell.:<b><%= @recapito.cda_cellulare %></b> 
+	</p>
+	<p>
+		e-mail: <b><%= mail_to @recapito.cda_email %></b> 
+	</p>
+<%= link_to 'Modifica', edit_recapito_path(@recapito.prg_id.to_i) %> |
 <%= link_to 'Indietro', recapiti_path %>

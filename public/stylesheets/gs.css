@@ -832,7 +832,7 @@ textarea.segnalazione_desc_risoluzione, textarea.segnalazione_desc_risoluzione_a
   width: 97%;
 }
 textarea.segnalazione_desc_risoluzione_analisi {
-  background: #FFFFDD url(../images/descrizione_risoluzione.png) center center no-repeat; /* This ruins default border */	
+  background: #FFFFDD url(../images/descrizione_risoluzione_analisi.png) center center no-repeat; /* This ruins default border */	
 }
 
 .drag {

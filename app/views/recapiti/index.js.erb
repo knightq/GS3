@@ -1,1 +1,1 @@
-<%= @elenco %>
+<%= collection.collect{|u| "#{u.cda_nome} #{u.cda_cognome}: #{u.cda_telefono} #{u.cda_email} (Cliente: #{u.cda_cliente})"}.join(', ').to_s %>

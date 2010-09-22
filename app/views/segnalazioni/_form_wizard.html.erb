@@ -41,16 +41,16 @@
             </a>
         </li>
         <li>
-            <a href="#wizard-4"><h2>Passo 4</h2>
+            <a href="#wizard-4" <%= "isdone='1'" if @segnalazione.already?(:RS) %>><h2>Passo 4</h2>
                 <small>
                     Risoluzione
                 </small>
             </a>
         </li>
         <li>
-            <a href="#wizard-5"><h2>Passo 5</h2>
+            <a href="#wizard-5" <%= "isdone='1'" if @segnalazione.already?(:VL) %><%= a_valida_class %>><h2>Passo 5</h2>
                 <small>
-                    Chiusura
+                    Validazione
                 </small>
             </a>
         </li>
@@ -187,7 +187,7 @@
         <div id="wizard-3">
             <div class="wiz-content">
             	
-                <%= render :partial => 'widgets/markdown_editable', :locals => { :div_id => 'segnalazione_desc_risoluzione_analisi', :div_class => 'segnalazione_show_desc_ana', :master => @segnalazione, :field => 'des_risoluzione_ana' } %>
+                <%= render :partial => 'widgets/markdown_editable', :locals => { :div_id => 'segnalazione_desc_risoluzione_analisi', :div_class => 'segnalazione_show_desc_ana', :textarea_class => 'segnalazione_desc_risoluzione_analisi', :master => @segnalazione, :field => 'des_risoluzione_ana' } %>
             </div>
             <div class="wiz-nav">
                 <input class="back btn" id="back" type="button" value="< Info verifica" /><input class="next btn" id="next" type="button" value="Risolvi >" />
@@ -281,13 +281,7 @@
         </div>
         <div id="wizard-5">
             <div class="wiz-content">
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, 
-                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,  
-                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
-                    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                </p>
+	        	<%= render :partial => 'validazione', :locals => { :master => @segnalazione } %>
             </div>
             <div class="wiz-nav">
                 <input class="back btn" id="back" type="button" value="< Info risoluzione" /><input class="btn" id="next" type="button" value="Valida" />

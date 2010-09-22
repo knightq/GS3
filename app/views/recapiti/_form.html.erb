@@ -1,0 +1,34 @@
+<%= form_for(@recapito) do |f| %>
+  <%= render "shared/error_messages", :target => @recapito %>
+    <!-- Nome -->
+    <div class="field">  
+      <%= f.label :nome %><br />
+      <%= f.text_field :cda_nome %>  
+    </div>  
+   
+     <!-- Cognome -->
+    <div class="field">  
+      <%= f.label :cognome %><br />  
+      <%= f.text_field :cda_cognome %>  
+    </div>  
+   
+    <!-- Telefono -->
+    <div class="field">  
+      <%= f.label :telefono %><br />  
+      <%= f.text_field :cda_telefono %>  
+    </div>  
+
+      <!-- Cellulare -->
+    <div class="field">  
+      <%= f.label :cellulare %><br />  
+      <%= f.text_field :cda_cellulare %>  
+    </div>
+
+    <!-- Email -->
+    <div class="field">  
+      <%= f.label :email %><br />  
+      <%= f.text_field :cda_email %>  
+    </div>  
+
+	<%= image_submit_tag("add.png", :alt => 'Aggiungi alla rubrica', :title => 'Aggiungi alla rubrica') %>
+<% end %>

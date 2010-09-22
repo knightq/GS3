@@ -1,18 +1,12 @@
 require 'active_support/builder' unless defined?(Builder)
 
-class ProdottiController < ApplicationController
+class ProdottiController < InheritedResources::Base
 
 	respond_to :html, :xml, :json, :js
   before_filter :require_user#, :only => [:show, :edit, :update]
 
-  # GET /prodotti
-  # GET /prodotti.xml
-  def index
-    @prodotti = Prodotto.scoped
-    @prodotti = @prodotti.where("cda_prodotto LIKE ?", "%#{params[:q].upcase}%") if params[:q] 
-    @prodotti = @prodotti.order('cda_prodotto ASC').limit(10)
-    respond_with(@prodotti)
-  end
+  has_scope :limit, :default => 10
+  has_scope :cda_prodotto_like
 
   # Da usarsi con dhtmlxGrid
   def data

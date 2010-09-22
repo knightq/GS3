@@ -1,0 +1,8 @@
+<div>
+    Stima validazione: <b><%= master.tempo_val_stimato %></b>
+</div>
+<div>
+    <% if @segnalazione.note_validatore %>
+    <%= render :partial => 'widgets/markdown_editable', :locals => { :div_id => 'segnalazione_desc_note_validatore', :div_class => 'segnalazione_show_note_validatore', :master => @segnalazione, :field => 'note_validatore' } %>
+    <% end %>
+</div>
