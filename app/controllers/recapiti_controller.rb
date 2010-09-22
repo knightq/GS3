@@ -1,11 +1,7 @@
 require 'active_support/builder' unless defined?(Builder)
 
-class RecapitiController < InheritedResources::Base
-
+class RecapitiController < ApplicationController
 	respond_to :html, :xml, :json, :js
-
-  actions :all, :except => :index
-
   #before_filter :require_user, :except => [:data, :index]
 
   #protect_from_forgery :except => [:rubrica_data_grid]
@@ -127,70 +123,70 @@ class RecapitiController < InheritedResources::Base
     render :text=>return_data.to_json, :layout=>false
   end
 
-#  # GET /recapiti/1
-#  # GET /recapiti/1.xml
-#  def show
-#    @recapito = Recapito.find_by_prg_id(params[:id])
-#		respond_with(@recapito)
-#  end
-#
-#  # GET /recapiti/new
-#  # GET /recapiti/new.xml
-#  def new
-#    @recapito = Recapito.new
-#		respond_with(@recapito)
-#  end
-#
-#  # GET /recapiti/1/edit
-#  def edit
-#    @recapito = Recapito.find_by_prg_id(params[:id])
-#		respond_with(@recapito)
-#  end
-#
-#  # POST /recapiti
-#  # POST /recapiti.xml
-#  def create
-#    @recapito = Recapito.new(params[:recapito])
-#
-#    respond_to do |format|
-#      if @recapito.save
-#        flash[:notice] = 'Recapito was successfully created.'
-#        format.html { redirect_to(@recapito) }
-#        format.xml  { render :xml => @recapito, :status => :created, :location => @recapito }
-#      else
-#        format.html { render :action => "new" }
-#        format.xml  { render :xml => @recapito.errors, :status => :unprocessable_entity }
-#      end
-#    end
-#  end
-#
-#  # PUT /recapiti/1
-#  # PUT /recapiti/1.xml
-#  def update
-#    @recapito = Recapito.find_by_prg_id(params[:id])
-#
-#    respond_to do |format|
-#      if @recapito.update_attributes(params[:recapito])
-#        flash[:notice] = 'Recapito was successfully updated.'
-#        format.html { redirect_to(@recapito) }
-#        format.xml  { head :ok }
-#      else
-#        format.html { render :action => "edit" }
-#        format.xml  { render :xml => @recapito.errors, :status => :unprocessable_entity }
-#      end
-#    end
-#  end
-#
-#  # DELETE /recapiti/1
-#  # DELETE /recapiti/1.xml
-#  def destroy
-#    @recapito = Recapito.find_by_prg_id(params[:id])
-#    @recapito.destroy
-#
-#    respond_to do |format|
-#      format.html { redirect_to(recapiti_url) }
-#      format.xml  { head :ok }
-#    end
-#  end
+  # GET /recapiti/1
+  # GET /recapiti/1.xml
+  def show
+    @recapito = Recapito.find_by_prg_id(params[:id])
+		respond_with(@recapito)
+  end
+
+  # GET /recapiti/new
+  # GET /recapiti/new.xml
+  def new
+    @recapito = Recapito.new
+		respond_with(@recapito)
+  end
+
+  # GET /recapiti/1/edit
+  def edit
+    @recapito = Recapito.find_by_prg_id(params[:id])
+		respond_with(@recapito)
+  end
+
+  # POST /recapiti
+  # POST /recapiti.xml
+  def create
+    @recapito = Recapito.new(params[:recapito])
+
+    respond_to do |format|
+      if @recapito.save
+        flash[:notice] = 'Recapito was successfully created.'
+        format.html { redirect_to(@recapito) }
+        format.xml  { render :xml => @recapito, :status => :created, :location => @recapito }
+      else
+        format.html { render :action => "new" }
+        format.xml  { render :xml => @recapito.errors, :status => :unprocessable_entity }
+      end
+    end
+  end
+
+  # PUT /recapiti/1
+  # PUT /recapiti/1.xml
+  def update
+    @recapito = Recapito.find_by_prg_id(params[:id])
+
+    respond_to do |format|
+      if @recapito.update_attributes(params[:recapito])
+        flash[:notice] = 'Recapito was successfully updated.'
+        format.html { redirect_to(@recapito) }
+        format.xml  { head :ok }
+      else
+        format.html { render :action => "edit" }
+        format.xml  { render :xml => @recapito.errors, :status => :unprocessable_entity }
+      end
+    end
+  end
+
+  # DELETE /recapiti/1
+  # DELETE /recapiti/1.xml
+  def destroy
+    @recapito = Recapito.find_by_prg_id(params[:id])
+    @recapito.destroy
+
+    respond_to do |format|
+      format.html { redirect_to(recapiti_url) }
+      format.xml  { head :ok }
+    end
+  end
 
 end
