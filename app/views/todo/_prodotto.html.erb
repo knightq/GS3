@@ -9,7 +9,7 @@
 		</legend>
 		<div class="versioni_container help-context" helpId="versioni.container">
 			<table class="versioni">
-				<%= render :partial => "versione_pian", :collection => versioni, :as => :versione %>			
+				<%= render :partial => "versione_pian", :collection => versioni, :as => :versione, :locals => {:prodotto => prodotto.first} %>			
 			</table>
 		</div>
 	<% else %>

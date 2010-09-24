@@ -1,3 +1,8 @@
+a, a:link, a:visited {
+	color:#116699;
+	text-decoration: none;
+}
+
 blockquote {
 	font-style: italic;
 	margin: 1em 20px;
@@ -1269,3 +1274,27 @@ div.jqDockLabel {font-weight:bold; font-style:italic; white-space:nowrap; color:
 	-moz-user-input:enabled;
 	-moz-user-modify:read-write;
 }
+
+/***** Progress bar *****/
+table.progress {
+    border: 1px solid #D7D7D7;
+    border-collapse: collapse;
+    border-spacing: 0pt;
+    empty-cells: show;
+    text-align: center;
+    float:left;
+    margin: 1px 6px 1px 0px;
+}
+
+table.progress td { height: 0.9em; }
+table.progress td.closed { background: #BAE0BA none repeat scroll 0%; font-style: italic; font-size: 80%;}
+table.progress td.done { background: #DEF0DE none repeat scroll 0%; font-style: italic; font-size: 80%;}
+table.progress td.todo { background: #FFF none repeat scroll 0%; font-style: italic; font-size: 80%;}
+p.pourcent {font-size: 80%;}
+p.progress-info {clear: left; font-style: italic; font-size: 80%;}
+
+fieldset.related-issues ul {padding:0;}
+fieldset.related-issues ul li {font-size: 90%; list-style: none;}
+a.segnalazione.closed, a.segnalazione.closed:link, a.segnalazione.closed:visited { color: #999; text-decoration: line-through; }
+
+h3.version { background: url(../images/package.png) no-repeat 0% 50%; padding-left: 20px; }

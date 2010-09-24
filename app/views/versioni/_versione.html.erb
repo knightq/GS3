@@ -1,0 +1,21 @@
+<h3 class="version">
+		<a name="1.0.2" />
+		<a href="/versioni/show/<%=versione.id %>"><%=versione.cda_versione%></a>
+</h3>
+<p>
+   <strong><%=t(versione.dtm_rilascio < Date.today ? :label_roadmap_overdue : :label_roadmap_due_in, :s => distance_of_time_in_words(versione.dtm_rilascio, Date.today)) %></strong> (<%= t(:deadline_versione, :d => versione.dtm_rilascio)%>)
+</p>
+<p style="white-space:nowrap;">
+	<%= progress_bar(done_ratio(versione.cda_prodotto, versione.cda_versione, current_user.user_id), {:width => '70%' }) %>	
+</p>
+<% segnalazioni = (versione.segnalazioni || []).select {|s| s.involved_as_resolver(current_user)}.sort{|x, y| (x.cda_tipo_segna <=> y.cda_tipo_segna)*100000 + x.prg_segna <=> y.prg_segna} %>
+<% if segnalazioni.size > 0 %>
+  <fieldset class="related-issues"><legend><%= t(:label_related_issues) %></legend>
+    <ul>
+      <% segnalazioni.each do |segnalazione| -%>
+       	<a name="#<%=versione.id%>" />
+		<li><%= tipo_segnalazione_image(segnalazione, {:size => "16x16"}) %><%= link_to_segnalazione(segnalazione) %>: <%= truncate(segnalazione.title, :length => 90) %></li>
+      <%- end -%>
+    </ul>
+  </fieldset>
+<% end %>

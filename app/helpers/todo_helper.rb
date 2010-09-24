@@ -55,4 +55,25 @@ module TodoHelper
     segnalazioni
   end
 
+   # Restituisce un array di valori normalizzati a 100 in cui il primo valore corrispone alle GS chiuse, il secondo a quelle fatte.
+  def done_ratio(prodotto, versione, user)
+    sa = Segnalazione.versione_prodotto(versione, prodotto).involved_as_resolver(user) if (prodotto and versione and user)
+    tutte = sa.count == 0 ? 100 : sa.count    
+
+    sc = sa
+    sc = sc.chiuse_da(user) if user
+
+    sf = sa
+    sf = sf.fatte_da(user) if user
+
+    chiuse = sc.count
+    fatte = sf.count
+
+    puts "==================== TOT: #{tutte}, CHIUSE: #{chiuse}, FATTE: #{fatte}"
+    #Normalizzo a 100
+    chiuse_perc = chiuse * 100 / tutte
+    fatte_perc = fatte * 100 / tutte
+    array = [[chiuse, fatte, tutte], [chiuse_perc, fatte_perc]]
+  end
+
 end

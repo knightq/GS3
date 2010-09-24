@@ -12,6 +12,9 @@
 	                    <th style="width: 65%;">
 	                        Ore: <%= ore_per_sezione(sezioni) %>
 	                    </th>
+						<th>
+							<%= progress_bar(done_ratio(prodotto, versione[0], current_user.user_id), {:width => '100px;' }) %>
+						</th>
 	                </tr>
 	            </table>            	
             <div id="gruppi_<%=versione.first %>" class="gruppi_container">

@@ -48,15 +48,16 @@ module ApplicationHelper
 		render :partial => 'segnalazioni/in_carico', :titolo => opts[:title]
   end
 
-  def tipo_segnalazione_image(tipo)
+  def tipo_segnalazione_image(segnalazione_or_tipo, options = {})
+    tipo = segnalazione_or_tipo.respond_to?(:cda_tipo_segna) ? segnalazione_or_tipo.cda_tipo_segna : segnalazione_or_tipo 
     todo = params[:controller] == 'todo'
     case tipo
       when 'A'
-        image_tag "/images/bug#{todo ? '16' : '22'}.png"
+        image_tag "/images/bug#{todo ? '16' : '22'}.png", options
       when 'R'
-        image_tag "/images/rich_impl#{todo ? '16' : '22'}.png"
+        image_tag "/images/rich_impl#{todo ? '16' : '22'}.png", options
       when 'S'
-        image_tag "/images/svil#{todo ? '16' : '22'}.png"
+        image_tag "/images/svil#{todo ? '16' : '22'}.png", options
     end    
   end
 
@@ -89,6 +90,36 @@ module ApplicationHelper
       />
       </object>
     EOF
+  end
+
+  # Invocazione: progress_bar(value, :width => '80px')
+  def progress_bar(array, options={})
+    pcts = array[1]
+    done_perc = pcts[1].floor
+    pcts[1] = pcts[1] - pcts[0]
+    pcts << (100 - pcts[1] - pcts[0])
+    width = options[:width] || '300px;'
+    legend = options[:legend] || "#{done_perc}%"
+    content_tag('table',
+      content_tag('tr',
+        ((pcts[0] > 0 ? content_tag('td', "#{array[0][0]} (#{pcts[0].floor}%)", :style => "width: #{pcts[0].floor}%;", :class => 'closed') : '') +
+        (pcts[1] > 0 ? content_tag('td', "#{array[0][1] - array[0][0]} (#{pcts[1].floor}%)", :style => "width: #{pcts[1].floor}%;", :class => 'done') : '') +
+        (pcts[2] > 0 ? content_tag('td', "#{array[0][2] - array[0][1]} (#{pcts[2].floor}%)", :style => "width: #{pcts[2].floor}%;", :class => 'todo') : '')).html_safe
+      ), :class => 'progress', :style => "width: #{width};") +
+      content_tag('p', legend, :class => 'pourcent').html_safe
+  end
+  
+  def due_date_distance_in_words(date)
+    if date
+      l((date < Date.today ? :label_roadmap_overdue : :label_roadmap_due_in), distance_of_date_in_words(Date.today, date))
+    end
+  end
+
+  def link_to_segnalazione(segnalazione, options={})
+    options[:class] ||= ''
+    options[:class] << ' segnalazione'
+    options[:class] << ' closed' if segnalazione.chiusa?
+    link_to "#{segnalazione.prg_segna}", {:controller => "segnalazioni", :action => "show", :id => segnalazione}, options
   end
 
 end

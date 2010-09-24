@@ -100,6 +100,10 @@ class Segnalazione < ActiveRecord::Base
   scope :risolutori, lambda { |users| where("cda_risolutore in (?)", users) }
   scope :risolutori_analisi, lambda { |user| where("cda_risolutore_ana = in (?) ", users) }
   scope :involved, lambda { |user| where("? in (cda_segnalatore, cda_verificatore, cda_risolutore_ana, cda_risolutore, cda_validatore)", user) }
+  scope :involved_as_resolver, lambda { |user| where("? in (cda_risolutore_ana, cda_risolutore, cda_validatore)", user) }
+  scope :chiuse_da, lambda { |user| where("? in (cda_risolutore_ana, cda_risolutore, cda_validatore) and cda_stato in ('VL', 'RI', 'RF', 'OB')", user) }
+  scope :fatte_da, lambda { |user| where("(cda_risolutore_ana = ? and cda_stato in ('AS', 'RS', 'VL', 'RI', 'RF', 'OB')) or (cda_risolutore = ? and cda_stato in ('RS', 'VL', 'RI', 'RF', 'OB'))", user, user) }
+  scope :versione_prodotto,  lambda { |versione, prodotto| where("cda_versione_pian = ? and cda_prodotto = ?", versione, prodotto) }
   
   def self.find_by_user_todo(user_id)
     Segnalazione.in_todo(user_id)
@@ -164,7 +168,11 @@ class Segnalazione < ActiveRecord::Base
   def is_in_stato?(stato)
     cda_stato == stato
   end
-  
+
+  def chiusa?
+    vl? || ob? || ri? || rf? 
+  end
+
   def ready_for?(user)
     case cda_stato
       when 'SE'
@@ -208,17 +216,33 @@ class Segnalazione < ActiveRecord::Base
   def as?
     is_in_stato? 'AS'
   end
-  
+
+  def ob?
+    is_in_stato? 'OB'
+  end
+
   def rs?
     is_in_stato? 'RS'
   end
-  
+
+  def ri?
+    is_in_stato? 'RI'
+  end
+
+  def rf?
+    is_in_stato? 'RF'
+  end
+
   def se?
     is_in_stato? 'SE'
   end
 
   def ve?
     is_in_stato? 'VE'
+  end
+
+  def vl?
+    is_in_stato? 'VL'
   end
 
   def anomalia?
@@ -303,7 +327,11 @@ class Segnalazione < ActiveRecord::Base
         cda_validatore
     end
   end
-  
+
+  def involved_as_resolver(user)
+    [actor_associated_to(:AA), actor_associated_to(:AS), actor_associated_to(:VL)].include?(user.user_id)
+  end
+
   def actor_associated_to_current_state
     actor_associated_to(current_state.name)
   end
@@ -375,4 +403,7 @@ class Segnalazione < ActiveRecord::Base
     return '[' << cda_programma << '] - ' << programma.des_programma if programma
   end
 
+  def title
+    (/\s*#(.*)#.*/.match(des_segna) || [des_segna])[0] 
+  end
 end

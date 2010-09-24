@@ -72,6 +72,9 @@ it:
       
   datetime:
     distance_in_words:
+      almost_x_years:
+        one: "1 anno"
+        other: "quasi {{count}} anni"
       half_a_minute: "mezzo minuto"
       less_than_x_seconds:
         one: "meno di un secondo"
@@ -144,3 +147,16 @@ it:
         less_than_or_equal_to: "deve essere meno o uguale a {{count}}"
         odd: "deve essere dispari"
         even: "deve essere pari"
+
+  button_apply: "Applica"
+  label_related_issues: "Segnalazioni correlate"
+  label_roadmap_closed: "Chiuse"
+  label_roadmap_due_in: "Da ultimare in {{s}}"
+  label_roadmap_open: "Aperte"
+  label_roadmap_overdue: "{{s}} di ritardo"
+  label_show_only_user_versions: "Solo GS su cui ho lavorato"
+  actionview_datehelper_time_in_words_day: "1 giorno"
+  actionview_datehelper_time_in_words_day_plural: "%d giorni"
+
+  deadline_versione: "chisura versione: {{d}}" 
+  
