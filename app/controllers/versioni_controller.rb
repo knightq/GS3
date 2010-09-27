@@ -11,7 +11,7 @@ class VersioniController < InheritedResources::Base
   has_scope :prodotti, :default => 'SIADI'
   has_scope :aperte
   has_scope :chiuse
-  has_scope :stato, :default => 'aperte'
+  has_scope :stato, :default => 'aperte', :only => :index
 
 #  def index
 #    @versioni = Versione.scoped.prodotti('SIADI')#.aperte.order('CDA_VERSIONE ASC')

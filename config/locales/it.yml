@@ -155,7 +155,7 @@ it:
   label_roadmap_closed: "Chiuse"
   label_roadmap_due_in: "Da ultimare in {{s}}"
   label_roadmap_open: "Aperte"
-  label_roadmap_overdue: "{{s}} di ritardo"
+  label_roadmap_overdue: "{{s}} fa"
   label_show_all_gs_versions: "Tutte le GS (non solo le mie)"
   no_issue: "Nessuna segnalazione"
   versions: "versioni"
