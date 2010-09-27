@@ -1,21 +1,18 @@
 <%= form_tag({}, :method => :get) do %>
 	<div>
-		<%#= params[:stato] %>
-		<%#= "params[:stato].equal?('aperte') = " + params[:stato].equal?('aperte').to_s %>
-		<%#= "params[:stato].equal?('chiuse') = " + params[:stato].equal?('chiuse').to_s %> 
 		<table width="100%" style="border:0;">
 			<tr>
 				<td>
-					<%= radio_button_tag( :stato, 'aperte', :checked => (params[:stato] == 'aperte'))%> Aperte					
+					<%= radio_button_tag( 'stato', 'aperte', (not params[:stato].eql?('chiuse'))) %> Aperte					
 				</td>
 				<td>
-					<%= radio_button_tag( :stato, 'chiuse', :checked => (params[:stato] == 'chiuse')) %> Chiuse
+					<%= radio_button_tag( 'stato', 'chiuse', params[:stato].eql?('chiuse')) %> Chiuse
 				</td>
 			</tr>
 		</table>
 	</div>
-	<%= check_box_tag "user", 1, params[:user] %>
-	<%= t(:label_show_only_user_versions) %>:
+	<%= check_box_tag "user", 1, params[:user] || (nil == params[:user]) %>
+	<%= t(:label_show_only_user_versions) %>
 	<p>
 		<%= submit_tag t(:button_apply), :class => 'button-small', :name => nil %>
 	</p>

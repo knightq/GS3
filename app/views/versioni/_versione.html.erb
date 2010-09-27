@@ -7,7 +7,7 @@
 <p style="white-space:nowrap;">
 	<%= progress_bar(done_ratio(versione.cda_prodotto, versione.cda_versione, current_user.user_id), {:width => '70%' }) %>	
 </p>
-<% segnalazioni = (versione.segnalazioni || []).select {|s| s.involved_as_resolver(current_user)}.sort{|x, y| (x.cda_tipo_segna <=> y.cda_tipo_segna)*100000 + x.prg_segna <=> y.prg_segna} %>
+<% segnalazioni = filtra_segnalazioni(versione) %>
 <% if segnalazioni.size > 0 %>
   <fieldset class="related-issues"><legend><%= t(:label_related_issues) %></legend>
     <ul>

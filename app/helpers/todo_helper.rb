@@ -69,7 +69,7 @@ module TodoHelper
     chiuse = sc.count
     fatte = sf.count
 
-    puts "==================== TOT: #{tutte}, CHIUSE: #{chiuse}, FATTE: #{fatte}"
+    #puts "==================== TOT: #{tutte}, CHIUSE: #{chiuse}, FATTE: #{fatte}"
     #Normalizzo a 100
     chiuse_perc = chiuse * 100 / tutte
     fatte_perc = fatte * 100 / tutte
