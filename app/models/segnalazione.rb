@@ -101,7 +101,9 @@ class Segnalazione < ActiveRecord::Base
   scope :risolutori_analisi, lambda { |user| where("cda_risolutore_ana = in (?) ", users) }
   scope :involved, lambda { |user| where("? in (cda_segnalatore, cda_verificatore, cda_risolutore_ana, cda_risolutore, cda_validatore)", user) }
   scope :involved_as_resolver, lambda { |user| where("? in (cda_risolutore_ana, cda_risolutore, cda_validatore)", user) }
-  scope :chiuse_da, lambda { |user| where("? in (cda_risolutore_ana, cda_risolutore, cda_validatore) and cda_stato in ('VL', 'RI', 'RF', 'OB')", user) }
+  
+  scope :chiuse, where("cda_stato in ('VL', 'RI', 'RF', 'OB')")
+  scope :chiuse_da, lambda { |user| chiuse.where("? in (cda_risolutore_ana, cda_risolutore, cda_validatore)", user) }
   scope :fatte_da, lambda { |user| where("(cda_risolutore_ana = ? and cda_stato in ('AS', 'RS', 'VL', 'RI', 'RF', 'OB')) or (cda_risolutore = ? and cda_stato in ('RS', 'VL', 'RI', 'RF', 'OB'))", user, user) }
   scope :versione_prodotto,  lambda { |versione, prodotto| where("cda_versione_pian = ? and cda_prodotto = ?", versione, prodotto) }
   

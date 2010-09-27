@@ -154,7 +154,8 @@ it:
   label_roadmap_due_in: "Da ultimare in {{s}}"
   label_roadmap_open: "Aperte"
   label_roadmap_overdue: "{{s}} di ritardo"
-  label_show_only_user_versions: "Solo GS che mi coinvolgono"
+  label_show_all_gs_versions: "Tutte le GS (non solo le mie)"
+  no_issue: "Nessuna segnalazione"
   actionview_datehelper_time_in_words_day: "1 giorno"
   actionview_datehelper_time_in_words_day_plural: "%d giorni"
 

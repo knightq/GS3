@@ -5,8 +5,9 @@
    <strong><%=t(versione.dtm_rilascio < Date.today ? :label_roadmap_overdue : :label_roadmap_due_in, :s => distance_of_time_in_words(versione.dtm_rilascio, Date.today)) %></strong> (<%= t(:deadline_versione, :d => versione.dtm_rilascio)%>)
 </p>
 <p style="white-space:nowrap;">
-	<%= progress_bar(done_ratio(versione.cda_prodotto, versione.cda_versione, current_user.user_id), {:width => '70%' }) %>	
+	<%= progress_bar(done_ratio(versione.cda_prodotto, versione.cda_versione, params[:all] ? nil : current_user.user_id), {:width => '70%' }) %>	
 </p>
+<br/>
 <% segnalazioni = filtra_segnalazioni(versione) %>
 <% if segnalazioni.size > 0 %>
   <fieldset class="related-issues"><legend><%= t(:label_related_issues) %></legend>

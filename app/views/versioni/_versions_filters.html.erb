@@ -11,8 +11,8 @@
 			</tr>
 		</table>
 	</div>
-	<%= check_box_tag "user", 1, params[:user] || (nil == params[:user]) %>
-	<%= t(:label_show_only_user_versions) %>
+	<%= check_box_tag "all", 1, params[:all] %>
+	<%= t(:label_show_all_gs_versions) %>
 	<p>
 		<%= submit_tag t(:button_apply), :class => 'button-small', :name => nil %>
 	</p>

@@ -94,19 +94,23 @@ module ApplicationHelper
 
   # Invocazione: progress_bar(value, :width => '80px')
   def progress_bar(array, options={})
-    pcts = array[1]
-    done_perc = pcts[1].floor
-    pcts[1] = pcts[1] - pcts[0]
-    pcts << (100 - pcts[1] - pcts[0])
-    width = options[:width] || '300px;'
-    legend = options[:legend] || "#{done_perc}%"
-    content_tag('table',
-      content_tag('tr',
-        ((pcts[0] > 0 ? content_tag('td', "#{array[0][0]} (#{pcts[0].floor}%)", :style => "width: #{pcts[0].floor}%;", :class => 'closed') : '') +
-        (pcts[1] > 0 ? content_tag('td', "#{array[0][1] - array[0][0]} (#{pcts[1].floor}%)", :style => "width: #{pcts[1].floor}%;", :class => 'done') : '') +
-        (pcts[2] > 0 ? content_tag('td', "#{array[0][2] - array[0][1]} (#{pcts[2].floor}%)", :style => "width: #{pcts[2].floor}%;", :class => 'todo') : '')).html_safe
-      ), :class => 'progress', :style => "width: #{width};") +
-      content_tag('p', legend, :class => 'pourcent').html_safe
+    if array[0][2] == -1
+      content_tag('p', t(:no_issue), :class => 'pourcent').html_safe
+    else
+      pcts = array[1]
+      done_perc = pcts[1].floor
+      pcts[1] = pcts[1] - pcts[0]
+      pcts << (100 - pcts[1] - pcts[0])
+      width = options[:width] || '300px;'
+      legend = options[:legend] || "#{done_perc}%"
+      content_tag('table',
+        content_tag('tr',
+          ((pcts[0] > 0 ? content_tag('td', "#{array[0][0]} (#{pcts[0].floor}%)", :style => "width: #{pcts[0].floor}%;", :class => 'closed') : '') +
+          (pcts[1] > 0 ? content_tag('td', "#{array[0][1] - array[0][0]} (#{pcts[1].floor}%)", :style => "width: #{pcts[1].floor}%;", :class => 'done') : '') +
+          (pcts[2] > 0 ? content_tag('td', "#{array[0][2] - array[0][1]} (#{pcts[2].floor}%)", :style => "width: #{pcts[2].floor}%;", :class => 'todo') : '')).html_safe
+        ), :class => 'progress', :style => "width: #{width};") +
+        content_tag('p', legend, :class => 'pourcent').html_safe
+    end
   end
   
   def due_date_distance_in_words(date)
