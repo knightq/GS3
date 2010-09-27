@@ -149,6 +149,8 @@ it:
         even: "deve essere pari"
 
   button_apply: "Applica"
+  button_filter: "Filtra"
+  issues: "segnalazioni"
   label_related_issues: "Segnalazioni correlate"
   label_roadmap_closed: "Chiuse"
   label_roadmap_due_in: "Da ultimare in {{s}}"
@@ -156,6 +158,7 @@ it:
   label_roadmap_overdue: "{{s}} di ritardo"
   label_show_all_gs_versions: "Tutte le GS (non solo le mie)"
   no_issue: "Nessuna segnalazione"
+  versions: "versioni"
   actionview_datehelper_time_in_words_day: "1 giorno"
   actionview_datehelper_time_in_words_day_plural: "%d giorni"
 
