@@ -1290,7 +1290,7 @@ table.progress td { height: 0.7em; }
 table.progress td.closed { background: #BAE0BA none repeat scroll 0%; font-style: italic; font-size: 70%;}
 table.progress td.done { background: #DEF0DE none repeat scroll 0%; font-style: italic; font-size: 70%;}
 table.progress td.todo { background: #FFF none repeat scroll 0%; font-style: italic; font-size: 70%;}
-p.pourcent {font-size: 80%;}
+p.pourcent {font-size: 80%; margin: 3px 5px 0px 5px}
 p.progress-info {clear: left; font-style: italic; font-size: 80%;}
 
 fieldset.related-issues ul {padding:0;}
