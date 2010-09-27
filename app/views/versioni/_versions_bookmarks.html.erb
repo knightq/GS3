@@ -1,11 +1,11 @@
 <%= content_for :head do %>
-<%= javascript_include_tag 'jquery.scrollTo-min' %>
+<%= javascript_include_tag 'jquery.scrollTo' %>
 <script type="text/javascript">
     function goToByScroll(idver){
         if (idver == null) {
             idver = '';
         }
-        $('html,body').animate({
+        $('#content').animate({
             scrollTop: $("#" + idver).offset().top
         }, 'slow');
     }
@@ -13,7 +13,7 @@
 <% end %>
 <%
 version_set ||= Array.new %>
-<ul>
+<ul class="versioni">
     <% version_set.each do |version| %>
     <li>
         <a class="anchor_to" href="javascript:void(0)" onClick="goToByScroll('<%= version.id %>')"><%= version.cda_versione %>

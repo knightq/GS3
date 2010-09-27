@@ -1275,6 +1275,10 @@ div.jqDockLabel {font-weight:bold; font-style:italic; white-space:nowrap; color:
 	-moz-user-modify:read-write;
 }
 
+/***** Filtro versioni sidebar *****/
+ul.versioni {
+	list-style-image: url(../images/package16.png)
+}
 /***** Progress bar *****/
 table.progress {
     border: 1px solid #D7D7D7;
