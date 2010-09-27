@@ -1,5 +1,6 @@
 <h3 class="version">
-	<a id="<%=versione.id%>" href="/versioni/show/<%=versione.id %>"><%=versione.cda_versione%></a>
+	<%= link_to versione.cda_versione, versione_path(versione), {:id => versione.id} %>
+	<!--<a id="<%=versione.id%>" href="/versioni/show/<%=versione.id %>"><%=versione.cda_versione%></a>-->
 </h3>
 <p>
    <strong><%=t(versione.dtm_rilascio < Date.today ? :label_roadmap_overdue : :label_roadmap_due_in, :s => distance_of_time_in_words(versione.dtm_rilascio, Date.today)) %></strong> (<%= t(:deadline_versione, :d => versione.dtm_rilascio)%>)
