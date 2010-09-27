@@ -1,0 +1,15 @@
+<h2>Progress bar</h2>
+
+<p>Indica in maniera sintetica il rapporto fra segnalazioni:</p>
+<table class="progress">
+	<tr>
+		<td class="closed"><b>Chiuse</b> (<i>% chiuse</i>)</td>
+		<td class="done"><b>Fatte</b> (<i>% fatte</i>)</td>
+		<td class="todo"><b>Da fare</b> (<i>% da fare</i>)</td>
+	</tr>
+	<tr>
+		<td>si trovano in uno stato chiuso (<b>VALIDATA</b>, <b>RIFIUTATA</b>, <b>RIMANDATA</b> o <b>OBSOLETA</b>)</td>
+		<td>già processate dall'utente corrente, ma che non si trovano in uno stato chiuso (<b>VALIDATA</b> o <b>OBSOLETA</b>)</td>
+		<td>da processare.</td>
+	</tr>
+</table>
