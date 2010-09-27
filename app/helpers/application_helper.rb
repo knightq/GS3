@@ -127,10 +127,10 @@ module ApplicationHelper
       legend = options[:legend] || "#{done_perc}%"
       content_tag('table',
         content_tag('tr',
-          ((pcts[0] > 0 ? content_tag('td', "#{array[0][0]} (#{pcts[0].floor}%)", :style => "width: #{pcts[0].floor}%;", :class => 'closed') : '') +
-          (pcts[1] > 0 ? content_tag('td', "#{array[0][1] - array[0][0]} (#{pcts[1].floor}%)", :style => "width: #{pcts[1].floor}%;", :class => 'done') : '') +
-          (pcts[2] > 0 ? content_tag('td', "#{array[0][2] - array[0][1]} (#{pcts[2].floor}%)", :style => "width: #{pcts[2].floor}%;", :class => 'todo') : '')).html_safe
-        ), :class => 'progress', :style => "width: #{width};") +
+          ((pcts[0] > 0 ? content_tag('td', "#{array[0][0]} (#{pcts[0].floor}%)", :style => "width: #{pcts[0].floor}%;", :class => 'closed help-context', :helpId => "progressbar") : '') +
+          (pcts[1] > 0 ? content_tag('td', "#{array[0][1] - array[0][0]} (#{pcts[1].floor}%)", :style => "width: #{pcts[1].floor}%;", :class => 'done help-context', :helpId => "progressbar") : '') +
+          (pcts[2] > 0 ? content_tag('td', "#{array[0][2] - array[0][1]} (#{pcts[2].floor}%)", :style => "width: #{pcts[2].floor}%;", :class => 'todo help-context', :helpId => "progressbar") : '')).html_safe
+        ), :class => 'progress help-context', :style => "width: #{width};", :helpId => "function.title") +
         content_tag('p', legend, :class => 'pourcent').html_safe
     end
   end
