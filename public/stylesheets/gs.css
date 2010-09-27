@@ -1293,7 +1293,8 @@ table.progress td.todo { background: #FFF none repeat scroll 0%; font-style: ita
 p.pourcent {font-size: 80%; margin: 3px 5px 0px 5px}
 p.progress-info {clear: left; font-style: italic; font-size: 80%;}
 
-fieldset.related-issues ul {padding:0; margin-top: 8px;}
+fieldset.related-issues {margin-top: 8px;}
+fieldset.related-issues ul {padding:0;}
 fieldset.related-issues ul li {font-size: 90%; list-style: none;}
 a.segnalazione.closed, a.segnalazione.closed:link, a.segnalazione.closed:visited { color: #999; text-decoration: line-through; }
 
