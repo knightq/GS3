@@ -1286,10 +1286,10 @@ table.progress {
     margin: 1px 6px 1px 0px;
 }
 
-table.progress td { height: 0.9em; }
-table.progress td.closed { background: #BAE0BA none repeat scroll 0%; font-style: italic; font-size: 80%;}
-table.progress td.done { background: #DEF0DE none repeat scroll 0%; font-style: italic; font-size: 80%;}
-table.progress td.todo { background: #FFF none repeat scroll 0%; font-style: italic; font-size: 80%;}
+table.progress td { height: 0.7em; }
+table.progress td.closed { background: #BAE0BA none repeat scroll 0%; font-style: italic; font-size: 70%;}
+table.progress td.done { background: #DEF0DE none repeat scroll 0%; font-style: italic; font-size: 70%;}
+table.progress td.todo { background: #FFF none repeat scroll 0%; font-style: italic; font-size: 70%;}
 p.pourcent {font-size: 80%;}
 p.progress-info {clear: left; font-style: italic; font-size: 80%;}
 

@@ -9,11 +9,11 @@
 	                    </th>
 	                    <th style="width: 10%;">
 	                    </th>
-	                    <th style="width: 65%;">
+	                    <th style="width: 45%;">
 	                        Ore: <%= ore_per_sezione(sezioni) %>
 	                    </th>
-						<th>
-							<%= progress_bar(done_ratio(prodotto, versione[0], current_user.user_id), {:width => '100px;' }) %>
+						<th style="white-space: nowrap;">
+							<%= progress_bar(done_ratio(prodotto, versione[0], current_user.user_id), {:width => '150px;' }) %>
 						</th>
 	                </tr>
 	            </table>            	

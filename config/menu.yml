@@ -5,6 +5,6 @@ global:
         label: Rubrica
     prodotti:
     statistiche:
-    menu:
-        image: mensa48.png
-        label: Mensa
+    versioni:
+        image: versioni48.png
+        label: Roadmap
