@@ -1,15 +1,20 @@
 <%= form_tag({}, :method => :get) do %>
-	  <%= field_set_tag t(:versions).capitalize do %>
-		<table width="100%" style="border:0;">
-			<tr>
-				<td>
-					<%= radio_button_tag( 'stato', 'aperte', (not params[:stato].eql?('chiuse'))) %> Aperte					
-				</td>
-				<td>
-					<%= radio_button_tag( 'stato', 'chiuse', params[:stato].eql?('chiuse')) %> Chiuse
-				</td>
-			</tr>
-		</table>
+	<% if prodotti.size > 1 %>
+		<%= field_set_tag t(:products).capitalize do %>
+			<%= select_tag "prodotti", options_from_collection_for_select(prodotti, "cda_prodotto", "des_prodotto", {:selected => params[:prodotti]}), {:include_blank => false} %>
+		<% end %>
+	<% end %>
+    <%= field_set_tag t(:versions).capitalize do %>
+	  <table width="100%" style="border:0;">
+		<tr>
+			<td>
+				<%= radio_button_tag( 'stato', 'aperte', (not params[:stato].eql?('chiuse'))) %> Aperte					
+			</td>
+			<td>
+				<%= radio_button_tag( 'stato', 'chiuse', params[:stato].eql?('chiuse')) %> Chiuse
+			</td>
+		</tr>
+	</table>
 	<% end %>
 	<%= field_set_tag t(:issues).capitalize do %>
 		<%= check_box_tag "all", 1, params[:all] %>

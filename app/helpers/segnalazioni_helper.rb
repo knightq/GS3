@@ -15,13 +15,16 @@ module SegnalazioniHelper
     state = @segnalazione.current_state
     lastStep = 0 # Tutti possono accedere all'ultimo stato utile della GS
     if current_user
-      while (lastStep == 0 and state.meta[:order] > 1)
+      watchdog = 1
+      while (lastStep == 0 and state.meta[:order] > 1 and watchdog < 100)
       	puts "== STATO: #{state.name} tipo #{state.name.class} == @segnalazione.actor_associated_to(state.name) = #{@segnalazione.actor_associated_to(state.name)}, == current_user.user_name = #{current_user.user_name}"
+        puts "lastStep: #{lastStep}"
         if @segnalazione.actor_associated_to(state.name) == current_user.user_name
           lastStep = state.meta[:order] - 2
         else
           state = @segnalazione.spec.states[@segnalazione.previous_state(state)]
         end
+        watchdog = watchdog + 1
       end
     end
     return lastStep
