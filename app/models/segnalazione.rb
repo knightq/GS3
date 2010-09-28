@@ -175,6 +175,10 @@ class Segnalazione < ActiveRecord::Base
     vl? || ob? || ri? || rf? 
   end
 
+  def fatta_for?(user)
+    (actor_associated_to(:AA).eql?(user) and overcame?(:AA) and has_to_be?(:VL) and not actor_associated_to(:AS).eql?(user)) or (actor_associated_to(:AS).eql?(user) and overcame?(:AS) and has_to_be?(:VL)) 
+  end
+
   def ready_for?(user)
     case cda_stato
       when 'SE'
