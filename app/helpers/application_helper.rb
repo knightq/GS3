@@ -146,6 +146,7 @@ module ApplicationHelper
     options[:class] << ' segnalazione'
     options[:class] << ' done' if segnalazione.fatta_for?(current_user.user_id)
     options[:class] << ' closed' if segnalazione.chiusa?
+    options[:class] << ' todo' if segnalazione.ready_for?(current_user.user_id)
     link_to "#{segnalazione.prg_segna}", {:controller => "segnalazioni", :action => "show", :id => segnalazione}, options
   end
 
