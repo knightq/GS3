@@ -4,7 +4,7 @@
 			<b><%= link_to segnalazione.prg_segna, segnalazione_path(segnalazione.prg_segna) %></b>
 		</th>
 		<th id="segnalazione_summary">
-			Segnalato da: <b><%= segnalazione.cda_segnalatore%></b> il <b><%= l segnalazione.dtm_creaz, :format => '%d/%m/%Y' %></b> (<%= pluralize(Date.today - segnalazione.dtm_creaz.to_date, 'giorno') %> fa)
+			Segnalato da: <b><%= utente(segnalazione.cda_segnalatore) %></b> il <b><%= l segnalazione.dtm_creaz, :format => '%d/%m/%Y' %></b> (<%= pluralize(Date.today - segnalazione.dtm_creaz.to_date, 'giorno') %> fa)
 			<% if (segnalazione.actor_associated_to_current_state == current_user.user_name and not segnalazione.consegna_flg) %>
 				<span class="prendi_in_carico">
 					<%= form_for(segnalazione, :remote => true, :url => { :controller => 'todo', :action => "presa_in_carico" }) do |form| %>

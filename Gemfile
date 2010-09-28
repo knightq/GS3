@@ -28,6 +28,9 @@ gem 'rspec', :group => :test
 
 gem 'pdf-reader'
 
+# RAGI (Cisco IP Phone call)
+# gem 'ragi'
+
 group :development do
    gem 'hirb'
 end

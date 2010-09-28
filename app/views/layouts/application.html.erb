@@ -7,11 +7,14 @@
         <%= javascript_include_tag "jquery-1.4.2.min" %>
         <%= javascript_include_tag 'jquery-ui-1.8.1.custom.min' %>
         <%= javascript_include_tag 'jquery.autocomplete' %>
+		<%= javascript_include_tag 'jquery.contextMenu' %>
         <%= javascript_include_tag 'rails' %>
         <%= javascript_include_tag 'application' %>
         <!-- Questa lib js va in conflitto con l'uploader --><%= javascript_include_tag 'jquery.jqDock.min' unless params[:action] == 'new' %>
         <%= javascript_include_tag 'dock' unless params[:action] == 'new' %>
         <%= javascript_include_tag 'help.app' %>
+        <%= javascript_include_tag 'utenti_context_menu' %>
+		
         <%= stylesheet_link_tag 'application' %>
         <%= stylesheet_link_tag 'button' %>
         <%= stylesheet_link_tag 'dock' %>
@@ -21,6 +24,8 @@
         <%= stylesheet_link_tag 'menu' %>
         <%= stylesheet_link_tag 'jquery-ui-1.8.1.custom' %>
         <%= stylesheet_link_tag 'jquery.autocomplete' %>
+		<%= stylesheet_link_tag 'jquery.contextMenu' %>
+
         <%= csrf_meta_tag %>
         <%= yield(:head) %>
     </head>
@@ -98,5 +103,14 @@
     <div id="footer">
         Powered by GS on Rails © 2010 <%= mail_to("asalicetti@kion.it", "Andrea Salicetti", :encode => "javascript").html_safe %>
     </div>
+	
+	<!-- context menu -->
+	<ul id="utentiCM" class="contextMenu">
+		<li class="email"><a href="#email">--</a></li>
+		<li class="skype_chat"><a href="#skype_chat">Chatta con</a></li>
+		<li class="skype_call"><a href="#skype_call">Chiama</a></li>
+		<li class="phone"><a href="#phone">--</a></li>
+	</ul>
+
 </body>
 </html>

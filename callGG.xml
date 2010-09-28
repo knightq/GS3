@@ -1,0 +1,4 @@
+<CiscoIPPhoneExecute>
+  <ExecuteItem URL="Dial:433:1:Cisco/Dialer"/>
+</CiscoIPPhoneExecute>
+

@@ -7,6 +7,7 @@ class Utente < ActiveRecord::Base
 
   scope :attivi, where('disable_flg = 0')
   scope :exclude_uni, where("user_name not like 'UNI%'")
+  scope :user_name, lambda {|user_name| where('user_name = ?', user_name)}
   scope :with_recapito, joins('LEFT OUTER JOIN "FW_RUBRICA" ON "P18_USER".user_mail = "FW_RUBRICA".cda_email')
   #:joins => 'LEFT OUTER JOIN "FW_RUBRICA" ON "P18_USER".user_mail = "FW_RUBRICA".cda_email')
   #Utente.scoped.attivi.exclude_uni.order('USER_NAME asc').joins('LEFT OUTER JOIN "FW_RUBRICA" ON "P18_USER".user_mail = "FW_RUBRICA".cda_email')
