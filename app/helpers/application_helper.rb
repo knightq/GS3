@@ -48,19 +48,6 @@ module ApplicationHelper
 		render :partial => 'segnalazioni/in_carico', :titolo => opts[:title]
   end
 
-  def tipo_segnalazione_image(segnalazione_or_tipo, options = {})
-    tipo = segnalazione_or_tipo.respond_to?(:cda_tipo_segna) ? segnalazione_or_tipo.cda_tipo_segna : segnalazione_or_tipo 
-    todo = params[:controller] == 'todo'
-    case tipo
-      when 'A'
-        image_tag "/images/bug#{todo ? '16' : '22'}.png", options
-      when 'R'
-        image_tag "/images/rich_impl#{todo ? '16' : '22'}.png", options
-      when 'S'
-        image_tag "/images/svil#{todo ? '16' : '22'}.png", options
-    end    
-  end
-
   def markdown(text)
     RDiscount.new(text, :filter_html).to_html
   end
@@ -147,6 +134,8 @@ module ApplicationHelper
     options[:class] << ' done' if segnalazione.fatta_for?(current_user.user_id)
     options[:class] << ' closed' if segnalazione.chiusa?
     options[:class] << ' todo' if segnalazione.ready_for?(current_user.user_id)
+    options[:class] << ' help-context'
+    options[:helpId] = 'segnalazioni.roadmap'
     link_to "#{segnalazione.prg_segna}", {:controller => "segnalazioni", :action => "show", :id => segnalazione}, options
   end
 

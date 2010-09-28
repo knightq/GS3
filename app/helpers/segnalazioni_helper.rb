@@ -30,6 +30,22 @@ module SegnalazioniHelper
     return lastStep
   end
 
+  def tipo_segnalazione_image(segnalazione_or_tipo, options = {})
+    tipo = segnalazione_or_tipo.respond_to?(:cda_tipo_segna) ? segnalazione_or_tipo.cda_tipo_segna : segnalazione_or_tipo 
+    todo = params[:controller] == 'todo'
+    options[:helpId] = 'tipo.segnalazione'
+    options[:class] ||= '' 
+    options[:class] << ' help-context'
+    case tipo
+      when 'A'
+        image_tag "/images/bug#{todo ? '16' : '22'}.png", options
+      when 'R'
+        image_tag "/images/rich_impl#{todo ? '16' : '22'}.png", options
+      when 'S'
+        image_tag "/images/svil#{todo ? '16' : '22'}.png", options
+    end    
+  end
+
   def brand_span(brand)
     Html.span(brand.name, :class => :brand_span,
         :id => dom_id(brand, :span))
