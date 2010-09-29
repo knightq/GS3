@@ -10,7 +10,8 @@
 		<%= javascript_include_tag 'jquery.contextMenu' %>
         <%= javascript_include_tag 'rails' %>
         <%= javascript_include_tag 'application' %>
-        <!-- Questa lib js va in conflitto con l'uploader --><%= javascript_include_tag 'jquery.jqDock.min' unless params[:action] == 'new' %>
+        <!-- Questa lib (jquery.jqDock.min.js) va in conflitto con l'uploader -->
+		<%= javascript_include_tag 'jquery.jqDock.min' unless params[:action] == 'new' %>
         <%= javascript_include_tag 'dock' unless params[:action] == 'new' %>
         <%= javascript_include_tag 'help.app' %>
         <%= javascript_include_tag 'utenti_context_menu' %>
@@ -97,7 +98,7 @@
         </div>
     </div>
     <!-- DOCK MENU -->
-    <%= raw(dock_menu) if @current_user %>
+    <%= dock_menu.html_safe if @current_user %>
     </div>
     <!-- FOOTER -->
     <div id="footer">

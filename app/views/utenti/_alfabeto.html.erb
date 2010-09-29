@@ -1,19 +1,11 @@
 <%= content_for :head do %>
-<%= javascript_include_tag 'jquery.scrollTo' %>
-<script type="text/javascript">
-    function goToByScroll(idver){
-        if (idver == null) {
-            idver = '';
-        }
-        $('#content').animate({
-            scrollTop: $("#" + idver).offset().top
-        }, 'slow');
-    }
-</script>
+	<%= javascript_include_tag 'jquery.scrollTo', 'gs_scroll' %>
 <% end %>
-<%
-include_set ||= Array.new %>
+
+<% include_set ||= Array.new %>
+
 <% ('A'..'Z').each do |lettera| %>
+
 <% if include_set.include?(lettera) %>
   <a class="anchor_to" href="javascript:void(0)" onClick="goToByScroll('<%= lettera %>')"><%= lettera %></a>&nbsp;<% end %>
 <% end %>

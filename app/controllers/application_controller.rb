@@ -30,7 +30,6 @@ class ApplicationController < ActionController::Base
     if current_user
       #store_location
       flash[:notice] = "Non devi essere autenticato per accedere a questa pagina"
-      #redirect_to root_url
       redirect_to home_path
       return false
     end
@@ -44,6 +43,8 @@ class ApplicationController < ActionController::Base
   def current_user
     return @current_user if defined?(@current_user)
     @current_user ||= current_user_session && current_user_session.utente
+    session[:user] = @current_user
+    session[:user]
   end
 
   def current_user_session
@@ -58,7 +59,6 @@ class ApplicationController < ActionController::Base
 
   def save_origin_url
     @origin_url = request.referer
-    puts "Salvato origin path: #{@origin_url}"
   end
 
 end

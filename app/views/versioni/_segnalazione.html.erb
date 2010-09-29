@@ -1,0 +1,3 @@
+<li class="<%= segnalazione_class(segnalazione) %>">
+    <%= tipo_segnalazione_image(segnalazione, {:size => "16x16"}) %><%= link_to_segnalazione(segnalazione) %>: <%= truncate(segnalazione.title, :length => 90) %>
+</li>

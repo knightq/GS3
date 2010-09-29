@@ -2,6 +2,7 @@
 <%= content_for :sidebar do %>
 	<%= render :partial => 'widgets/collapsible_box', :locals => { :title => "Versioni", :content => 'versions_bookmarks', :p_locals => { :version_set => @versioni } } %>
 	<%= render :partial => 'widgets/collapsible_box', :locals => { :title => "Filtri", :content => 'versions_filters' } %>
+	<%= render :partial => 'widgets/collapsible_box', :locals => { :title => "Mostra solo", :content => 'versions_visual_opts' } %>
 <% end %>
 
 <%= render :partial => "versione", :collection => collection %>

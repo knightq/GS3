@@ -1,0 +1,18 @@
+<%= content_for :head do %>
+	<%= javascript_include_tag 'versioni.segnalazioni.filters' %>
+<% end %>
+<ul>
+	<li class="checked">
+		<%= content_tag :span, t(:label_show_closed).capitalize, :id => 'show_closed' %>
+	</li>
+	<li class="checked">
+		<%= content_tag :span, t(:label_show_done).capitalize, :id => 'show_done' %>
+	</li>
+	<li class="checked">
+		<%= content_tag :span, t(:label_show_todo).capitalize, :id => 'show_todo' %>
+	</li>
+	<li class="checked">
+		<%= content_tag :span, t(:label_show_wait).capitalize, :id => 'show_wait' %>
+	</li>
+</ul>
+

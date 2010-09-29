@@ -13,9 +13,7 @@
 <% if segnalazioni.size > 0 %>
   <fieldset class="related-issues"><legend><%= t(:label_related_issues) %></legend>
     <ul>
-      <% segnalazioni.each do |segnalazione| -%>
-		<li><%= tipo_segnalazione_image(segnalazione, {:size => "16x16"}) %><%= link_to_segnalazione(segnalazione) %>: <%= truncate(segnalazione.title, :length => 90) %></li>
-      <%- end -%>
+    	<%= render :partial => "segnalazione", :collection => segnalazioni %>
     </ul>
   </fieldset>
 <% end %>

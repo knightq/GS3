@@ -130,13 +130,22 @@ module ApplicationHelper
 
   def link_to_segnalazione(segnalazione, options={})
     options[:class] ||= ''
-    options[:class] << ' segnalazione'
-    options[:class] << ' done' if segnalazione.fatta_for?(current_user.user_id)
-    options[:class] << ' closed' if segnalazione.chiusa?
-    options[:class] << ' todo' if segnalazione.ready_for?(current_user.user_id)
+    options[:class] << ' segnalazione '
+    options[:class] << segnalazione_class(segnalazione)
     options[:class] << ' help-context'
     options[:helpId] = 'segnalazioni.roadmap'
     link_to "#{segnalazione.prg_segna}", {:controller => "segnalazioni", :action => "show", :id => segnalazione}, options
+  end
+
+  def segnalazione_class(segnalazione)
+    if segnalazione.fatta_for?(current_user.user_id)
+      'done'
+    elsif segnalazione.chiusa?
+      'closed'
+    elsif segnalazione.ready_for?(current_user.user_id)
+      'todo'
+      else ' wait'
+    end
   end
 
   def utente(user_id)

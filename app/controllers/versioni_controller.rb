@@ -1,10 +1,11 @@
 class VersioniController < InheritedResources::Base
+
   before_filter :require_user
 
 	respond_to :html, :xml, :json, :js
 
-  actions :index
-#  actions :all
+  #actions :index
+  actions :all
 
   has_scope :limit, :default => 5
   has_scope :ordine, :default => 'ASC' # Va bene per le versioni aperte
