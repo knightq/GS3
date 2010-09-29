@@ -1311,7 +1311,7 @@ table.progress td { height: 0.7em; font-style: italic; font-size: 70%;}
 p.pourcent {font-size: 80%; margin: 3px 5px 0px 5px;}
 p.progress-info {clear: left; font-style: italic; font-size: 80%;}
 
-fieldset.related-issues {margin-top: 2px; border-color: #67A0CF; border-bottom-color: #43619E; background-color: #EEE; }
+fieldset.related-issues {margin-top: 6px; border-color: #67A0CF; border-bottom-color: #43619E; background-color: #EEE; }
 fieldset.related-issues legend {font-size: 0.8em; font-style:italic;}
 fieldset.related-issues ul {padding:0; margin: 4px 2px 4px 2px;}
 fieldset.related-issues ul li {font-size: 90%; list-style: none;}
