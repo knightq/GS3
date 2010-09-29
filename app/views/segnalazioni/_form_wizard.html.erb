@@ -68,14 +68,14 @@
                             <% if @segnalazione.se? %>
                             <%= text_field_with_auto_complete @segnalazione, :cda_segnalatore, {:id => 'cda_segnalatore', :class => "segnalazione_cda_segnalatore", :size => 15, :value => @segnalazione.cda_segnalatore}, :disabled => params[:action] == 'show' %>
                             <% else %>
-                            <b><%= @segnalazione.cda_segnalatore if @segnalazione.cda_segnalatore %></b>
+                            <b><%= utente(@segnalazione.cda_segnalatore) if @segnalazione.cda_segnalatore %></b>
                             <% end %>
                         </td>
                         <td style="width: 12%;">
                             Cliente:
                         </td>
                         <td>
-                            <b><%= @segnalazione.cliente_des if @segnalazione.cda_cliente %></b>
+                            <b><%= utente(@segnalazione.cliente_des) if @segnalazione.cda_cliente %></b>
                         </td>
                     </tr>
                     <tr>
@@ -172,7 +172,7 @@
                     </li>
                 </ul><% else %>
                 <p>
-                    La segnalazione è stata verificata da <b><%= @segnalazione.cda_verificatore %></b>.
+                    La segnalazione è stata verificata da <b><%= utente(@segnalazione.cda_verificatore) %></b>.
                 </p>
                 <% end %>
                 <% if @segnalazione.note_verificatore %>
@@ -205,7 +205,7 @@
                             <b><% if params[:action] == 'edit' and @segnalazione.has_to_be?(:RS) %>
                                 <%= text_field_with_auto_complete @segnalazione, :cda_risolutore, {:class => "segnalazione_cda_risolutore", :size => 15, :value => @segnalazione.cda_risolutore} %>
                                 <% else %>
-                                <b><%= @segnalazione.cda_risolutore %></b><% end %>
+                                <b><%= utente(@segnalazione.cda_risolutore) %></b><% end %>
                             </b>
                         </td>
                         <th>

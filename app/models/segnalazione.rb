@@ -311,11 +311,11 @@ class Segnalazione < ActiveRecord::Base
       when 'SE'
       cda_verificatore
       when 'AA'
-       ((cda_verificatore || cda_segnalatore) + ' ' + 8594.chr + ' ' + cda_risolutore_ana) if cda_risolutore_ana
+       (utente(cda_verificatore || cda_segnalatore) + ' ' + 8594.chr + ' ' + utente(cda_risolutore_ana)).html_safe if cda_risolutore_ana
       when 'AS'
-       ((cda_risolutore_ana || cda_verificatore || cda_segnalatore) + ' ' + 8594.chr + ' ' + cda_risolutore) if cda_risolutore
+       (utente(cda_risolutore_ana || cda_verificatore || cda_segnalatore) + ' ' + 8594.chr + ' ' + utente(cda_risolutore)).html_safe if cda_risolutore
       when 'RS'
-       ((cda_risolutore || "") + ' ' + 8594.chr + ' ' + (cda_validatore || cda_verificatore)) if (cda_validatore || cda_verificatore)
+       (utente(cda_risolutore || "") + ' ' + 8594.chr + ' ' + utente(cda_validatore || cda_verificatore)).html_safe if (cda_validatore || cda_verificatore)
     end
   end
 

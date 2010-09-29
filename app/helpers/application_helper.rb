@@ -142,7 +142,7 @@ module ApplicationHelper
   def utente(user_id)
     utente = Utente.user_name(user_id).includes(:recapito).to_a[0]
     if utente and utente.recapito
-      content_tag(:span, user_id, :class => "utente", :mail => utente.user_mail, :phone => utente.recapito.cda_telefono)      
+      content_tag(:span, user_id, :class => "utente", :mail => utente.user_mail, :phone => utente.recapito.cda_telefono, :onmouseover => 'setupMenu(this);')      
     else
       user_id
     end

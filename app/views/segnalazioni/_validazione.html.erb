@@ -1,5 +1,5 @@
 <div>
-    Validatore: <b>	<%= @segnalazione.cda_validatore %></b> &nbsp;&nbsp;&nbsp; Stima validazione: <b><%= master.tempo_val_stimato %></b>
+    Validatore: <b>	<%= utente(@segnalazione.cda_validatore) %></b> &nbsp;&nbsp;&nbsp; Stima validazione: <b><%= master.tempo_val_stimato %></b>
 </div>
 <div>
     <% if @segnalazione.note_validatore %>
