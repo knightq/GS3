@@ -1,7 +1,6 @@
 <div>
 	Stato: <b><%=@segnalazione.stato_des %></b> <%= @segnalazione.date_associated %><br/>
 	<% if @segnalazione.actor_associated %>
-		<% puts "===================== #{@segnalazione.actor_associated} ================ AA =="%>
 		(<%= @segnalazione.actor_associated.html_safe %>)<br/>
 	<% end %>
 	Gravità: <%= image_tag "/images/lev#{@segnalazione.gravita}.png" %> |

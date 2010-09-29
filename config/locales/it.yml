@@ -150,6 +150,7 @@ it:
 
   button_apply: "Applica"
   button_filter: "Filtra"
+  estimated_time: "tempo stimato"
   issues: "segnalazioni"
   label_related_issues: "Segnalazioni correlate"
   label_roadmap_closed: "Chiuse"
@@ -158,7 +159,9 @@ it:
   label_roadmap_overdue: "{{s}} fa"
   label_show_all_gs_versions: "Tutte le GS (non solo le mie)"
   no_issue: "Nessuna segnalazione"
+  priority: "priorità"
   products: "prodotti"
+  severity: "gravità"
   versions: "versioni"
   actionview_datehelper_time_in_words_day: "1 giorno"
   actionview_datehelper_time_in_words_day_plural: "%d giorni"

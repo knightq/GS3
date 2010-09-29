@@ -1,10 +1,10 @@
 	<tr class="segnalazione_head segnalazione_head_<%= segnalazione.prg_segna %>">
-		<th align="left">
+		<th class="gs_prg_and_type_todo" align="left">
 			<%= tipo_segnalazione_image(segnalazione) %>
 			<b><%= link_to segnalazione.prg_segna, segnalazione_path(segnalazione.prg_segna) %></b>
 		</th>
 		<th id="segnalazione_summary">
-			Segnalato da: <b><%= utente(segnalazione.cda_segnalatore) %></b> il <b><%= l segnalazione.dtm_creaz, :format => '%d/%m/%Y' %></b> (<%= pluralize(Date.today - segnalazione.dtm_creaz.to_date, 'giorno') %> fa)
+			[<b><%=segnalazione.stato_des %></b>] Segnalata da <b><%= utente(segnalazione.cda_segnalatore) %></b> <%=distance_of_time_in_words(segnalazione.dtm_creaz.to_date, Date.today) %> fa (il <b><%= l segnalazione.dtm_creaz, :format => '%d/%m/%Y' %></b>)
 			<% if (segnalazione.actor_associated_to_current_state == current_user.user_name and not segnalazione.consegna_flg) %>
 				<span class="prendi_in_carico">
 					<%= form_for(segnalazione, :remote => true, :url => { :controller => 'todo', :action => "presa_in_carico" }) do |form| %>
@@ -14,18 +14,20 @@
 				</span>
 			<% end %>
 		</th>
+		<th class="gs_rank_info">
+			<span style="white-space:nowrap;">
+				<%=t(:severity).capitalize %>: <%= image_tag "/images/lev#{segnalazione.gravita}.png" %> |
+				<%=t(:priority).capitalize %>: <%= image_tag "/images/lev#{segnalazione.priorita}.png" %>
+			</span>
+		</th>
+		<th class="gs_stima_ore">
+			<span style="white-space:nowrap;">
+				<%= image_tag 'clock.png', :alt => t(:estimated_time).capitalize %>: <b><%=segnalazione.tempo_risol_stimato %></b>
+			</span>
+		</th>
 	</tr>
 	<tr class="segnalazione_details segnalazione_details_<%= segnalazione.prg_segna %>">
-		<td id="segnalazione_summary">
-			<span style="white-space:nowrap;">
-				Gravità: <%= image_tag "/images/lev#{segnalazione.gravita}.png" %> |
-				Priorità: <%= image_tag "/images/lev#{segnalazione.priorita}.png" %>
-				 <br/>
-				Stato: <b><%=segnalazione.stato_des %></b><br/>
-				Stima ore: <b><%=segnalazione.tempo_risol_stimato %></b><br/>
-			</span>	
-		</td>
-		<td id="segnalazione_descrizione">
+		<td id="segnalazione_descrizione" colspan="4">
 			<%= content_tag :div, :class => 'descrizione_segnalazione_todo' do %>
 				<%= markdown(segnalazione.des_segna).html_safe %>
 			<% end %>

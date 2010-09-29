@@ -770,6 +770,7 @@ th#segnalazione_summary {
 	font-weight: normal;
 	line-height:0.8em;
 	text-align: left;
+	width: 48em;
 }
 div#segnalazione_descrizione {
 	cursor:move;
@@ -1126,8 +1127,12 @@ div.kion_div {
 	padding-right: 2em;
 }
 
+th.gs_prg_and_type_todo {
+	width: 6em;
+	padding: 0px;
+}
 .descrizione_segnalazione_todo {
-	height: 5em;
+	height: 3;
 	line-height: 1em;
 	overflow-x:auto;
 	width: 100%;

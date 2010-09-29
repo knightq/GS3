@@ -32,7 +32,6 @@ class TodoController < ApplicationController
   
   def update
     prg_segna = params[:id]
-    puts "====================== PRESA IN CARICO! #{prg_segna}======================"
     respond_with()
   end
   
@@ -47,8 +46,6 @@ class TodoController < ApplicationController
   # POST /todo
   # POST /todo.rjs
   def create
-    puts "SONO IO!! IOOOOOOOO!!!"
-    puts "SONO IO!! IOOOOOOOO!!!"
     respond_to do |format|
       format.js
     end
