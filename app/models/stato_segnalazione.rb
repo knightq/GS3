@@ -1,6 +1,6 @@
 class StatoSegnalazione < ActiveRecord::Base
-
   set_table_name "FW_STAT_SEGN"
+  set_primary_key :cda_stato
 
 #  has_many :utenti
 	scope :lavorabile, where("lavorabile_analisi_flg = 1 OR lavorabile_sviluppo_flg = 1 OR lavorabile_test_flg = 1")

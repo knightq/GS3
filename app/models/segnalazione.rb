@@ -107,6 +107,10 @@ class Segnalazione < ActiveRecord::Base
   scope :fatte_da, lambda { |user| where("(cda_risolutore_ana = ? and cda_stato in ('AS', 'RS', 'VL', 'RI', 'RF', 'OB')) or (cda_risolutore = ? and cda_stato in ('RS', 'VL', 'RI', 'RF', 'OB'))", user, user) }
   scope :versione_prodotto,  lambda { |versione, prodotto| where("cda_versione_pian = ? and cda_prodotto = ?", versione, prodotto) }
   
+  def self.search(search, page)
+    paginate :per_page => 10, :page => page, :conditions => ['name like ?', "%#{search}%"], :order => 'name'
+  end
+
   def self.find_by_user_todo(user_id)
     Segnalazione.in_todo(user_id)
   end

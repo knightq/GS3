@@ -1,7 +1,21 @@
 <% title "Segnalazioni" %>
-<%= content_for :sidebar do %>
+<%= content_for :head do %>
+<%= javascript_include_tag 'app/segnalazioni/index.js' %>
+<%= javascript_include_tag 'pagination' %>
 <% end %>
-
-<h1>Ricerca segnalazioni</h1>
-
-<%#= link_to 'Nuovo utente', new_utente_path %>
+<%= content_for :sidebar do %>
+<%= render :partial => 'widgets/collapsible_box', :locals => { :title => "Query predefinite", :content => 'segnalazioni_queries', :closeable => true, :query => @query } %>
+<% end %>
+<%# if @query.new_record? %>
+<%# form_tag({ :controller => 'queries', :action => 'new' }, :id => 'query_form') do %>
+<%#= hidden_field_tag('project_id', @project.id) if @project %>
+<fieldset id="filters" class="collapsible">
+    <legend>
+        <%= t(:label_filter).pluralize.capitalize %>
+    </legend>
+    <div> <!--style="<%#= @query.new_record? ? "" : "display: none;" %>"-->
+    	<%= render :partial => 'queries/filters', :locals => {:query => @query} %>
+    </div>
+</fieldset>
+<%# end %>
+<%= render :partial => 'segnalazioni', :locals => {:query => @query} %>

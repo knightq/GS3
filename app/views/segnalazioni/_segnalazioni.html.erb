@@ -1,0 +1,17 @@
+<div id="segnalazioni" class="segnalazioni">  
+	<table class="list issues">
+    	<thead>
+    		<tr>
+				<%= sort_header_tag('prg_segna', :caption => '#', :default_order => 'desc') %>
+        		<%#= query.columns.each {|column| column_header(column)} %>
+			</tr>
+		</thead>
+		<% previous_group = false %>
+		<tbody>
+			<% @segnalazioni.each do |segnalazione| %>  
+				<tr><td><%= (link_to segnalazione.prg_segna, segnalazione) %></td></tr>
+			<% end %>
+		</tbody>
+	</table>
+</div>
+<%= will_paginate @segnalazioni %>

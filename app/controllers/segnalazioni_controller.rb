@@ -1,8 +1,13 @@
 class SegnalazioniController < ApplicationController
+
   layout "application", :except => :gsprg
   respond_to :html, :xml, :json, :rdf
   before_filter :require_user, :except => [:show, :gsprg]
-  
+  helper :sort
+  include SortHelper
+  helper :queries
+  include QueriesHelper
+
   # POST /segnalazioni
   # POST /segnalazioni.xml
   def create
@@ -42,16 +47,75 @@ class SegnalazioniController < ApplicationController
   end
   
   def index
-    @segnalazioni = Segnalazione.risolutore(current_user.user_name)
-    respond_to do |format|
-      format.html {
-        respond_with @segnalazioni
-      }
-    end
-  rescue ActiveRecord::RecordNotFound
-    render_404
+    retrieve_query
+    # sort_init(@query.sort_criteria.empty? ? [['id', 'desc']] : @query.sort_criteria)
+    sort_init([['prg_segna', 'desc']])
+    sort_update %w(prg_segna)
+    #@query = 'sddd'
+    @segnalazioni = Segnalazione.paginate(:all, :order => sort_clause, :per_page => 10, :page => params[:page])  
+#    sort_update({'id' => "#{Issue.table_name}.id"}.merge(@query.columns.inject({}) {|h, c| h[c.name.to_s] = c.sortable; h}))
+#    
+#    if @query.valid?
+#      limit = per_page_option
+#      respond_to do |format|
+#        format.html { }
+#        format.atom { }
+#        format.csv  { limit = Setting.issues_export_limit.to_i }
+#        format.pdf  { limit = Setting.issues_export_limit.to_i }
+#      end
+#      @issue_count = Issue.count(:include => [:status, :prodotto], :conditions => @query.statement)
+#      @issue_pages = Paginator.new self, @issue_count, limit, params['page']
+#      @issues = Issue.find :all, :order => sort_clause,
+#                           :include => [ :assigned_to, :status, :tracker, :prodotto, :priority, :category, :fixed_version ],
+#                           :conditions => @query.statement,
+#                           :limit  =>  limit,
+#                           :offset =>  @issue_pages.current.offset
+#      respond_to do |format|
+#        format.html { render :template => 'issues/index.rhtml', :layout => !request.xhr? }
+#        format.atom { render_feed(@issues, :title => "#{@prodotto || Setting.app_title}: #{l(:label_issue_plural)}") }
+#        format.csv  { send_data(issues_to_csv(@issues, @prodotto).read, :type => 'text/csv; header=present', :filename => 'export.csv') }
+#        format.pdf  { send_data(issues_to_pdf(@issues, @prodotto), :type => 'application/pdf', :filename => 'export.pdf') }
+#      end
+#    else
+#      # Send html if the query is not valid
+#      render(:template => 'issues/index.rhtml', :layout => !request.xhr?)
+#    end
+#  rescue ActiveRecord::RecordNotFound
+#    render_404
   end
-  
+
+private
+  # Retrieve query from session or build a new query
+  def retrieve_query
+    if !params[:query_id].blank?
+      cond = "cda_prodotto IS NULL"
+      cond << " OR cda_prodotto = #{@prodotto.cda_prodotto}" if @prodotto
+      @query = Query.find(params[:query_id], :conditions => cond)
+      @query.prodotto = @prodotto
+      session[:query] = {:id => @query.id, :cda_prodotto => @query.cda_prodotto}
+    else
+      if params[:set_filter] || session[:query].nil? || session[:query][:cda_prodotto] != (@prodotto ? @prodotto.id : nil)
+        # Give it a name, required to be valid
+        @query = Query.new(:name => "_")
+        @query.prodotto = @prodotto
+        if params[:fields] and params[:fields].is_a? Array
+          params[:fields].each do |field|
+            @query.add_filter(field, params[:operators][field], params[:values][field])
+          end
+        else
+          @query.available_filters.keys.each do |field|
+            @query.add_short_filter(field, params[field]) if params[field]
+          end
+        end
+        session[:query] = {:cda_prodotto => @query.cda_prodotto, :filters => @query.filters}
+      else
+        @query = Query.find_by_id(session[:query][:id]) if session[:query][:id]
+        @query ||= Query.new(:name => "_", :prodotto => @prodotto, :filters => session[:query][:filters])
+        @query.prodotto = @prodotto
+      end
+    end
+  end
+
   def gsprg
     gs = request.GET[:q]
     user_id = request.GET[:user_id]

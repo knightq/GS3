@@ -28,6 +28,9 @@ gem 'rspec', :group => :test
 
 gem 'pdf-reader'
 
+# Paginazione
+gem "will_paginate", "~> 3.0.pre2"
+
 # RAGI (Cisco IP Phone call)
 # gem 'ragi'
 

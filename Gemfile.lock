@@ -92,6 +92,7 @@ GEM
     treetop (1.4.8)
       polyglot (>= 0.3.1)
     tzinfo (0.3.23)
+    will_paginate (3.0.pre2)
     workflow (0.7.0)
 
 PLATFORMS
@@ -113,4 +114,5 @@ DEPENDENCIES
   rspec
   ruby-oci8 (>= 2.0.4)
   ruby-plsql (>= 0.4.3)
+  will_paginate (~> 3.0.pre2)
   workflow

@@ -4,6 +4,7 @@ global:
     recapiti:
         label: Rubrica
     prodotti:
+    segnalazioni:
     statistiche:
     versioni:
         image: versioni48.png

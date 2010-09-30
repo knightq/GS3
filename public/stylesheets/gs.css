@@ -1339,12 +1339,23 @@ fieldset.related-issues {margin-top: 6px; border-color: #67A0CF; border-bottom-c
 fieldset.related-issues legend {font-size: 0.8em; font-style:italic;}
 fieldset.related-issues ul {padding:0; margin: 4px 2px 4px 2px;}
 fieldset.related-issues ul li {font-size: 90%; list-style: none;}
+
+#filters table {
+	border: 0px;
+}
 a.segnalazione.closed, a.segnalazione.closed:link, a.segnalazione.closed:visited { color: #999; text-decoration: line-through; }
 a.segnalazione.done, a.segnalazione.done:link, a.segnalazione.done:visited { color: #666; }
 a.segnalazione.todo, a.segnalazione.todo:link, a.segnalazione.todo:visited { font-weight: bold; }
 
+a.sort { padding-right: 16px; background-position: 100% 50%; background-repeat: no-repeat; }
+a.sort.asc  { background-image: url(../images/sort_asc.png); }
+a.sort.desc { background-image: url(../images/sort_desc.png); }
+
 span.utente { cursor: url(../images/contact.png), help;}
 th#segnalazione_summary span.utente {
 	font-size: 1em;
+}
+ul.query_list {
+	list-style-image: url(../images/query.png);
 }
 h3.version { background: url(../images/package.png) no-repeat 0% 50%; padding-left: 20px; }

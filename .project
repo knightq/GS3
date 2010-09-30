@@ -12,6 +12,7 @@
 		</buildCommand>
 	</buildSpec>
 	<natures>
+		<nature>org.radrails.rails.ui.railsnature</nature>
 		<nature>org.rubypeople.rdt.core.rubynature</nature>
 	</natures>
 </projectDescription>

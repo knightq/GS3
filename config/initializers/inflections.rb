@@ -16,6 +16,7 @@ ActiveSupport::Inflector.inflections do |inflect|
   inflect.irregular 'causa', 'cause'
   inflect.irregular 'errore', 'errori'
   inflect.irregular 'funzione', 'funzioni'
+  inflect.irregular 'filtro', 'filtri'
   inflect.irregular 'giorno', 'giorni'
   inflect.irregular 'gravita', 'gravita'
   inflect.irregular 'ha', 'hanno'
