@@ -58,6 +58,54 @@ Gs3::Application.routes.draw do |map|
   map.logout 'logout', :controller => "user_sessions", :action => 'destroy' 
   # See how all your routes lay out with "rake routes"
 
+  #REDMINE
+  resources :segnalazioni do
+      collection do
+        post :index
+      end
+  end
+#  scope '/signup' do
+#    match '/signup' => "users#landing", :as => :signup
+#    get '/:level' => 'users#new', :as => :signup_new
+#    post '/:level' => 'users#create', :as => :signup_create
+#end
+#    map.with_options :controller => 'issues' do |issues_routes|
+#    issues_routes.with_options :conditions => {:method => :get} do |issues_views|
+#      issues_views.connect 'issues', :action => 'index'
+#      issues_views.connect 'issues.:format', :action => 'index'
+#      issues_views.connect 'projects/:project_id/issues', :action => 'index'
+#      issues_views.connect 'projects/:project_id/issues.:format', :action => 'index'
+#      issues_views.connect 'projects/:project_id/issues/new', :action => 'new'
+#      issues_views.connect 'projects/:project_id/issues/gantt', :controller => 'gantts', :action => 'show'
+#      issues_views.connect 'projects/:project_id/issues/calendar', :controller => 'calendars', :action => 'show'
+#      issues_views.connect 'projects/:project_id/issues/:copy_from/copy', :action => 'new'
+#      issues_views.connect 'issues/:id', :action => 'show', :id => /\d+/
+#      issues_views.connect 'issues/:id.:format', :action => 'show', :id => /\d+/
+#      issues_views.connect 'issues/:id/edit', :action => 'edit', :id => /\d+/
+#    end
+#    issues_routes.with_options :conditions => {:method => :post} do |issues_actions|
+#      issues_actions.connect 'issues', :action => 'index'
+#      issues_actions.connect 'projects/:project_id/issues', :action => 'create'
+#      issues_actions.connect 'projects/:project_id/issues/gantt', :controller => 'gantts', :action => 'show'
+#      issues_actions.connect 'projects/:project_id/issues/calendar', :controller => 'calendars', :action => 'show'
+#      issues_actions.connect 'issues/:id/quoted', :controller => 'journals', :action => 'new', :id => /\d+/
+#      issues_actions.connect 'issues/:id/:action', :action => /edit|destroy/, :id => /\d+/
+#      issues_actions.connect 'issues.:format', :action => 'create', :format => /xml/
+#      issues_actions.connect 'issues/bulk_edit', :action => 'bulk_update'
+#    end
+#    issues_routes.with_options :conditions => {:method => :put} do |issues_actions|
+#      issues_actions.connect 'issues/:id/edit', :action => 'update', :id => /\d+/
+#      issues_actions.connect 'issues/:id.:format', :action => 'update', :id => /\d+/, :format => /xml/
+#    end
+#    issues_routes.with_options :conditions => {:method => :delete} do |issues_actions|
+#      issues_actions.connect 'issues/:id.:format', :action => 'destroy', :id => /\d+/, :format => /xml/
+#    end
+#    issues_routes.connect 'issues/gantt', :controller => 'gantts', :action => 'show'
+#    issues_routes.connect 'issues/calendar', :controller => 'calendars', :action => 'show'
+#    issues_routes.connect 'issues/:action'
+#  end
+  ## REDMINE ##
+
   match 'prodotti/data' => 'prodotti#data'
   match 'prodotti/dbaction' => 'prodotti#dbaction'
   match 'recapiti/data' => 'recapiti#data'

@@ -1,16 +1,30 @@
 
 class QueryColumn  
+  attr_accessor :name, :sortable, :groupable, :default_order
   attr_accessor :name, :sortable, :default_order
   
   def initialize(name, options={})
     self.name = name
     self.sortable = options[:sortable]
+    self.groupable = options[:groupable] || false
+    if groupable == true
+      self.groupable = name.to_s
+    end
     self.default_order = options[:default_order]
   end
   
   def caption
-    set_language_if_valid(User.current.language)
-    t("field_#{name}")
+    #set_language_if_valid(User.current.language)
+    "field_#{name}"
+  end
+
+  # Restituisce true se la colonna è ordinabile, false altrimenti
+  def sortable?
+    !sortable.nil?
+  end
+
+  def value(issue)
+    issue.send name
   end
 end
 
@@ -80,11 +94,13 @@ class Query #< ActiveRecord::Base
 
   @@available_columns = [
     QueryColumn.new(:prodotto, :sortable => "#{Prodotto.table_name}.name"),
-    QueryColumn.new(:tipo, :sortable => "#{TipoSegnalazione.table_name}.position"),
-    QueryColumn.new(:stato, :sortable => "#{StatoSegnalazione.table_name}.position"),
-#    QueryColumn.new(:priority, :sortable => "#{Enumeration.table_name}.position", :default_order => 'desc'),
+    QueryColumn.new(:tipo_segnalazione, :sortable => "#{TipoSegnalazione.table_name}.position"),
+    QueryColumn.new(:stato_segnalazione, :sortable => "#{StatoSegnalazione.table_name}.position"),
+    QueryColumn.new(:priorita, :sortable => "#{Priorita.table_name}.position", :default_order => 'desc'),
+    QueryColumn.new(:gravita, :sortable => "#{Gravita.table_name}.position", :default_order => 'desc'),
+    QueryColumn.new(:segnalatore, :sortable => "#{Utente.table_name}.position", :default_order => 'asc')
 #    QueryColumn.new(:subject, :sortable => "#{Issue.table_name}.subject"),
-#    QueryColumn.new(:author),
+
 #    QueryColumn.new(:assigned_to, :sortable => "#{User.table_name}.lastname"),
 #    QueryColumn.new(:updated_on, :sortable => "#{Issue.table_name}.updated_on", :default_order => 'desc'),
 #    QueryColumn.new(:category, :sortable => "#{IssueCategory.table_name}.name"),
@@ -99,7 +115,8 @@ class Query #< ActiveRecord::Base
   
   def initialize(attributes = nil)
 #    super attributes
-    self.filters ||= { 'status_id' => {:operator => "o", :values => [""]} }
+    self.filters ||= { 'cda_stato_segnalazione' => {:operator => "o", :values => [""]} }
+    self.filters ||= { 'cda_prodotto' => {:operator => "o", :values => [""]} }
 #    set_language_if_valid(User.current.language)
   end
   
@@ -131,9 +148,9 @@ class Query #< ActiveRecord::Base
     
     tipi_segnalazione = prodotto.nil? ? TipoSegnalazione.order('cda_tipo_segna asc') : prodotto.rolled_up_trackers
     
-    @available_filters = { "cda_stato_segnalazione" => { :type => :list_status, :order => 1, :values => StatoSegnalazione.find(:all, :order => 'ordine').collect{|s| [s.des_stato, s.id.to_s] } },       
-                           "cda_tipo_segnalazione" => { :type => :list, :order => 2, :values => tipi_segnalazione.collect{|s| [s.des_tipo_segna, s.id.to_s] } }                                                                                                                
-#                           "priority_id" => { :type => :list, :order => 3, :values => Enumeration.find(:all, :conditions => ['opt=?','IPRI'], :order => 'position').collect{|s| [s.name, s.id.to_s] } },
+    @available_filters = { "stato_segnalazione" => { :type => :list_status, :order => 1, :values => StatoSegnalazione.find(:all, :order => 'ordine').collect{|s| [s.des_stato, s.id.to_s] } },       
+                           "tipo_segnalazione" => { :type => :list, :order => 2, :values => tipi_segnalazione.collect{|ts| [ts.des_tipo_segna, ts.id.to_s] } },                                                                         
+                           "cda_prodotto" => { :type => :list, :order => 3, :values => Prodotto.all.collect{|p| [p.des_prodotto, p.id.to_s] } }
 #                           "subject" => { :type => :text, :order => 8 },  
 #                           "created_on" => { :type => :date_past, :order => 9 },                        
 #                           "updated_on" => { :type => :date_past, :order => 10 },
@@ -146,11 +163,11 @@ class Query #< ActiveRecord::Base
     user_values = []
     user_values << ["<< Io >>", "me"] #if User.current.logged?
     if prodotto
-      user_values += prodotto.users.sort.collect{|s| [s.name, s.id.to_s] }
+      user_values += prodotto.users.sort.collect{|u| [u.user_name, u.user_id.to_s] }
     else
       # members of the user's projects
       #user_values +=  User.current.projects.collect(&:users).flatten.uniq.sort.collect{|s| [s.name, s.id.to_s] }
-      user_values += Utente.all
+      user_values += Utente.all.sort.collect{|u| [u.user_name, u.user_id.to_s] }
     end
     @available_filters["cda_risolutore"] = { :type => :list_optional, :order => 4, :values => user_values } unless user_values.empty?
     @available_filters["cda_segnalatore"] = { :type => :list, :order => 5, :values => user_values } unless user_values.empty?
@@ -215,22 +232,21 @@ class Query #< ActiveRecord::Base
   def available_columns
     return @available_columns if @available_columns
     @available_columns = Query.available_columns
-    @available_columns += (prodotto ? 
-                            prodotto.all_issue_custom_fields :
-                            IssueCustomField.find(:all, :conditions => {:is_for_all => true})
-                           ).collect {|cf| QueryCustomFieldColumn.new(cf) }      
+    #@available_columns += (prodotto ? prodotto.all_issue_custom_fields : IssueCustomField.find(:all, :conditions => {:is_for_all => true})).collect {|cf| QueryCustomFieldColumn.new(cf) }      
   end
   
   def columns
-    if has_default_columns?
-      available_columns.select do |c|
+#    if has_default_columns?
+#      available_columns.select do |c|
         # Adds the project column by default for cross-project lists
-        Setting.issue_list_default_columns.include?(c.name.to_s) || (c.name == :prodotto && prodotto.nil?)
-      end
-    else
+        #Setting.issue_list_default_columns.include?(c.name.to_s) || (c.name == :prodotto && prodotto.nil?)
+#      end
+#    else
       # preserve the column_names order
-      column_names.collect {|name| available_columns.find {|col| col.name == name}}.compact
-    end
+#      column_names.collect {|name| available_columns.find {|col| col.name == name}}.compact
+#      available_columns.collect {|name| available_columns.find {|col| puts "============================== col! #{col}"; col.name == name}}.compact
+      Query.available_columns
+#    end
   end
   
   def column_names=(names)
@@ -247,6 +263,11 @@ class Query #< ActiveRecord::Base
     column_names.nil? || column_names.empty?
   end
   
+  # Returns an array of columns that can be used to group the results
+  def groupable_columns
+    available_columns.select {|c| c.groupable}
+  end
+
   def project_statement
     project_clauses = []
     if prodotto && !@prodotto.active_children.empty?

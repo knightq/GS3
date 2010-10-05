@@ -61,4 +61,22 @@ class ApplicationController < ActionController::Base
     @origin_url = request.referer
   end
 
+  def render_404
+    respond_to do |format|
+      format.html { render :template => "common/404", :layout => use_layout, :status => 404 }
+      format.atom { head 404 }
+      format.xml { head 404 }
+      format.js { head 404 }
+      format.json { head 404 }
+    end
+    return false
+  end
+
+  # Sceglie il layout da usare in base al formato della request
+  #
+  # @return [boolean, string] nome del layout da usare o false ad indicare nessun layout
+  def use_layout
+    request.xhr? ? false : 'base'
+  end
+
 end

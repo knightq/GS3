@@ -1,23 +1,25 @@
 <%= content_for :head do %>
+	<%= javascript_include_tag 'select_list_move' %>
 	<%= javascript_include_tag 'filters' %>
 <% end %>
 
 <script type="text/javascript">
 //<![CDATA[
 function apply_filters_observer() {
-  $("#query_form input[type=text]").invoke("observe", "keypress", function(e){
+/*  $("#query_form input[type=text]").invoke("observe", "keypress", function(e){
     if(e.keyCode == Event.KEY_RETURN) {
       <%= remote_function(:url => { :set_filter => 1},
                           :update => "content",
                           :with => "Form.serialize('query_form')",
                           :complete => "e.stop(); apply_filters_observer()") %>
     }
-  });
+  });*/
 }
 
 //]]>
 </script>
 
+<%#= form_tag({}) do %>	
 <table width="100%">
 <tr>
 <td>
@@ -64,3 +66,4 @@ function apply_filters_observer() {
 </td>
 </tr>
 </table>
+<%#end %>

@@ -22,48 +22,56 @@ module QueriesHelper
   end
   
   def column_header(column)
-    column.sortable ? sort_header_tag(column.name.to_s, :caption => column.caption,
-                                                        :default_order => column.default_order) : 
-                      content_tag('th', column.caption)
+    column.sortable ? sort_header_tag(column.name.to_s, :caption => t(column.caption),
+                                                        :default_order => column.default_order) : content_tag('th', t(column.caption))
   end
   
-  def column_content(column, issue)
-    value = column.value(issue)
+  def column_content(column, segnalazione)
+    value = column.value(segnalazione)
     
     case value.class.name
-    when 'String'
+      when 'String'
       if column.name == :subject
-        link_to(h(value), :controller => 'issues', :action => 'show', :id => issue)
+        link_to(h(value), :controller => 'segnalazioni', :action => 'show', :id => segnalazione)
       else
         h(value)
       end
-    when 'Time'
+      when 'Time'
       format_time(value)
-    when 'Date'
+      when 'Date'
       format_date(value)
-    when 'Fixnum', 'Float'
+      when 'Fixnum', 'Float'
       if column.name == :done_ratio
         progress_bar(value, :width => '80px')
       else
         value.to_s
       end
-    when 'User'
-      link_to_user value
-    when 'Project'
-      link_to_project value
-    when 'Version'
-      link_to(h(value), :controller => 'versions', :action => 'show', :id => value)
-    when 'TrueClass'
+      when 'StatoSegnalazione'
+        StatoSegnalazione.des(value.cda_stato)
+      when 'TipoSegnalazione'
+        tipo_segnalazione_image(value)
+      when 'Gravita'
+        level_bars(value.cdn_gravita)
+      when 'Priorita'
+        level_bars(value.cdn_priorita)
+      when 'Utente'
+        link_to utente(value), :controller => "utenti/#{value.user_id}"
+      #link_to_utente value
+      when 'Prodotto'
+      link_to_prodotto value
+      when 'Versione'
+      link_to(h(value), :controller => 'versioni', :action => 'show', :id => value)
+      when 'TrueClass'
       l(:general_text_Yes)
-    when 'FalseClass'
+      when 'FalseClass'
       l(:general_text_No)
-    when 'Issue'
+      when 'Segnalazione'
       link_to_issue(value, :subject => false)
     else
       h(value)
     end
   end
-
+  
   # Retrieve query from session or build a new query
   def retrieve_query
     if !params[:query_id].blank?

@@ -128,6 +128,19 @@ module ApplicationHelper
     end
   end
 
+  # Genera un link ad un prodotto
+  # Esempi:
+  # 
+  #   link_to_prodotto(prodotto)                          # => link to the specified prodotto overview
+  #   link_to_prodotto(prodotto, :action=>'settings')     # => link to prodotto settings
+  #   link_to_prodotto(prodotto, {:only_path => false}, :class => "prodotto") # => 3rd arg adds html options
+  #   link_to_prodotto(prodotto, {}, :class => "prodotto") # => html options with default url (prodotto overview)
+  #
+  def link_to_prodotto(prodotto, options={}, html_options = nil)
+    url = {:controller => 'prodotti', :action => 'show', :id => prodotto}.merge(options)
+    link_to(prodotto.des_prodotto, url, html_options)
+  end
+
   def link_to_segnalazione(segnalazione, options={})
     options[:class] ||= ''
     options[:class] << ' segnalazione '
@@ -148,7 +161,8 @@ module ApplicationHelper
     end
   end
 
-  def utente(user_id)
+  def utente(user_or_user_id)
+    user_id = user_or_user_id.respond_to?(:user_id) ? user_or_user_id.user_id : user_or_user_id 
     utente = Utente.user_name(user_id).includes(:recapito).to_a[0]
     if utente and utente.recapito
       content_tag(:span, user_id, :class => "utente", :mail => utente.user_mail, :phone => utente.recapito.cda_telefono, :onmouseover => 'setupMenu(this);')      
@@ -156,4 +170,9 @@ module ApplicationHelper
       user_id
     end
   end
+
+  def level_bars(level)
+    image_tag "/images/lev#{level}.png"
+  end
+
 end

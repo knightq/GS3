@@ -150,16 +150,32 @@ it:
 
   all_issues: "tutte le segnalazioni"
   button_apply: "Applica"
+  button_check_all: "Seleziona tutte"
+  button_uncheck_all: "Deseleziona tutte"
   button_filter: "Filtra"
   estimated_time: "tempo stimato"
   issues: "segnalazioni"
-  field_cda_stato_segnalazione: "Stato"
-  field_cda_tipo_segnalazione: "Tipo segnalazione"
+  field_cda_prodotto: "Prodotto"
   field_cda_risolutore: "Risolutore"
   field_cda_segnalatore: "Segnalatore"
+  field_cda_stato_segnalazione: "Stato"
+  field_cda_stato: "Stato"
+  field_cda_tipo_segnalazione: "Tipo segnalazione"
+  field_tipo_segnalazione: "Tipo"
+  field_prodotto: "Prodotto"
+  field_stato: "Stato"
+  field_stato_segnalazione: "Stato"
+  field_tipo: "Tipo"
+  field_priorita: "Priorità"
+  field_prodotto: "Prodotto"
+  field_gravita: "Gravità"
+  field_segnalatore: "Segnalatore"
+  field_column_names: "Colonne"
   label_filter: "filtro"
   label_filter_add: "Aggiungi filtro"
+  field_group_by: "Raggruppa risultati per"
   label_open_issues: aperta
+  label_options: Opzioni
   label_related_issues: "Segnalazioni correlate"
   label_roadmap_closed: "Chiuse"
   label_roadmap_due_in: "Da ultimare in %{s}"
@@ -179,5 +195,8 @@ it:
   actionview_datehelper_time_in_words_day: "1 giorno"
   actionview_datehelper_time_in_words_day_plural: "%d giorni"
 
-  deadline_versione: "chisura versione: %{d}" 
+  deadline_versione: "chisura versione: %{d}"
+  
+  previous: "Pagina precedente"
+  next: 'Pagina successiva' 
   

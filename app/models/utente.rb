@@ -1,5 +1,6 @@
 class Utente < ActiveRecord::Base
 	set_table_name "P18_USER"
+  set_primary_key :user_id
 
   belongs_to :gruppo, :foreign_key => "grp_id"
 
@@ -58,6 +59,10 @@ class Utente < ActiveRecord::Base
 
   def is_andrea?
     user_name == 'ASALICETTI'
+  end
+
+  def <=>(other)
+    self.user_id <=> other.user_id
   end
 
 end

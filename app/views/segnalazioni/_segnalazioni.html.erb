@@ -2,16 +2,30 @@
 	<table class="list issues">
     	<thead>
     		<tr>
+    			<th class="checkbox hide-when-print"><%= image_tag('checked.png',
+                                                           :title => "#{t(:button_check_all)}/#{t(:button_uncheck_all)}") %>
+        		</th>
 				<%= sort_header_tag('prg_segna', :caption => '#', :default_order => 'desc') %>
-        		<%#= query.columns.each {|column| column_header(column)} %>
+				<% @query.columns.each do |column| %>
+					<%= column_header(column) %>
+				<% end %>
 			</tr>
 		</thead>
 		<% previous_group = false %>
 		<tbody>
-			<% @segnalazioni.each do |segnalazione| %>  
-				<tr><td><%= (link_to segnalazione.prg_segna, segnalazione) %></td></tr>
+			<% segnalazioni_list(@segnalazioni) do |segnalazione, level| -%>
+			<%# @segnalazioni.each do |segnalazione| %>  
+				<!--<tr><td><%#= (link_to segnalazione.prg_segna, segnalazione) %></td></tr>-->
+			<%# end %>
+				<tr id="issue-<%= segnalazione.id %>" class="hascontextmenu <%= cycle('odd', 'even') %> <%#= segnalazione.css_classes %> <%= level > 0 ? "idnt idnt-#{level}" : nil %>">
+					<td class="checkbox hide-when-print"><%= check_box_tag("ids[]", segnalazione.id, false, :id => nil) %></td>
+					<td class="id"><%= link_to segnalazione.id, :controller => 'segnalazioni', :action => 'show', :id => segnalazione %></td>
+		        	<% @query.columns.each do |column| %>
+						<%= content_tag 'td', column_content(column, segnalazione), :class => column.name %>
+					<% end %>
+				</tr>
 			<% end %>
 		</tbody>
 	</table>
 </div>
-<%= will_paginate @segnalazioni %>
+<%= will_paginate @segnalazioni, {:previous_label => I18n.t(:previous), :next_label => I18n.t(:next)} %>

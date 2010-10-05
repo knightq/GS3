@@ -2,6 +2,17 @@ module SegnalazioniHelper
  def display_container
  end
 
+  def segnalazioni_list(segnalazioni, &block)
+    ancestors = []
+    segnalazioni.each do |segnalazione|
+      while (ancestors.any? )#&& !segnalazione.is_descendant_of?(ancestors.last))
+        ancestors.pop
+      end
+      yield segnalazione, ancestors.size
+      ancestors << segnalazione #unless segnalazione.leaf?
+    end
+  end
+
 	def display_type_section(type, brands)
 		brands ||= []
   	Html.div(:class => :display_type,

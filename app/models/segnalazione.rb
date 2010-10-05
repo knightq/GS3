@@ -3,9 +3,13 @@ class Segnalazione < ActiveRecord::Base
   set_primary_key :prg_segna
   
   belongs_to :gravita, :foreign_key => 'cdn_gravita', :class_name => 'Gravita'
+  belongs_to :priorita, :foreign_key => 'cdn_priorita', :class_name => 'Priorita'
   belongs_to :risolutore, :foreign_key => 'cda_risolutore', :class_name => 'Utente'
+  belongs_to :segnalatore, :foreign_key => 'cda_segnalatore', :class_name => 'Utente'
   belongs_to :risolutore_analisi, :foreign_key => 'cda_risolutore_ana', :class_name => 'Utente'
   belongs_to :prodotto, :foreign_key => 'cda_prodotto', :class_name => 'Prodotto'
+  belongs_to :tipo_segnalazione, :foreign_key => 'cda_tipo_segna', :class_name => 'TipoSegnalazione'
+  belongs_to :stato_segnalazione, :foreign_key => 'cda_stato', :class_name => 'StatoSegnalazione'
 
   # ====== STATI DELLA SEGNALAZIONE ====== 
   include Workflow

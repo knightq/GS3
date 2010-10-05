@@ -3,6 +3,7 @@ class SegnalazioniController < ApplicationController
   layout "application", :except => :gsprg
   respond_to :html, :xml, :json, :rdf
   before_filter :require_user, :except => [:show, :gsprg]
+  before_filter :find_project, :only => [:new, :create]
   helper :sort
   include SortHelper
   helper :queries
@@ -84,6 +85,32 @@ class SegnalazioniController < ApplicationController
 #    render_404
   end
 
+  # GET /segnalazioni/new
+  # GET /segnalazioni/new.xml
+  def new
+    @segnalazione = Segnalazione.new
+    @segnalazione.dtm_creaz = Date.today
+    respond_with @segnalazione
+  end
+  
+  # GET /segnalazioni/1/edit
+  def edit
+    @segnalazione = Segnalazione.find_by_prg_segna(params[:id])
+    respond_with(@segnalazione)
+  end
+  
+  # DELETE /segnalazioni/1
+  # DELETE /segnalazioni/1.xml
+  def destroy
+    @utente = Segnalazione.find_by_prg_segna(params[:id])
+    @utente.destroy
+    
+    respond_to do |format|
+      format.html { redirect_to(segnalazioni_url) }
+      format.xml  { head :ok }
+    end
+  end
+
 private
   # Retrieve query from session or build a new query
   def retrieve_query
@@ -128,29 +155,11 @@ private
     respond_with @gs
   end
   
-  # GET /segnalazioni/new
-  # GET /segnalazioni/new.xml
-  def new
-    @segnalazione = Segnalazione.new
-    @segnalazione.dtm_creaz = Date.today
-    respond_with @segnalazione
+  def find_project
+    cda_prodotto = (params[:segnalazione] && params[:segnalazione][:cda_prodotto]) || params[:cda_prodotto]
+    @prodotto = Prodotto.find(cda_prodotto)
+  rescue ActiveRecord::RecordNotFound
+    render_404
   end
-  
-  # GET /segnalazioni/1/edit
-  def edit
-    @segnalazione = Segnalazione.find_by_prg_segna(params[:id])
-    respond_with(@segnalazione)
-  end
-  
-  # DELETE /segnalazioni/1
-  # DELETE /segnalazioni/1.xml
-  def destroy
-    @utente = Segnalazione.find_by_prg_segna(params[:id])
-    @utente.destroy
-    
-    respond_to do |format|
-      format.html { redirect_to(segnalazioni_url) }
-      format.xml  { head :ok }
-    end
-  end
+
 end

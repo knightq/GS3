@@ -30,7 +30,6 @@ function toggle_filter(field) {
 
 function toggle_operator(field) {
   operator = $("#operators_" + field);
-  /*alert("Operator: " + operator + ", value: " + operator.val());*/
   switch (operator.val()) {
     case "!*":
     case "*":

@@ -1340,7 +1340,15 @@ fieldset.related-issues legend {font-size: 0.8em; font-style:italic;}
 fieldset.related-issues ul {padding:0; margin: 4px 2px 4px 2px;}
 fieldset.related-issues ul li {font-size: 90%; list-style: none;}
 
+table.issues {
+	min-width: 100%;
+	white-space: nowrap;
+}
+
 #filters table {
+	border: 0px;
+}
+#columns table {
 	border: 0px;
 }
 a.segnalazione.closed, a.segnalazione.closed:link, a.segnalazione.closed:visited { color: #999; text-decoration: line-through; }
@@ -1359,3 +1367,14 @@ ul.query_list {
 	list-style-image: url(../images/query.png);
 }
 h3.version { background: url(../images/package.png) no-repeat 0% 50%; padding-left: 20px; }
+.icon {
+  background-position:0 50%;
+  background-repeat:no-repeat;
+  padding-bottom:3px;
+  padding-left:20px;
+  padding-top:2px;
+}
+.icon-checked {
+	background-image: url(../images/checked.png);
+	background-repeat: no-repeat;
+}

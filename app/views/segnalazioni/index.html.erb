@@ -1,21 +1,67 @@
 <% title "Segnalazioni" %>
+
 <%= content_for :head do %>
-<%= javascript_include_tag 'app/segnalazioni/index.js' %>
-<%= javascript_include_tag 'pagination' %>
+	<%= javascript_include_tag 'app/segnalazioni/index.js' %>
+	<%= javascript_include_tag 'pagination' %>
 <% end %>
+
 <%= content_for :sidebar do %>
-<%= render :partial => 'widgets/collapsible_box', :locals => { :title => "Query predefinite", :content => 'segnalazioni_queries', :closeable => true, :query => @query } %>
+	<%= render :partial => 'widgets/collapsible_box', :locals => { :title => "Query predefinite", :content => 'segnalazioni_queries', :closeable => true, :query => @query } %>
 <% end %>
-<%# if @query.new_record? %>
+
 <%# form_tag({ :controller => 'queries', :action => 'new' }, :id => 'query_form') do %>
-<%#= hidden_field_tag('project_id', @project.id) if @project %>
-<fieldset id="filters" class="collapsible">
-    <legend>
-        <%= t(:label_filter).pluralize.capitalize %>
-    </legend>
-    <div> <!--style="<%#= @query.new_record? ? "" : "display: none;" %>"-->
-    	<%= render :partial => 'queries/filters', :locals => {:query => @query} %>
-    </div>
-</fieldset>
-<%# end %>
+<%= form_tag('/queries/new', {:id => 'query_form', :remote => true}) do %>
+	<%= hidden_field_tag('prodotto', @prodotto.cda_prodotto) if @prodotto %>
+	<fieldset id="filters" class="collapsible">
+	    <legend>
+	        <%= t(:label_filter).pluralize.capitalize %>
+	    </legend>
+	    <div> <!--style="<%#= @query.new_record? ? "" : "display: none;" %>"-->
+	    	<%= render :partial => 'queries/filters', :locals => {:query => @query} %>
+	    </div>
+	</fieldset>
+
+    <fieldset id="columns" class="collapsible collapsed">
+    	<legend>
+    		<%= t(:label_options) %>
+		</legend>
+    	<div>
+    		<table>
+    			<tr>
+    				<td><%= t(:field_column_names) %></td>
+					<td><%= render :partial => 'queries/columns', :locals => {:query => @query} %></td>
+				</tr>
+				<tr>
+					<td><%#= t(:field_group_by) %></td>
+					<td><%#= select_tag('group_by', options_for_select([[]] + @query.groupable_columns.collect {|c| [c.caption, c.name.to_s]}, @query.group_by)) %></td>
+				</tr>
+			</table>
+		</div>
+	</fieldset>
+
+	<p class="buttons hide-when-print">
+		<%= link_to t(:button_apply), 
+	                       { :set_filter => 1 },
+						   :id => 'filters_apply', 
+						   :class => 'icon icon-checked', 
+						   :remote => true,
+						   :method => :post,
+						   :onmousedown => 'selectAllOptions("selected_columns");', 
+						   :href => '#' %>
+	    <%#= link_to_remote t(:button_apply), 
+	                       { :url => { :set_filter => 1 },
+	                         :before => 'selectAllOptions("selected_columns");',
+	                         :update => "content",
+	                         :complete => "apply_filters_observer()",
+	                         :with => "Form.serialize('query_form')"
+	                       }, :class => 'icon icon-checked' %>
+	                       
+	    <%#= link_to_remote t(:button_clear),
+	                       { :url => { :set_filter => 1, :project_id => @project },
+	                         :method => :get,
+	                         :update => "content",
+	                       }, :class => 'icon icon-reload'  %>
+	</p>
+<% end %>
+
 <%= render :partial => 'segnalazioni', :locals => {:query => @query} %>
