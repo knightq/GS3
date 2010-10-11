@@ -19,10 +19,10 @@
 <script type="text/javascript" charset="utf-8">
     var grid = new dhtmlXGridObject("grid_here");
     grid.setImagePath("/javascripts/codebase/imgs/");
-    grid.setHeader("Nome, Cognome, Telefono, Cellulare, E-Mail");
-	grid.attachHeader("#text_filter,#text_filter,#text_filter,#text_filter,#text_filter"); //added !
-    grid.setColSorting("str,str,str,str,str");  //added !
-    grid.setInitWidths("100,200,100,100,*");
+    grid.setHeader("Nome, Cognome, Telefono, Cellulare, E-Mail, Skype");
+	grid.attachHeader("#text_filter,#text_filter,#text_filter,#text_filter,#text_filter,#text_filter"); //added !
+    grid.setColSorting("str,str,str,str,str,str");  //added !
+    grid.setInitWidths("100,200,100,100,*,100");
     grid.setSkin("dhx_skyblue");
     grid.init();
 	grid.load("/recapiti/data");

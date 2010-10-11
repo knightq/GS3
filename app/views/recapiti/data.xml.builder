@@ -7,6 +7,7 @@ xml.rows do
       xml.tag!("cell", recapito.cda_telefono ? recapito.cda_telefono : "")
       xml.tag!("cell", recapito.cda_cellulare ? recapito.cda_cellulare : "")
       xml.tag!("cell", recapito.cda_email ? recapito.cda_email : "")
+      xml.tag!("cell", recapito.skype ? recapito.skype : "")
     end
   end
 end

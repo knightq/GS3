@@ -42,6 +42,7 @@ class RecapitiController < InheritedResources::Base
       telefono  = params["c2"]
       cellulare = params["c3"]
       email     = params["c4"]
+      skype     = params["c5"]
 
       @mode = params["!nativeeditor_status"]
      
@@ -54,10 +55,10 @@ class RecapitiController < InheritedResources::Base
               recapito.cda_telefono = telefono
               recapito.cda_cellulare = cellulare
               recapito.cda_email = email
+              recapito.skype = skype
               recapito.save!
               @tid = recapito.prg_id
           when "deleted"
-            puts "GRID ID =========================== >>>> #{@id.to_i}"
               recapito = Recapito.find_by_prg_id(@id.to_i)
               recapito.destroy
               @tid = @id
@@ -68,6 +69,7 @@ class RecapitiController < InheritedResources::Base
               recapito.cda_telefono = telefono
               recapito.cda_cellulare = cellulare
               recapito.cda_email = email
+              recapito.skype = skype
               recapito.save!
               @tid = @id
       end
