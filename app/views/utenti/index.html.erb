@@ -31,7 +31,7 @@
     <% utenti.each do |utente| %>
     <tr class="<%= cycle('oddrow','evenrow') %>">
         <td>
-            <%= link_to utente.user_name, utente %>
+            <%= link_to utente.user_id, utente %>
         </td>
         <% if current_user.is_andrea? %>
         <td>

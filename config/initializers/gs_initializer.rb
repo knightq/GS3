@@ -25,7 +25,7 @@ end
 
 class ActiveRecord::Base
   def utente(user_id)
-    utente = Utente.user_name(user_id).includes(:recapito).to_a[0]
+    utente = Utente.user_id(user_id).includes(:recapito).to_a[0]
     if utente and utente.recapito
       "<span id=\"#{user_id}\" class=\"utente\" mail=\"#{utente.user_mail}\" phone=\"#{utente.recapito.cda_telefono}\" onmouseover=\"setupMenu(this);\" >#{user_id}</span>".html_safe
     else

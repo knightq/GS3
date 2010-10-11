@@ -14,7 +14,7 @@ module TodoHelper
 	end
 
 	def filter_by_status
-		TodoQuery.find_by_status(current_user.user_name)
+		TodoQuery.find_by_status(current_user.user_id)
 	end
 
 	def count_by_stato(stato)
@@ -40,7 +40,7 @@ module TodoHelper
   end
 
   def grouped(segnalazioni)
-    segnalazioni.group_by { |segn| segn.lavorabilita(current_user.user_name) }.sort
+    segnalazioni.group_by { |segn| segn.lavorabilita(current_user.user_id) }.sort
   end
 
   def wip(segnalazioni)

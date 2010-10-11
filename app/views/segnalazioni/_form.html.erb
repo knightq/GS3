@@ -40,7 +40,7 @@
   </div>
   <span class="field">
     <%= f.label "Segnalatore" %>
-	<%= text_field_with_auto_complete @segnalazione, :cda_ute_creaz, {:class => "segnalazione_cda_ute_creaz", :size => 15, :value => @current_user.user_name} %>
+	<%= text_field_with_auto_complete @segnalazione, :cda_ute_creaz, {:class => "segnalazione_cda_ute_creaz", :size => 15, :value => @current_user.user_id} %>
   </span>
   
   <div class="field">

@@ -28,9 +28,7 @@ module SegnalazioniHelper
     if current_user
       watchdog = 1
       while (lastStep == 0 and state.meta[:order] > 1 and watchdog < 100)
-      	puts "== STATO: #{state.name} tipo #{state.name.class} == @segnalazione.actor_associated_to(state.name) = #{@segnalazione.actor_associated_to(state.name)}, == current_user.user_name = #{current_user.user_name}"
-        puts "lastStep: #{lastStep}"
-        if @segnalazione.actor_associated_to(state.name) == current_user.user_name
+        if @segnalazione.actor_associated_to(state.name) == current_user.user_id
           lastStep = state.meta[:order] - 2
         else
           state = @segnalazione.spec.states[@segnalazione.previous_state(state)]

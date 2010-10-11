@@ -131,18 +131,18 @@ class Segnalazione < ActiveRecord::Base
     Segnalazione.ultimo_mese.risolte.select("count(*) as num_segna").group(:cda_risolutore).order("num_segna DESC")
   end
   
-  def self.performance_score_by_user_over_time(user_name, time_span = nil)
-    rel = Segnalazione.risolutori(user_name).select("cda_risolutore, sum(NVL(tempo_risol_stimato,1))/sum(NVL(tempo_risol_impiegato,1)) as performance").group(:cda_risolutore).having("sum(nvl(tempo_risol_impiegato,1)) > 0")
+  def self.performance_score_by_user_over_time(user_id, time_span = nil)
+    rel = Segnalazione.risolutori(user_id).select("cda_risolutore, sum(NVL(tempo_risol_stimato,1))/sum(NVL(tempo_risol_impiegato,1)) as performance").group(:cda_risolutore).having("sum(nvl(tempo_risol_impiegato,1)) > 0")
     rel = rel.time_span_by_today(time_span) if time_span
     rel.order("performance ASC")
   end
   
-  def self.num_segna_by_user_over_time(user_name)
-    Segnalazione.risolutori(user_name).risolte.select("cda_risolutore, TO_CHAR(dtm_risoluzione,'yyyy mm MON-yy') as mese, count(*) AS num_segna").group("cda_risolutore, TO_CHAR(dtm_risoluzione,'yyyy mm MON-yy')").order("mese ASC")
+  def self.num_segna_by_user_over_time(user_id)
+    Segnalazione.risolutori(user_id).risolte.select("cda_risolutore, TO_CHAR(dtm_risoluzione,'yyyy mm MON-yy') as mese, count(*) AS num_segna").group("cda_risolutore, TO_CHAR(dtm_risoluzione,'yyyy mm MON-yy')").order("mese ASC")
   end
   
-  def self.performance_score_by_user_by_time(user_name)
-    Segnalazione.risolutori(user_name).select("cda_risolutore, sum(NVL(tempo_risol_stimato,1))/sum(NVL(tempo_risol_impiegato,1)) as performance, TO_CHAR(dtm_risoluzione,'yyyy mm MON-yy')").group("cda_risolutore, TO_CHAR(dtm_risoluzione,'yyyy mm MON-yy')").having("sum(nvl(tempo_risol_impiegato,1)) > 0")
+  def self.performance_score_by_user_by_time(user_id)
+    Segnalazione.risolutori(user_id).select("cda_risolutore, sum(NVL(tempo_risol_stimato,1))/sum(NVL(tempo_risol_impiegato,1)) as performance, TO_CHAR(dtm_risoluzione,'yyyy mm MON-yy')").group("cda_risolutore, TO_CHAR(dtm_risoluzione,'yyyy mm MON-yy')").having("sum(nvl(tempo_risol_impiegato,1)) > 0")
   end
   
   def gravita_des

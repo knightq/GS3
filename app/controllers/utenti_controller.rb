@@ -7,9 +7,9 @@ class UtentiController < ApplicationController
   # GET /utenti.xml
   def index
     @utenti = Utente.scoped
-    @utenti = @utenti.where('user_name LIKE ?', "%#{params[:q].upcase}%") if params[:q]  
+    @utenti = @utenti.where('user_id LIKE ?', "%#{params[:q].upcase}%") if params[:q]  
     @utenti = @utenti.attivi.exclude_uni.includes(:recapito).order('USER_NAME asc')
-		@utenti_group = @utenti.to_a.group_by{ |u| u.user_name.to_s[0..0].upcase }  
+		@utenti_group = @utenti.to_a.group_by{ |u| u.user_id.to_s[0..0].upcase }  
 		#respond_with(@utenti)
   end
 

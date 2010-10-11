@@ -163,11 +163,11 @@ class Query #< ActiveRecord::Base
     user_values = []
     user_values << ["<< Io >>", "me"] #if User.current.logged?
     if prodotto
-      user_values += prodotto.users.sort.collect{|u| [u.user_name, u.user_id.to_s] }
+      user_values += prodotto.users.sort.collect{|u| [u.user_id, u.user_id.to_s] }
     else
       # members of the user's projects
       #user_values +=  User.current.projects.collect(&:users).flatten.uniq.sort.collect{|s| [s.name, s.id.to_s] }
-      user_values += Utente.all.sort.collect{|u| [u.user_name, u.user_id.to_s] }
+      user_values += Utente.all.sort.collect{|u| [u.user_id, u.user_id.to_s] }
     end
     @available_filters["cda_risolutore"] = { :type => :list_optional, :order => 4, :values => user_values } unless user_values.empty?
     @available_filters["cda_segnalatore"] = { :type => :list, :order => 5, :values => user_values } unless user_values.empty?

@@ -81,11 +81,11 @@ class StatisticheController < ApplicationController
     chart.add_element(bar)
 
 	  bar1 = Bar.new
-		user_val = @statistica.where("CDA_RISOLUTORE = '#{@current_user.user_name}'")[0].num_segna
+		user_val = @statistica.where("CDA_RISOLUTORE = '#{@current_user.user_id}'")[0].num_segna
 		serie_svil = Array.new(data1.size) { |indx| indx == user_val ? data1[indx] : nil }
 		bar1.set_values(serie_svil)
     bar1.colour  = '#0000FF'
-		bar1.tooltip = "#{@current_user.user_name} ha risolto #x_labels(1)# GS nell'ultimo mese"
+		bar1.tooltip = "#{@current_user.user_id} ha risolto #x_labels(1)# GS nell'ultimo mese"
     chart.add_element(bar1)
 
     line = Line.new
@@ -158,7 +158,7 @@ class StatisticheController < ApplicationController
     chart.y_axis = y
 		chart.x_axis = x
 
-		ore_impiegate_svil = @statistica.order("ore_impiegate ASC").where("CDA_RISOLUTORE = '#{@current_user.user_name}'")[0].ore_impiegate
+		ore_impiegate_svil = @statistica.order("ore_impiegate ASC").where("CDA_RISOLUTORE = '#{@current_user.user_id}'")[0].ore_impiegate
 	  bar = BarGlass.new
 		bar.colour  = '#11AAFF'
 		already_removed = false
@@ -177,11 +177,11 @@ class StatisticheController < ApplicationController
 	  bar1 = BarGlass.new
 		bar1.pad_x = 0
 		bar1.pad_y = 0
-		user_val = @statistica.where("CDA_RISOLUTORE = '#{@current_user.user_name}'")[0].ore_impiegate
+		user_val = @statistica.where("CDA_RISOLUTORE = '#{@current_user.user_id}'")[0].ore_impiegate
 		serie_svil = Array.new(ore_impiegate.size) { |i| ore_impiegate[i] == user_val ? user_val : nil }
 		bar1.set_values(serie_svil)
     bar1.colour  = '#0000FF'
-		bar1.tooltip = "#{@current_user.user_name} ha impiegato #val# ore nel risolvere le GS nell'ultimo mese"
+		bar1.tooltip = "#{@current_user.user_id} ha impiegato #val# ore nel risolvere le GS nell'ultimo mese"
     chart.add_element(bar1)
 
     line = Line.new
@@ -203,7 +203,7 @@ class StatisticheController < ApplicationController
   end
 
 	def graph_code_performance
-		performances = Segnalazione.performance_score_by_user_over_time(Utente.where("user_name != 'ADMIN'").to_a.collect{|x| x.user_name})
+		performances = Segnalazione.performance_score_by_user_over_time(Utente.where("user_id != 'ADMIN'").to_a.collect{|x| x.user_id})
 		title = Title.new("Performance (sum(tempo_stimato) / sum(tempo_impiegato)) nell'ultimo mese dagli sviluppatori")
 
 		range_performance = (0..performances.last.performance.ceil)
@@ -261,16 +261,16 @@ class StatisticheController < ApplicationController
 	end
 
 	def timeline_code
-		resultset = Segnalazione.num_segna_by_user_over_time(@current_user.user_name)
+		resultset = Segnalazione.num_segna_by_user_over_time(@current_user.user_id)
 		gs_risolte_per_mese = resultset.collect{|s| s.num_segna}.last(12)
 		gs_risolte_per_mese_prev = resultset.collect{|s| s.num_segna}[-23..-12]
-		performances = Segnalazione.performance_score_by_user_by_time(@current_user.user_name)
+		performances = Segnalazione.performance_score_by_user_by_time(@current_user.user_id)
 		performance_per_mese = performances.last(12).collect{|p| p.performance * 10}
 		performance_per_mese_prev = performances[-23..-12].collect{|p| p.performance * 10}
 		gs_risolte_per_mese = resultset.collect{|s| s.num_segna}.last(12)
 
 		mesi = resultset.collect{|s| s.mese}.compact.last(12).collect{|s| s[-6..-4]}
-		title = Title.new("Timeline per #{@current_user.user_name}")
+		title = Title.new("Timeline per #{@current_user.user_id}")
 
 		y = YAxis.new
     y.set_range(0, gs_risolte_per_mese.max, 2)

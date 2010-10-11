@@ -5,11 +5,11 @@ class TodoController < ApplicationController
   
   def index
     @todo ||= TodoQuery.new('AS')
-    #@segnalazioni = @todo.filtra(Segnalazione.risolutore(current_user.user_name))
-    segnalazioni = Segnalazione.find_by_user_todo(current_user.user_name).order('cda_prodotto ASC')
+    #@segnalazioni = @todo.filtra(Segnalazione.risolutore(current_user.user_id))
+    segnalazioni = Segnalazione.find_by_user_todo(current_user.user_id).order('cda_prodotto ASC')
     @prodotti = segnalazioni.to_a.group_by(&:cda_prodotto).sort {|a,b| a[0]<=>b[0]}
     @in_carico = segnalazioni.in_consegna
-    risolte_ultimo_mese = Segnalazione.risolte_ultimo_mese(current_user.user_name)
+    risolte_ultimo_mese = Segnalazione.risolte_ultimo_mese(current_user.user_id)
     @statistica = Statistica.new(risolte_ultimo_mese.size, risolte_ultimo_mese.each.inject(0) { |sum, el| sum = sum + el.tempo_risol_impiegato })
     @graph = open_flash_chart_object(200,100,"/todo/graph_code")
     respond_with @prodotti
@@ -17,7 +17,7 @@ class TodoController < ApplicationController
   
   def presa_in_carico
     @segnalazione = Segnalazione.find(params['segnalazione'][:prg_segna]);
-    segnalazioni = Segnalazione.where('cda_prodotto = ?', @segnalazione.cda_prodotto).where('cda_versione_pian = ?', @segnalazione.cda_versione_pian).find_by_user_todo(current_user.user_name).order('cda_prodotto ASC') 
+    segnalazioni = Segnalazione.where('cda_prodotto = ?', @segnalazione.cda_prodotto).where('cda_versione_pian = ?', @segnalazione.cda_versione_pian).find_by_user_todo(current_user.user_id).order('cda_prodotto ASC') 
     @segnalazione.consegna_flg = 1;
     @in_carico = segnalazioni.in_consegna
     @in_lavorazione = @in_carico << @segnalazione

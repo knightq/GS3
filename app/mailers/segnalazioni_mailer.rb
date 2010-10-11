@@ -15,10 +15,10 @@ class SegnalazioniMailer < ActionMailer::Base
     @segnalazione = segnalazione
     ccies = segnalazione.actors.collect do |a| 
       attore = Utente.find_by_user_id(a)
-      attore.user_mail unless attore.user_name == user.user_name
+      attore.user_mail unless attore.user_id == user.user_id
     end
     @user = user
-    subject = "GS-#{segnalazione.cda_tipo_segna}.#{segnalazione.prg_segna} - Modulo:#{segnalazione.cda_modulo} - Gravita:#{segnalazione.gravita_des} - Stato:#{segnalazione.stato_des} - Vers. Ris. Pian:#{segnalazione.cda_versione_pian} - E' stata presa in consegna da #{user.user_name}"
+    subject = "GS-#{segnalazione.cda_tipo_segna}.#{segnalazione.prg_segna} - Modulo:#{segnalazione.cda_modulo} - Gravita:#{segnalazione.gravita_des} - Stato:#{segnalazione.stato_des} - Vers. Ris. Pian:#{segnalazione.cda_versione_pian} - E' stata presa in consegna da #{user.user_id}"
     mail(:to => user.user_mail, :cc => ccies.compact, :subject => subject)  
   end
 
@@ -26,7 +26,7 @@ class SegnalazioniMailer < ActionMailer::Base
     @segnalazione = segnalazione
     ccies = segnalazione.actors.collect do |a| 
       attore = Utente.find_by_user_id(a)
-      attore.user_mail unless attore.user_name == user.user_name
+      attore.user_mail unless attore.user_id == user.user_id
     end
     @user = user
     @descrizione_nuova = RDiscount.new(@segnalazione.des_segna) 

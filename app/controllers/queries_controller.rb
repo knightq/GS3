@@ -22,7 +22,7 @@ class QueriesController < ApplicationController
   def new
     @query = Query.new(params[:query])
     @query.prodotto = params[:query_is_for_all] ? nil : @prodotto
-    @query.user = Utente.find_by_user_name('ASALICETTI') #User.current
+    @query.user = Utente.find_by_user_id('ASALICETTI') #User.current
     #@query.is_public = false unless User.current.allowed_to?(:manage_public_queries, @project) || User.current.admin?
     @query.column_names = nil if params[:default_columns]
     

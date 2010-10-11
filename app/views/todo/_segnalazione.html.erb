@@ -5,7 +5,7 @@
 		</th>
 		<th id="segnalazione_summary">
 			[<b><%=segnalazione.stato_des %></b>] Segnalata da <b><%= utente(segnalazione.cda_segnalatore) %></b> <%=distance_of_time_in_words(segnalazione.dtm_creaz.to_date, Date.today) %> fa (il <b><%= l segnalazione.dtm_creaz, :format => '%d/%m/%Y' %></b>)
-			<% if (segnalazione.actor_associated_to_current_state == current_user.user_name and not segnalazione.consegna_flg) %>
+			<% if (segnalazione.actor_associated_to_current_state == current_user.user_id and not segnalazione.consegna_flg) %>
 				<span class="prendi_in_carico">
 					<%= form_for(segnalazione, :remote => true, :url => { :controller => 'todo', :action => "presa_in_carico" }) do |form| %>
 					  <%= form.hidden_field :prg_segna, :value => segnalazione.prg_segna %>

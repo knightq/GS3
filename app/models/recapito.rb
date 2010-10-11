@@ -6,8 +6,6 @@ class Recapito < ActiveRecord::Base
 
   default_scope :order => 'cda_cognome ASC'
 
-  scope :attivi, where('disable_flg = 0')
-  scope :exclude_uni, where("user_name not like 'UNI%'")
   scope :cda_cognome_LIKE, lambda { |cognome| where("cda_cognome LIKE ?", "%#{cognome}%") } 
   scope :cda_telefono_LIKE, lambda { |telefono| where("cda_telefono LIKE ?", "%#{telefono}%") } 
 
@@ -19,12 +17,12 @@ class Recapito < ActiveRecord::Base
     #c.my_config_option = my_value
   end # blocco opzionale
 
-  def self.search_for_user_name_existence(login)
-		Utente.find_by_user_name(login.upcase)		
+  def self.search_for_user_id_existence(login)
+		Utente.find_by_user_id(login.upcase)		
   end
 
 	def valid_password?(password)
-		Utente.find_by_user_name_and_user_pwd(user_name, password)
+		Utente.find_by_user_id_and_user_pwd(user_id, password)
   end
 
 	def persistence_token=(ptoken)

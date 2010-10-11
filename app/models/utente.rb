@@ -7,8 +7,8 @@ class Utente < ActiveRecord::Base
   has_one :recapito, :primary_key => "user_mail", :foreign_key => "cda_email"
 
   scope :attivi, where('disable_flg = 0')
-  scope :exclude_uni, where("user_name not like 'UNI%'")
-  scope :user_name, lambda {|user_name| where('user_name = ?', user_name)}
+  scope :exclude_uni, where("user_id not like 'UNI%'")
+  scope :user_id, lambda {|user_id| where('user_id = ?', user_id)}
   scope :with_recapito, joins('LEFT OUTER JOIN "FW_RUBRICA" ON "P18_USER".user_mail = "FW_RUBRICA".cda_email')
   #:joins => 'LEFT OUTER JOIN "FW_RUBRICA" ON "P18_USER".user_mail = "FW_RUBRICA".cda_email')
   #Utente.scoped.attivi.exclude_uni.order('USER_NAME asc').joins('LEFT OUTER JOIN "FW_RUBRICA" ON "P18_USER".user_mail = "FW_RUBRICA".cda_email')
@@ -17,12 +17,12 @@ class Utente < ActiveRecord::Base
     #c.my_config_option = my_value
   end # blocco opzionale
 
-  def self.search_for_user_name_existence(login)
-		Utente.find_by_user_name(login.upcase)		
+  def self.search_for_user_id_existence(login)
+		Utente.find_by_user_id(login.upcase)		
   end
 
 	def valid_password?(password)
-		Utente.find_by_user_name_and_user_pwd(user_name, password)
+		Utente.find_by_user_id_and_user_pwd(user_id, password)
   end
 
 	def persistence_token=(ptoken)
@@ -58,7 +58,7 @@ class Utente < ActiveRecord::Base
   end
 
   def is_andrea?
-    user_name == 'ASALICETTI'
+    user_id == 'ASALICETTI'
   end
 
   def <=>(other)
