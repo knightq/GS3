@@ -1,13 +1,14 @@
 <%= content_for :head do %>
   <%= javascript_include_tag 'jquery.scrollTo', 'gs_scroll' %>
+  <%= javascript_include_tag 'versioni.segnalazioni.bookmarks' %>
 <% end %>
 
 <% version_set ||= Array.new %>
 
 <ul class="versioni">
     <% version_set.each do |version| %>
-	    <li>
-	        <a class="anchor_to" href="javascript:void(0)" onClick="goToByScroll('<%= version.id %>')"><%= version.cda_versione %>
+		<li class="checked">
+	        <a class="anchor_to" href="javascript:void(0)" version_id="<%= version.id %>" onClick="goToByScroll('<%= version.id %>')"><%= version.cda_versione %>
 	        </a>
 	    </li>
     <% end %>
