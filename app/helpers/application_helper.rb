@@ -165,7 +165,7 @@ module ApplicationHelper
     user_id = user_or_user_id.respond_to?(:user_id) ? user_or_user_id.user_id : user_or_user_id 
     utente = Utente.user_name(user_id).includes(:recapito).to_a[0]
     if utente and utente.recapito
-      content_tag(:span, user_id, :class => "utente", :mail => utente.user_mail, :phone => utente.recapito.cda_telefono, :onmouseover => 'setupMenu(this);')      
+      content_tag(:span, user_id, :class => "utente", :mail => utente.user_mail, :phone => utente.recapito.cda_telefono, :skype => utente.recapito.skype, :onmouseover => 'setupMenu(this);')      
     else
       user_id
     end
