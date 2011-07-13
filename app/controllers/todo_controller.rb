@@ -10,7 +10,11 @@ class TodoController < ApplicationController
     @prodotti = segnalazioni.to_a.group_by(&:cda_prodotto).sort {|a,b| a[0]<=>b[0]}
     @in_carico = segnalazioni.in_consegna
     risolte_ultimo_mese = Segnalazione.risolte_ultimo_mese(current_user.user_id)
-    @statistica = Statistica.new(risolte_ultimo_mese.size, risolte_ultimo_mese.each.inject(0) { |sum, el| sum = sum + el.tempo_risol_impiegato })
+    @statistica = Statistica.new(risolte_ultimo_mese.size, risolte_ultimo_mese.each.inject(0) do |sum, el| 
+      if el && el.tempo_risol_impiegato
+        sum = sum + el.tempo_risol_impiegato
+      end
+    end)
     @graph = open_flash_chart_object(200,100,"/todo/graph_code")
     respond_with @prodotti
   end
