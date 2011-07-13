@@ -18,7 +18,7 @@
 #
 development: 
   adapter: oracle_enhanced
-  database: CLONI2
+  database: GS
   username: TRACKING
   password: manager
 
@@ -38,6 +38,6 @@ test:
 
 production: 
   adapter: oracle_enhanced
-  database: CLONI2
+  database: GS
   username: TRACKING
   password: manager
