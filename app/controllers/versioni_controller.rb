@@ -35,9 +35,9 @@ private
   def cambio_stato(stato='A')
     @versione = Versione.find(params[:id])
     if @versione.update_attribute(:stato_versione, stato)
-      redirect_to :index, :notice =>"Versione #{@versione} #{stato == 'C' ? 'CHIUSA' : (stato == 'D' ? 'DEPRECATA' : 'APERTA')}"
+      redirect_to versioni_path, :notice =>"Versione #{@versione} #{stato == 'C' ? 'CHIUSA' : (stato == 'D' ? 'DEPRECATA' : 'APERTA')}"
     else
-      redirect_to :index, :error =>"Errore in fase di cambio stato versione"
+      redirect_to versioni_path, :error =>"Errore in fase di cambio stato versione"
     end
   end
 end
