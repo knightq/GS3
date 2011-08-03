@@ -113,6 +113,8 @@ Gs3::Application.routes.draw do |map|
   match 'statistiche' => 'statistiche#index'
   match 'todo' => 'todo#index'
   match 'gsprg' => 'segnalazioni#gsprg'
+  match 'versioni/chiudi' => 'versioni#chiudi'
+  match 'versioni/depreca' => 'versioni#depreca'
 
   resource :account, :controller => "utenti"
   resources :funzioni

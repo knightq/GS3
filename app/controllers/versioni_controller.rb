@@ -19,4 +19,21 @@ class VersioniController < InheritedResources::Base
     index! {}
   end
 
+  def chiudi
+    cambio_stato('C')
+  end
+
+  def depreca
+    cambio_stato('D')
+  end
+
+private
+  def cambio_stato(stato='A')
+    @versione = Versione.find(params[:id])
+    if @versione.update_attribute(:stato_versione, stato)
+      redirect_to :index, :notice =>"Versione #{@versione} #{stato == 'C' ? 'CHIUSA' : 'DEPRECATA'}"
+    else
+      redirect_to :index, :error =>"Errore in fase di cambio stato versione"
+    end
+  end
 end
