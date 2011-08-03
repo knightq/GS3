@@ -10,8 +10,8 @@
 		<li class="checked">
 	        <a class="anchor_to" href="javascript:void(0)" version_id="<%= version.id %>" onClick="goToByScroll('<%= version.id %>')"><%= version.cda_versione %>
 	        </a>
-          <%= link_to_remote "Chiudi", :update => "versioni", :url => { :action => "chiudi", :id => version.id } if version.stato_versione == 'A' %>
-          <%= link_to_remote "Depreca", :update => "versioni", :url => { :action => "depreca", :id => version.id } if version.stato_versione == 'C' %>
+          <%= link_to "Chiudi", :update => "versioni", :url => { :action => "chiudi", :id => version.id } if version.stato_versione == 'A' %>
+          <%= link_to "Depreca", :update => "versioni", :url => { :action => "depreca", :id => version.id } if version.stato_versione == 'C' %>
 	    </li>
     <% end %>
 </ul>
