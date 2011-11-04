@@ -12,7 +12,7 @@
 </div>
 <div class="differentials">
   <h1>Differenziali <%= Time.now.year %>/<%= (Time.now - 1.year).year %></h1>
-  <p><b>&Sigma; tempo stimato</b>: <span class="float-right"><%= @diff_stima %>%</span></p>
-  <p><b>&Sigma; tempo speso</b>: <span class="float-right"><%= @diff_impiegato %>%</span></p>
-  <p><b>Performance</b>: <span class="float-right"><%= @diff_performance %>%</span></p>
+  <p><b>&Sigma; tempo stimato</b>: <span class="float-right"><%= @diff_stima %>% <%= trend_img_for(@diff_stima) %></span></p>
+  <p><b>&Sigma; tempo speso</b>: <span class="float-right"><%= @diff_impiegato %>% <%= trend_img_for(@diff_impiegato) %></span></p>
+  <p><b>Performance</b>: <span class="float-right"><%= @diff_performance %>% <%= trend_img_for(@diff_performance) %></span></p>
 </div>
