@@ -1,14 +1,14 @@
 <div class="current_year">
   <h1>Anno <%= Time.now.year %></h1>
-  <p><b>Somma tempo stimato</b>: <span class="fright"><%= @tempo_totale_risol_stimato_quest_anno %> ore</span></p>
-  <p><b>Somma tempo speso</b>: <span class="fright"><%= @tempo_totale_risol_impiegato_quest_anno %> ore</span></p>
-  <p><b>Performance</b>: <span class="fright"><%= @performance_quest_anno %> ore</span></p>
+  <p><b>&Sigma; tempo stimato</b>: <span class="float-right"><%= @tempo_totale_risol_stimato_quest_anno %> ore</span></p>
+  <p><b>&Sigma; tempo speso</b>: <span class="float-right"><%= @tempo_totale_risol_impiegato_quest_anno %> ore</span></p>
+  <p><b>Performance</b>: <span class="float-right"><%= @performance_quest_anno %>%</span></p>
 </div>
 <div class="last_year">
   <h1>Anno <%= (Time.now - 1.year).year %></h1>
-  <p><b>Somma tempo stimato</b>: <span class="fright"><%= @tempo_totale_risol_stimato_anno_precedente %> ore</span></p>
-  <p><b>Somma tempo speso</b>: <span class="fright"><%= @tempo_totale_risol_impiegato_anno_precedente %> ore</span></p>
-  <p><b>Performance</b>: <span class="fright"><%= @performance_anno_precedente %> ore</span></p>
+  <p><b>&Sigma; tempo stimato</b>: <span class="float-right"><%= @tempo_totale_risol_stimato_anno_precedente %> ore</span></p>
+  <p><b>&Sigma; tempo speso</b>: <span class="float-right"><%= @tempo_totale_risol_impiegato_anno_precedente %> ore</span></p>
+  <p><b>Performance</b>: <span class="float-right"><%= @performance_anno_precedente %>%</span></p>
 </div>
 <div class="differentials">
   <h1>Differenziali</h1>
