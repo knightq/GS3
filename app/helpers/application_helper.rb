@@ -5,6 +5,11 @@ module ApplicationHelper
 
   @@menu = YAML::load_file(File.join(File.dirname(__FILE__), '../../config', 'menu.yml')).symbolize_keys!
 
+  # Generate the hint icon HTML with its data-text containing the hint message.
+  def hint(text_key = '')
+    image_tag 'help.png', 'data-text' => I18n.t('hints.' + text_key), :class => 'hint_img'
+  end
+
   def self.setMenu(menu)
     menu
   end

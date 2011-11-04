@@ -191,6 +191,9 @@ it:
   priority: "priorità"
   products: "prodotti"
   severity: "gravità"
+  hints:
+    statistiche:
+      performance_hint: "<div class=\"fraction-inline\"><span class=\"numerator\">&Sigma; T<sub>stimato</sub></span><span class=\"divider\">_________</span><span class=\"denominator\">&Sigma; T<sub>speso</sub></span></div>"
   versions: "versioni"
   actionview_datehelper_time_in_words_day: "1 giorno"
   actionview_datehelper_time_in_words_day_plural: "%d giorni"
