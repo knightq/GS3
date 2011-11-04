@@ -5,6 +5,17 @@ class StatisticheController < ApplicationController
 	respond_to :html, :xml, :json, :js
 
 	def index
+    @tempo_totale_risol_stimato_quest_anno = Segnalazione.risolutore(@current_user.user_id).time_span_by_today(1.year).sum(:tempo_risol_stimato).round(2)
+    @tempo_totale_risol_stimato_anno_precedente = Segnalazione.risolutore(@current_user.user_id).time_span(Time.zone.now-1.year, 1.year).sum(:tempo_risol_stimato).round(2)
+    @tempo_totale_risol_impiegato_quest_anno = Segnalazione.risolutore(@current_user.user_id).time_span_by_today(1.year).sum(:tempo_risol_impiegato).round(2)
+    @tempo_totale_risol_impiegato_anno_precedente = Segnalazione.risolutore(@current_user.user_id).time_span(Time.zone.now-1.year, 1.year).sum(:tempo_risol_impiegato).round(2)
+
+    @diff_stima = (100 * @tempo_totale_risol_stimato_quest_anno / @tempo_totale_risol_stimato_anno_precedente - 100).round(2)
+    @diff_impiegato = (100 * @tempo_totale_risol_impiegato_quest_anno / @tempo_totale_risol_impiegato_anno_precedente - 100).round(2)
+
+    @performance_quest_anno = (100 * @tempo_totale_risol_stimato_quest_anno / @tempo_totale_risol_impiegato_quest_anno).round(2)
+    @performance_anno_precedente = (100 * @tempo_totale_risol_stimato_anno_precedente / @tempo_totale_risol_impiegato_anno_precedente).round(2)
+
 		puts "REQUEST_FORMAT: #{request.format}"
 		puts "REQUEST JS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" if request.format.js?
     unless @statistica_filter

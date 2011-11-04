@@ -1,0 +1,15 @@
+<div class="current_year">
+  <h1>Anno <%= Time.now.year %></h1>
+  <p><b>Somma tempo stimato</b>: <span class="fright"><%= tempo_totale_risol_stimato_quest_anno %> ore</span></p>
+  <p><b>Somma tempo speso</b>: <span class="fright"><%= tempo_totale_risol_stimato_quest_anno %> ore</span></p>
+  <p><b>Performance</b>: <span class="fright"><%= performance_quest_anno %> ore</span></p>
+</div>
+<div class="last_year">
+  <h1>Anno <%= (Time.now - 1.year).year %></h1>
+  <p><b>Somma tempo stimato</b>: <span class="fright"><%= tempo_totale_risol_stimato_anno_precedente %> ore</span></p>
+  <p><b>Somma tempo speso</b>: <span class="fright"><%= tempo_totale_risol_stimato_anno_precedente %> ore</span></p>
+  <p><b>Performance</b>: <span class="fright"><%= performance_anno_precedente %> ore</span></p>
+</div>
+<div class="differentials">
+  <h1>Differenziali</h1>
+</div>

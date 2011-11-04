@@ -28,6 +28,7 @@
 <%= content_for :sidebar do %>
 		<%= render :partial => 'widgets/collapsible_box', :locals => { :title => "Periodo considerato", :content => 'time_span_filter', :statistica_filter => @statistica_filter } %>
 		<%= render :partial => 'widgets/collapsible_box', :locals => { :title => "Elementi visualizzati", :content => 'time_line_filter', :envelope_class => 'timeline_filter' } %>
+		<%= render :partial => 'widgets/collapsible_box', :locals => { :title => "Year's summary", :content => 'year_summary' } %>
 <% end %>
 
 	<div id="accordion" class="ui-accordion ui-widget ui-helper-reset">
