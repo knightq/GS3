@@ -74,10 +74,12 @@ a {
 #errorExplanation ul {
   margin: 2px 24px;
 }
-
 #errorExplanation ul li {
   font-size: 12px;
   list-style: disc;
+}
+img.hint_img {
+	cursor:help;
 }
 div.fraction-inline {
     display: inline-block;
