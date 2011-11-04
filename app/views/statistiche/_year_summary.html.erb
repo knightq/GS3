@@ -1,8 +1,13 @@
 <div class="current_year">
   <h1>Anno <%= Time.now.year %></h1>
-  <p><b>&Sigma; Tempo<sub>stimato</sub></b>: <span class="float-right"><%= @tempo_totale_risol_stimato_quest_anno %> ore</span></p>
-  <p><b>&Sigma; Tempo<sub>speso</sub></b>: <span class="float-right"><%= @tempo_totale_risol_impiegato_quest_anno %> ore</span></p>
-  <p><b>Performance</b>: <span class="float-right"><%= @performance_quest_anno %>%</span></p>
+  <p><b>&Sigma; T<sub> stimato</sub></b>: <span class="float-right"><%= @tempo_totale_risol_stimato_quest_anno %> ore</span></p>
+  <p><b>&Sigma; T<sub> speso</sub></b>: <span class="float-right"><%= @tempo_totale_risol_impiegato_quest_anno %> ore</span></p>
+  <p><b>Performance</b> (
+    <div class="fraction-inline">
+      <span class="numerator">&Sigma; T<sub> stimato</sub></span>
+      <span class="divider">_________</span>
+      <span class="denominator">&Sigma; T<sub> speso</sub></span>
+	</div>): <span class="float-right"><%= @performance_quest_anno %>%</span></p>
 </div>
 <div class="last_year">
   <h1>Anno <%= (Time.now - 1.year).year %></h1>
