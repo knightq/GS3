@@ -79,3 +79,26 @@ a {
   font-size: 12px;
   list-style: disc;
 }
+div.fraction-inline {
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+}
+.fraction-inline > span {
+    display: block;
+    padding-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+}
+.fraction-inline span.divider {
+    display: none;
+    letter-spacing: -0.1em;
+    position: absolute;
+    top: 0;
+}
+.fraction-inline span.denominator {
+    border-top-color: black;
+    border-top-style: solid;
+    border-top-width: thin;
+}
