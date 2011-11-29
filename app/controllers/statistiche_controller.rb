@@ -10,15 +10,28 @@ class StatisticheController < ApplicationController
     @tempo_totale_risol_impiegato_quest_anno = Segnalazione.risolutore(@current_user.user_id).time_span_by_today(1.year).sum(:tempo_risol_impiegato).round(2)
     @tempo_totale_risol_impiegato_anno_precedente = Segnalazione.risolutore(@current_user.user_id).time_span(Time.zone.now-1.year, 1.year).sum(:tempo_risol_impiegato).round(2)
 
-    @diff_stima = (100 * @tempo_totale_risol_stimato_quest_anno / @tempo_totale_risol_stimato_anno_precedente - 100).round(2)
-    @diff_impiegato = (100 * @tempo_totale_risol_impiegato_quest_anno / @tempo_totale_risol_impiegato_anno_precedente - 100).round(2)
+    if @tempo_totale_risol_impiegato_quest_anno
+      @performance_quest_anno = (100 * @tempo_totale_risol_stimato_quest_anno / @tempo_totale_risol_impiegato_quest_anno).round(2)
+    else
+      @performance_quest_anno = 0
+    end
 
-    @performance_quest_anno = (100 * @tempo_totale_risol_stimato_quest_anno / @tempo_totale_risol_impiegato_quest_anno).round(2)
-    @performance_anno_precedente = (100 * @tempo_totale_risol_stimato_anno_precedente / @tempo_totale_risol_impiegato_anno_precedente).round(2)
-    @diff_performance = (100 * @performance_quest_anno / @performance_anno_precedente - 100).round(2)
+    if @tempo_totale_risol_stimato_anno_precedente
+      @diff_stima = (100 * @tempo_totale_risol_stimato_quest_anno / @tempo_totale_risol_stimato_anno_precedente - 100).round(2)
+    else 
+      @diff_stima = 0
+    end
 
-		puts "REQUEST_FORMAT: #{request.format}"
-		puts "REQUEST JS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" if request.format.js?
+    if @tempo_totale_risol_impiegato_anno_precedente
+      @diff_impiegato = (100 * @tempo_totale_risol_impiegato_quest_anno / @tempo_totale_risol_impiegato_anno_precedente - 100).round(2)
+      @performance_anno_precedente = (100 * @tempo_totale_risol_stimato_anno_precedente / @tempo_totale_risol_impiegato_anno_precedente).round(2)
+      @diff_performance = (100 * @performance_quest_anno / @performance_anno_precedente - 100).round(2)
+    else
+      @diff_impiegato = 0
+      @performance_anno_precedente = 0
+      @diff_performance = @performance_quest_anno
+    end
+
     unless @statistica_filter
       puts "Creo un nuovo filtro... "  
       @statistica_filter = QueryStat.new
