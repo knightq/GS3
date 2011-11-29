@@ -262,7 +262,7 @@ class StatisticheController < ApplicationController
 
 	  bar = BarGlass.new
 		bar.colour  = '#11AAFF'
-    bar.set_values(performances.collect{|p| p.performance})
+    bar.set_values(performances.collect{|p| p.performance.to_i})
 		bar.tooltip = 'Performance: #val#'
     chart.add_element(bar)
 
@@ -273,7 +273,7 @@ class StatisticheController < ApplicationController
     line.dot_size = 5
 		serie_media = Array.new(performances.size)
 		if not serie_media.empty? 
-			p_media = performances.collect{|p| p.performance}.media
+			p_media = performances.collect{|p| p.performance.to_i}.media
 			serie_media.pop
 			serie_media.push(p_media)
 			serie_media[0] = p_media
