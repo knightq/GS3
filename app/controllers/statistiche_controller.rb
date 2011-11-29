@@ -263,7 +263,7 @@ class StatisticheController < ApplicationController
 	  bar = BarGlass.new
 		bar.colour  = '#11AAFF'
     bar.set_values(performances.collect{|p| p.performance.to_i})
-		bar.tooltip = 'Performance: #val#<br/>Utente: #x_label#'
+		bar.tooltip = "Performance: #val# <br> Utente: #x_label#"
     chart.add_element(bar)
 
     line = Line.new
