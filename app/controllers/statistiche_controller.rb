@@ -206,7 +206,7 @@ class StatisticheController < ApplicationController
 		serie_svil = Array.new(ore_impiegate.size) { |i| ore_impiegate[i] == user_val ? user_val : nil }
 		bar1.set_values(serie_svil)
     bar1.colour  = '#0000FF'
-		bar1.tooltip = "#{@current_user.user_id} ha impiegato #val# ore nel risolvere le GS nell'ultimo mese"
+		bar1.tooltip = "#x_label# ha impiegato #val# ore nel risolvere le GS nell'ultimo mese"
     chart.add_element(bar1)
 
     line = Line.new
@@ -263,7 +263,7 @@ class StatisticheController < ApplicationController
 	  bar = BarGlass.new
 		bar.colour  = '#11AAFF'
     bar.set_values(performances.collect{|p| p.performance.to_i})
-		bar.tooltip = 'Performance: #val#'
+		bar.tooltip = 'Performance: #val#<br/>Utente: #x_label#'
     chart.add_element(bar)
 
     line = Line.new
