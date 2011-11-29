@@ -19,8 +19,8 @@
 development: 
   adapter: oracle_enhanced
   database: GS
-  username: TRACKING
-  password: manager
+  username: GS_READ
+  password: gs
 
 #  adapter: oracle_enhanced
 #  database: CLONI2
@@ -39,5 +39,5 @@ test:
 production: 
   adapter: oracle_enhanced
   database: GS
-  username: TRACKING
-  password: manager
+  username: GS_READ
+  password: gs
