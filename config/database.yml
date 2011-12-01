@@ -18,11 +18,10 @@
 #
 development: 
   adapter: oracle_enhanced
-  host: procton.kion.it
-  port: 1521
   database: GS
   username: GS_READ
   password: gs
+
 
 #  adapter: oracle_enhanced
 #  database: CLONI2
