@@ -3,5 +3,5 @@
 
 en:
   hello: "Hello world"
-  label_roadmap_due_in: Due in %s
-  label_roadmap_overdue: %s late
+  label_roadmap_due_in: "Due in %s"
+  label_roadmap_overdue: "%s late"
