@@ -13,6 +13,8 @@ class TodoController < ApplicationController
     @statistica = Statistica.new(risolte_ultimo_mese.size, risolte_ultimo_mese.each.inject(0) do |sum, el| 
       if el && el.tempo_risol_impiegato
         sum = sum + el.tempo_risol_impiegato
+      else
+        sum
       end
     end)
     @graph = open_flash_chart_object(200,100,"/todo/graph_code")
